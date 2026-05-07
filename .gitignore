@@ -1,0 +1,6 @@
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# Script output directory
+scripts/output/
