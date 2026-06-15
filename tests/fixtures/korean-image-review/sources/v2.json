@@ -1,0 +1,84 @@
+{
+  "ContainedObjects": [
+    {
+      "GUID": "cc0001",
+      "CardID": 550803,
+      "Name": "Card",
+      "Nickname": "아그네스 베이커 최신",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01004\"}",
+      "CustomDeck": {
+        "5508": {
+          "FaceURL": "https://arkhamdb.example.com/v2/sheet_A.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "cc0002",
+      "CardID": 550904,
+      "Name": "Card",
+      "Nickname": "아그네스 베이커 고급 v2",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01004b\"}",
+      "CustomDeck": {
+        "5509": {
+          "FaceURL": "https://arkhamdb.example.com/v2/sheet_B.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "cc0003",
+      "CardID": 551003,
+      "Name": "Card",
+      "Nickname": "임시 거처 v2",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01006\"}",
+      "CustomDeck": {
+        "5510": {
+          "FaceURL": "https://arkhamdb.example.com/v2/sheet_C.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "cc0004",
+      "CardID": 551103,
+      "Name": "Card",
+      "Nickname": "새 카드 v2",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01007\"}",
+      "CustomDeck": {
+        "5511": {
+          "FaceURL": "https://arkhamdb.example.com/v2/sheet_D.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "cc0005",
+      "CardID": 551203,
+      "Name": "Card",
+      "Nickname": "다른 카드 v2",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01008\"}",
+      "CustomDeck": {
+        "5512": {
+          "FaceURL": "https://arkhamdb.example.com/v2/sheet_E.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "generated_at": "2099-01-01T00:00:00+00:00",
+  "sources": {
+    "en": {"path": "/fake/decomposed", "card_count": 10},
+    "v0": {"path": "/fake/sources/v0.json", "card_count": 3, "available": true},
+    "v1": {"path": "/fake/sources/v1.json", "card_count": 4, "available": true},
+    "v2": {"path": "/fake/sources/v2.json", "card_count": 5, "available": true}
+  },
+  "cards": [
+    {
+      "arkham_id": "01004",
+      "nickname_en": "Agnes Baker",
+      "nickname_v2_ko": "아그네스 베이커 최신",
+      "target_paths": ["/fake/decomposed/01004.json"],
+      "target_deck_key": "5508",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_A.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550803,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v0",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v0/sheet_A.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550803,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v1",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v1/sheet_A.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550803,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_A.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550803,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 4,
+      "diversity_score": 4,
+      "sheet_cohort_v2": "5508|abc123def456"
+    },
+    {
+      "arkham_id": "01004b",
+      "nickname_en": "Agnes Baker Advanced",
+      "nickname_v2_ko": "아그네스 베이커 고급 v2",
+      "target_paths": ["/fake/decomposed/01004b.json"],
+      "target_deck_key": "5509",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_B.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5509",
+          "card_id": 550904,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v0",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v0/sheet_B.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5509",
+          "card_id": 550904,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v1",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v0/sheet_B.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5509",
+          "card_id": 550904,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_B.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5509",
+          "card_id": 550904,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 3,
+      "diversity_score": 3,
+      "sheet_cohort_v2": "5509|def456abc123"
+    },
+    {
+      "arkham_id": "01006",
+      "nickname_en": "Temporary Shelter",
+      "nickname_v2_ko": "임시 거처 v2",
+      "target_paths": ["/fake/decomposed/01006.json"],
+      "target_deck_key": "5510",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_C.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5510",
+          "card_id": 551003,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_C.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5510",
+          "card_id": 551003,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 1,
+      "diversity_score": 1,
+      "sheet_cohort_v2": "5510|111aaa222bbb"
+    },
+    {
+      "arkham_id": "01007",
+      "nickname_en": "New Card",
+      "nickname_v2_ko": "새 카드 v2",
+      "target_paths": ["/fake/decomposed/01007.json"],
+      "target_deck_key": "5511",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_D.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5511",
+          "card_id": 551103,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {"version": "v0", "available": false},
+        {
+          "version": "v1",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v1/sheet_D.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5511",
+          "card_id": 551103,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_D.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5511",
+          "card_id": 551103,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 3,
+      "diversity_score": 3,
+      "sheet_cohort_v2": "5511|333ccc444ddd"
+    },
+    {
+      "arkham_id": "01008",
+      "nickname_en": "Another Card",
+      "nickname_v2_ko": "다른 카드 v2",
+      "target_paths": ["/fake/decomposed/01008.json"],
+      "target_deck_key": "5512",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_E.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5512",
+          "card_id": 551203,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_E.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5512",
+          "card_id": 551203,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 2,
+      "diversity_score": 2,
+      "sheet_cohort_v2": "5512|555eee666fff"
+    },
+    {
+      "arkham_id": "01009",
+      "nickname_en": "Card Nine",
+      "nickname_v2_ko": "",
+      "target_paths": ["/fake/decomposed/01009.json"],
+      "target_deck_key": "5513",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_F.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5513",
+          "card_id": 551303,
+          "url_status": null
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {"version": "v2", "available": false}
+      ],
+      "unique_face_url_count": 1,
+      "diversity_score": 1,
+      "sheet_cohort_v2": null
+    },
+    {
+      "arkham_id": "01010",
+      "nickname_en": "Card Ten",
+      "nickname_v2_ko": "",
+      "target_paths": ["/fake/decomposed/01010.json"],
+      "target_deck_key": "5514",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_G.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5514",
+          "card_id": 551403,
+          "url_status": null
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {"version": "v2", "available": false}
+      ],
+      "unique_face_url_count": 1,
+      "diversity_score": 1,
+      "sheet_cohort_v2": null
+    },
+    {
+      "arkham_id": "01011",
+      "nickname_en": "Card Eleven",
+      "nickname_v2_ko": "카드 열하나",
+      "target_paths": ["/fake/decomposed/01011.json"],
+      "target_deck_key": "5515",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_H.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5515",
+          "card_id": 551503,
+          "url_status": {"face": {"status": "fail", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_H.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5515",
+          "card_id": 551503,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 2,
+      "diversity_score": 2,
+      "sheet_cohort_v2": "5515|777ggg888hhh"
+    },
+    {
+      "arkham_id": "01012",
+      "nickname_en": "Card Twelve (cohort-A)",
+      "nickname_v2_ko": "코호트 A",
+      "target_paths": ["/fake/decomposed/01012.json"],
+      "target_deck_key": "5508",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_A.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550812,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_A_cohort_conflict.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5508",
+          "card_id": 550812,
+          "url_status": {"face": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2099-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 2,
+      "diversity_score": 2,
+      "sheet_cohort_v2": "5508|abc123def456"
+    },
+    {
+      "arkham_id": "01013",
+      "nickname_en": "Card Thirteen (stale url)",
+      "nickname_v2_ko": "스테일 URL 카드",
+      "target_paths": ["/fake/decomposed/01013.json"],
+      "target_deck_key": "5516",
+      "candidates": [
+        {
+          "version": "en",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/en/sheet_I.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5516",
+          "card_id": 551603,
+          "url_status": null
+        },
+        {"version": "v0", "available": false},
+        {"version": "v1", "available": false},
+        {
+          "version": "v2",
+          "available": true,
+          "face_url": "https://arkhamdb.example.com/v2/sheet_I.jpg",
+          "back_url": "https://arkhamdb.example.com/back_player.jpg",
+          "num_width": 10,
+          "num_height": 7,
+          "deck_key": "5516",
+          "card_id": 551603,
+          "url_status": {"face": {"status": "ok", "checked_at": "2000-01-01T00:00:00+00:00"}, "back": {"status": "ok", "checked_at": "2000-01-01T00:00:00+00:00"}}
+        }
+      ],
+      "unique_face_url_count": 2,
+      "diversity_score": 2,
+      "sheet_cohort_v2": "5516|999iii000jjj"
+    }
+  ],
+  "summary": {
+    "total_cards": 10,
+    "by_diversity": {"1": 3, "2": 3, "3": 2, "4": 1, "4": 1},
+    "v0_coverage": 3,
+    "v1_coverage": 4,
+    "v2_coverage": 8
+  }
+}

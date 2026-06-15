@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "generated_at": "2099-01-01T01:00:00+00:00",
+  "gallery_id": "20990101T000000Z",
+  "decisions": [
+    {
+      "arkham_id": "01004",
+      "choice": "v2",
+      "face_url": "https://arkhamdb.example.com/v2/sheet_A.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5508",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01004b",
+      "choice": "v1",
+      "face_url": "https://arkhamdb.example.com/v0/sheet_B.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5509",
+      "note": "same as v0",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01006",
+      "choice": "en",
+      "face_url": "https://arkhamdb.example.com/en/sheet_C.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5510",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01007",
+      "choice": "v2",
+      "face_url": "https://arkhamdb.example.com/v2/sheet_D.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5511",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01008",
+      "choice": "skip",
+      "face_url": null,
+      "back_url": null,
+      "num_width": null,
+      "num_height": null,
+      "deck_key": "5512",
+      "note": "skipping this one",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01009",
+      "choice": "en",
+      "face_url": "https://arkhamdb.example.com/en/sheet_F.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5513",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01010",
+      "choice": "en",
+      "face_url": "https://arkhamdb.example.com/en/sheet_G.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5514",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01011",
+      "choice": "v2",
+      "face_url": "https://arkhamdb.example.com/v2/sheet_H.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5515",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01012",
+      "choice": "v2",
+      "face_url": "https://arkhamdb.example.com/v2/sheet_A_cohort_conflict.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5508",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    },
+    {
+      "arkham_id": "01013",
+      "choice": "v2",
+      "face_url": "https://arkhamdb.example.com/v2/sheet_I.jpg",
+      "back_url": "https://arkhamdb.example.com/back_player.jpg",
+      "num_width": 10,
+      "num_height": 7,
+      "deck_key": "5516",
+      "note": "",
+      "decided_at": "2099-01-01T01:00:00+00:00"
+    }
+  ],
+  "stats": {
+    "total_cards": 10,
+    "decided": 10,
+    "by_choice": {"en": 3, "v0": 0, "v1": 1, "v2": 5, "skip": 1},
+    "skipped_explicit": 1,
+    "undecided": 0
+  }
+}

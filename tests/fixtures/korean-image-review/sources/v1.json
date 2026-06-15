@@ -1,0 +1,68 @@
+{
+  "ContainedObjects": [
+    {
+      "GUID": "bb0001",
+      "CardID": 550803,
+      "Name": "Card",
+      "Nickname": "아그네스 베이커",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01004\"}",
+      "CustomDeck": {
+        "5508": {
+          "FaceURL": "https://arkhamdb.example.com/v1/sheet_A.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "bb0002",
+      "CardID": 550904,
+      "Name": "Card",
+      "Nickname": "아그네스 베이커 고급 v1",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01004b\"}",
+      "CustomDeck": {
+        "5509": {
+          "FaceURL": "https://arkhamdb.example.com/v0/sheet_B.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "bb0003",
+      "CardID": 551003,
+      "Name": "Card",
+      "Nickname": "임시 거처 v1",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01006\"}",
+      "CustomDeck": {
+        "5510": {
+          "FaceURL": "https://arkhamdb.example.com/v1/sheet_C.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    },
+    {
+      "GUID": "bb0004",
+      "CardID": 551103,
+      "Name": "Card",
+      "Nickname": "새 카드 v1",
+      "Description": "",
+      "GMNotes": "{\"id\": \"01007\"}",
+      "CustomDeck": {
+        "5511": {
+          "FaceURL": "https://arkhamdb.example.com/v1/sheet_D.jpg",
+          "BackURL": "https://arkhamdb.example.com/back_player.jpg",
+          "NumWidth": 10,
+          "NumHeight": 7
+        }
+      }
+    }
+  ]
+}
