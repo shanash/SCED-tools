@@ -1,0 +1,59 @@
+[
+  {
+    "customDeckKey": "4520",
+    "faceUrl": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/222222_NORMAL_FACE.png",
+    "action": "keep",
+    "cards": [
+      {
+        "cardId": 452018,
+        "guid": "e6e788",
+        "arkhamId": "10079",
+        "nickname": "Normal Card"
+      }
+    ]
+  },
+  {
+    "customDeckKey": "4521",
+    "faceUrl": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/444444_UNIQUE_FACE.png",
+    "action": "replace",
+    "replaceWith": "pcards_sheet_012.png",
+    "note": "Replace via uploaded local PNG",
+    "cards": [
+      {
+        "cardId": 452100,
+        "guid": "f1f1f1",
+        "arkhamId": "10080",
+        "nickname": "Unique Back Card"
+      }
+    ]
+  },
+  {
+    "customDeckKey": "4529",
+    "faceUrl": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/666666_MISS_FACE.png",
+    "action": "replace",
+    "replaceWith": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/777777_DIRECT_URL.png",
+    "note": "Replace with direct R2 URL",
+    "cards": [
+      {
+        "cardId": 452999,
+        "guid": "deadbe",
+        "arkhamId": "10081",
+        "nickname": "Missing GMNotes Card"
+      }
+    ]
+  },
+  {
+    "customDeckKey": "2320",
+    "faceUrl": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/888888_ALREADY_FACE.png",
+    "action": "revert",
+    "note": "Revert this card back to English base",
+    "cards": [
+      {
+        "cardId": 232018,
+        "guid": "abcdef",
+        "arkhamId": "03043",
+        "nickname": "Already-swapped Carcosa 03043"
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "CardID": 452018,
+  "CustomDeck": {
+    "4520": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/111111_NORMAL_BACK.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/222222_NORMAL_FACE.png",
+      "NumHeight": 3,
+      "NumWidth": 9,
+      "Type": 0,
+      "UniqueBack": false
+    }
+  },
+  "Description": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/Fixtures/normal_card.gmnotes",
+  "GUID": "e6e788",
+  "Name": "Card",
+  "Nickname": "Normal Card"
+}

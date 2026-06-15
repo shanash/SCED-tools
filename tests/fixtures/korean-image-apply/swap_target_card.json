@@ -1,0 +1,19 @@
+{
+  "CardID": 449918,
+  "CustomDeck": {
+    "4499": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/1915736343877329592_AC47295CE4BF8DFF6653E08DB3AF07CF76708024.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/2029471446782639271_A9E1171E360862D846C17207BF98C8561D9373C9.png",
+      "NumHeight": 3,
+      "NumWidth": 9,
+      "Type": 0,
+      "UniqueBack": false
+    }
+  },
+  "Description": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/Fixtures/swap_target_card.gmnotes",
+  "GUID": "9a8193",
+  "Name": "Card",
+  "Nickname": "Scenario ref 08501 (pre-swap)"
+}

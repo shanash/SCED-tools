@@ -1,0 +1,19 @@
+{
+  "CardID": 452100,
+  "CustomDeck": {
+    "4521": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/333333_UNIQUE_BACK.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/444444_UNIQUE_FACE.png",
+      "NumHeight": 1,
+      "NumWidth": 1,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "Description": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/Fixtures/unique_back_card.gmnotes",
+  "GUID": "f1f1f1",
+  "Name": "Card",
+  "Nickname": "Unique Back Card"
+}

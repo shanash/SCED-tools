@@ -1,0 +1,20 @@
+{
+  "CardID": 232018,
+  "CustomDeck": {
+    "2320": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/2042990933820060731_63DFB2C91DF646F54FF4F864BABB8D1D671AB04D.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/888888_ALREADY_FACE.png",
+      "NumHeight": 3,
+      "NumWidth": 9,
+      "Type": 0,
+      "UniqueBack": false
+    }
+  },
+  "Description": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/Fixtures/already_swapped_card.gmnotes",
+  "GUID": "abcdef",
+  "Name": "Card",
+  "Nickname": "Already-swapped Carcosa 03043",
+  "_swap_applied_v1": true
+}

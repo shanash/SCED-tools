@@ -1,0 +1,19 @@
+{
+  "CardID": 452999,
+  "CustomDeck": {
+    "4529": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/555555_MISS_BACK.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/666666_MISS_FACE.png",
+      "NumHeight": 3,
+      "NumWidth": 9,
+      "Type": 0,
+      "UniqueBack": false
+    }
+  },
+  "Description": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/Fixtures/__does_not_exist__.gmnotes",
+  "GUID": "deadbe",
+  "Name": "Card",
+  "Nickname": "Missing GMNotes Card"
+}
