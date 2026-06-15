@@ -1,0 +1,17 @@
+{
+  "CardID": 62750,
+  "CustomDeck": {
+    "627": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/old_back_player.png",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/old_face_06275.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\"id\": \"06275\"}",
+  "GUID": "tgt_guid",
+  "Name": "Card",
+  "Nickname": "GUID Mismatch Card"
+}

@@ -1,0 +1,18 @@
+{
+  "CardID": 430512,
+  "CustomDeck": {
+    "4305": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/old_back_player.png",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/old_face_43051.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "Description": "Original English Description",
+  "GMNotes": "{\"id\": \"43051\"}",
+  "GUID": "bbbbbb",
+  "Name": "Card",
+  "Nickname": "Whitespace Desc Card"
+}

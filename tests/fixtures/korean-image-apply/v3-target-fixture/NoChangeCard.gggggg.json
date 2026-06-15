@@ -1,0 +1,18 @@
+{
+  "CardID": 110100,
+  "CustomDeck": {
+    "1101": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_11010.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "Description": "이 카드는 타겟과 모든 필드가 동일합니다",
+  "GMNotes": "{\"id\": \"11010\"}",
+  "GUID": "gggggg",
+  "Name": "Card",
+  "Nickname": "변경 없는 카드"
+}

@@ -1,0 +1,174 @@
+{
+  "ContainedObjects": [
+    {
+      "CardID": 550803,
+      "GMNotes": "{\"id\": \"60505\"}",
+      "GUID": "101a41",
+      "Nickname": "18구경 데린저",
+      "Description": "사용(탄약 2발).\n[action] 탄약을 소비합니다",
+      "CustomDeck": {
+        "5508": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_60505.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 999990,
+      "GMNotes": "{\"id\": \"99999\"}",
+      "GUID": "aaaaaa",
+      "Nickname": "소스만 있는 카드",
+      "Description": "이 카드는 타겟에 없습니다",
+      "CustomDeck": {
+        "9999": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_99999.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 430512,
+      "GMNotes": "{\"id\": \"43051\"}",
+      "GUID": "bbbbbb",
+      "Nickname": "빈 설명 카드",
+      "Description": "   \n  ",
+      "CustomDeck": {
+        "4305": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_43051.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 62750,
+      "GMNotes": "{\"id\": \"06275\"}",
+      "GUID": "src_guid_1",
+      "Nickname": "GUID 불일치 카드",
+      "Description": "GUID가 다른 카드입니다",
+      "CustomDeck": {
+        "627": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_06275.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 999901,
+      "GMNotes": "{\"id\": \"02002-p\"}",
+      "GUID": "cccccc",
+      "Nickname": "CardID 불일치 카드",
+      "Description": "CardID가 다른 카드입니다",
+      "CustomDeck": {
+        "9999": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_02002p.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 773201,
+      "GMNotes": "{\"id\": \"77320\"}",
+      "GUID": "dddddd",
+      "Nickname": "DeckKey 불일치 카드",
+      "Description": "소스와 타겟의 DeckKey가 다릅니다",
+      "CustomDeck": {
+        "7732": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_77320.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 10010,
+      "GMNotes": "{\"id\": \"01001\"}",
+      "GUID": "eeeeee",
+      "Nickname": "팬아웃 카드 (기본)",
+      "Description": "여러 파일에 매핑되는 카드입니다",
+      "CustomDeck": {
+        "100": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_01001.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 62752,
+      "GMNotes": "{\"id\": \"06275\"}",
+      "GUID": "src_guid_2",
+      "Nickname": "소스 중복 카드 (두 번째 06275)",
+      "Description": "이 항목은 같은 id의 두 번째 소스입니다",
+      "CustomDeck": {
+        "627": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_06275_v2.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 550902,
+      "GMNotes": "{\"id\": \"55090\"}",
+      "GUID": "ffffff",
+      "Nickname": "빈 설명 문자열 카드",
+      "Description": "",
+      "CustomDeck": {
+        "5509": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_55090.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    },
+    {
+      "CardID": 110100,
+      "GMNotes": "{\"id\": \"11010\"}",
+      "GUID": "gggggg",
+      "Nickname": "변경 없는 카드",
+      "Description": "이 카드는 타겟과 모든 필드가 동일합니다",
+      "CustomDeck": {
+        "1101": {
+          "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/face_11010.png",
+          "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/back_player.png",
+          "BackIsHidden": true,
+          "NumHeight": 7,
+          "NumWidth": 10,
+          "Type": 0
+        }
+      }
+    }
+  ]
+}

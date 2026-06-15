@@ -1,0 +1,18 @@
+{
+  "CardID": 550902,
+  "CustomDeck": {
+    "5509": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/old_back_player.png",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/old_face_55090.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "Description": "Original Target Description",
+  "GMNotes": "{\"id\": \"55090\"}",
+  "GUID": "ffffff",
+  "Name": "Card",
+  "Nickname": "Empty Desc Card"
+}

@@ -1,0 +1,17 @@
+{
+  "CardID": 10010,
+  "CustomDeck": {
+    "100": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/old_back_player.png",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/old_face_01001_promo.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\"id\": \"01001\"}",
+  "GUID": "promo01",
+  "Name": "Card",
+  "Nickname": "Fanout Card (Promo)"
+}

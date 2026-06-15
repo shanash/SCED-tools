@@ -1,0 +1,17 @@
+{
+  "CardID": 80010,
+  "CustomDeck": {
+    "800": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/old_back_player.png",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/old_face_80001.png",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\"id\": \"80001\"}",
+  "GUID": "t00001",
+  "Name": "Card",
+  "Nickname": "Target Only Card"
+}
