@@ -13,7 +13,7 @@
 #   1  neither --tag nor --branch specified
 #   2  selected ref doesn't exist
 #   3  user rejected confirmation
-#   4  push failed (including lease conflict)
+#   4  remote query or push failed (including lease conflict)
 
 set -euo pipefail
 
@@ -115,8 +115,21 @@ if [[ "${YES}" != "true" ]]; then
   esac
 fi
 
-# Push with force-with-lease to avoid clobbering concurrent pushes.
-if ! git -C "${SCED_DOWNLOADS}" push --force-with-lease \
+# Capture the actual remote tip of TARGET so the lease is based on the real
+# remote state, not a possibly-stale local remote-tracking ref (design §8c,
+# Issue #10 / N4). Empty result => TARGET does not exist on the remote yet.
+if ! REMOTE_LS="$(git -C "${SCED_DOWNLOADS}" ls-remote "${REMOTE}" "refs/heads/${TARGET}")"; then
+  echo "ERROR: failed to query ${REMOTE} for refs/heads/${TARGET} (network error)" >&2
+  exit 4
+fi
+EXPECTED_REMOTE_SHA="$(printf '%s\n' "${REMOTE_LS}" | awk 'NR==1 {print $1}')"
+
+echo "Remote tip of ${REMOTE}/${TARGET}: ${EXPECTED_REMOTE_SHA:-<absent>}"
+
+# Explicit lease: push only if the remote tip is still what we just observed.
+# An empty expected value asserts the ref must not yet exist (safe create).
+if ! git -C "${SCED_DOWNLOADS}" push \
+    "--force-with-lease=refs/heads/${TARGET}:${EXPECTED_REMOTE_SHA}" \
     "${REMOTE}" "${REF_SHA}:refs/heads/${TARGET}"; then
   echo "ERROR: push failed (lease conflict or network error)" >&2
   exit 4
