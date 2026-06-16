@@ -1,0 +1,19 @@
+{
+  "CardID": NaN,
+  "CustomDeck": {
+    "9003": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/NAN.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/NAN.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"90031\"\n}",
+  "GUID": "cid003",
+  "Name": "Card",
+  "Nickname": "NaN CardID Card",
+  "SidewaysCard": false
+}

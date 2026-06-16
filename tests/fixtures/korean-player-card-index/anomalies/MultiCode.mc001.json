@@ -1,0 +1,27 @@
+{
+  "CardID": 940105,
+  "CustomDeck": {
+    "1111": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/MC1.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/MC1.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    },
+    "2222": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/back/MC2.jpg",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/face/MC2.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"94011\"\n}",
+  "GUID": "mc001",
+  "Name": "Card",
+  "Nickname": "Multi Code Card",
+  "SidewaysCard": false
+}

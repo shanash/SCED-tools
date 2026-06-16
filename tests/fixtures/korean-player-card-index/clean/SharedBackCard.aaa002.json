@@ -1,0 +1,18 @@
+{
+  "CardID": 600501,
+  "CustomDeck": {
+    "6005": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/back/SHARED.jpg",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/face/SHARED.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"03012\"\n}",
+  "GUID": "aaa002",
+  "Name": "Card",
+  "Nickname": "Shared Back Card",
+  "SidewaysCard": false
+}

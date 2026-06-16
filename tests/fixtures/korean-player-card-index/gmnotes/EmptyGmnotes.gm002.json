@@ -1,0 +1,19 @@
+{
+  "CardID": 950206,
+  "CustomDeck": {
+    "9502": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/GM2.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/GM2.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "",
+  "GUID": "gm002",
+  "Name": "Card",
+  "Nickname": "Empty GMNotes Card",
+  "SidewaysCard": false
+}

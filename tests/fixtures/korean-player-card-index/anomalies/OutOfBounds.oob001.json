@@ -1,0 +1,19 @@
+{
+  "CardID": 273631,
+  "CustomDeck": {
+    "2736": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/OOB.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/OOB.jpg",
+      "NumHeight": 2,
+      "NumWidth": 4,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"02003\"\n}",
+  "GUID": "oob001",
+  "Name": "Card",
+  "Nickname": "Out Of Bounds Promo",
+  "SidewaysCard": true
+}

@@ -1,0 +1,27 @@
+{
+  "CardID": 920103,
+  "CustomDeck": {
+    "0000": {
+      "BackIsHidden": true,
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/back/WRONGDECK.jpg",
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/face/WRONGDECK.jpg",
+      "NumHeight": 2,
+      "NumWidth": 2,
+      "Type": 0
+    },
+    "9201": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/RIGHTDECK.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/RIGHTDECK.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"90100\"\n}",
+  "GUID": "md001",
+  "Name": "Card",
+  "Nickname": "Multi Deck Card",
+  "SidewaysCard": false
+}

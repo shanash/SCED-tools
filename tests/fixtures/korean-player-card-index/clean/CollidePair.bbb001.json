@@ -1,0 +1,19 @@
+{
+  "CardID": 448519,
+  "CustomDeck": {
+    "4485": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/COLLIDE1.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/COLLIDE1.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"06275\"\n}",
+  "GUID": "bbb001",
+  "Name": "Card",
+  "Nickname": "Collide Pair A",
+  "SidewaysCard": false
+}

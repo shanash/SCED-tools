@@ -1,0 +1,19 @@
+{
+  "CardID": Infinity,
+  "CustomDeck": {
+    "9004": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/INF.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/INF.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"90041\"\n}",
+  "GUID": "cid004",
+  "Name": "Card",
+  "Nickname": "Infinity CardID Card",
+  "SidewaysCard": false
+}

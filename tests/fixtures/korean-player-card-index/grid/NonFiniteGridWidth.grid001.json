@@ -1,0 +1,19 @@
+{
+  "CardID": 800502,
+  "CustomDeck": {
+    "8005": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/GRID.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/GRID.jpg",
+      "NumHeight": 7,
+      "NumWidth": Infinity,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"08025\"\n}",
+  "GUID": "grid001",
+  "Name": "Card",
+  "Nickname": "Non Finite Grid Card",
+  "SidewaysCard": false
+}

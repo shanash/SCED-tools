@@ -1,0 +1,19 @@
+{
+  "CardID": 800903,
+  "CustomDeck": {
+    "8009": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/QUOTED.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/QUOTED.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"05030\"\n}",
+  "GUID": "aaa004",
+  "Name": "Card",
+  "Nickname": "Knife, \"the\" Sharp\nBlade",
+  "SidewaysCard": false
+}

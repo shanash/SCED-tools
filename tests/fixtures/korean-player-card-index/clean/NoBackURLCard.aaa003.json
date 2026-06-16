@@ -1,0 +1,16 @@
+{
+  "CardID": 700802,
+  "CustomDeck": {
+    "7008": {
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/NOBACK.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"04020\"\n}",
+  "GUID": "aaa003",
+  "Name": "Card",
+  "Nickname": "No Back URL Card",
+  "SidewaysCard": false
+}

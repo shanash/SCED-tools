@@ -1,0 +1,18 @@
+{
+  "CustomDeck": {
+    "9001": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/MISSINGID.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/MISSINGID.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"90011\"\n}",
+  "GUID": "cid001",
+  "Name": "Card",
+  "Nickname": "Missing CardID Card",
+  "SidewaysCard": false
+}

@@ -1,0 +1,19 @@
+{
+  "CardID": 535704,
+  "CustomDeck": {
+    "5357": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/UNIQUE.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/UNIQUE.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"01005\"\n}",
+  "GUID": "aaa001",
+  "Name": "Card",
+  "Nickname": "Unique Back Card",
+  "SidewaysCard": true
+}

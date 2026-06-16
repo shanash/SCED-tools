@@ -1,0 +1,19 @@
+{
+  "CardID": "not-a-number",
+  "CustomDeck": {
+    "9002": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/NONINT.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/NONINT.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"90021\"\n}",
+  "GUID": "cid002",
+  "Name": "Card",
+  "Nickname": "Non-Integer CardID Card",
+  "SidewaysCard": false
+}

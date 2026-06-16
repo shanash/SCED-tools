@@ -1,0 +1,19 @@
+{
+  "CardID": 930104,
+  "CustomDeck": {
+    "9999": {
+      "BackIsHidden": true,
+      "BackURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/back/MISMATCH.jpg",
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/face/MISMATCH.jpg",
+      "NumHeight": 7,
+      "NumWidth": 10,
+      "Type": 0,
+      "UniqueBack": true
+    }
+  },
+  "GMNotes": "{\n  \"id\": \"93011\"\n}",
+  "GUID": "dk001",
+  "Name": "Card",
+  "Nickname": "Deck Key Mismatch Card",
+  "SidewaysCard": false
+}
