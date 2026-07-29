@@ -1,0 +1,5 @@
+name,arkham_id,card_id,deck_key,face_url,face_source,face_num_width,face_num_height,face_cell_index,face_x,face_y,back_url,back_source,back_num_width,back_num_height,back_cell_index,back_x,back_y,unique_back,sideways,pack,source_file,anomaly
+"Knife, ""the"" Sharp
+Blade",05001,600000,6000,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/EEE.jpg,R2,10,7,0,0,0,,,,,,,,True,True,playercards,Knife.json,
+Plain Alpha,05002,600003,6000,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/EEE.jpg,R2,10,7,3,3,0,,,,,,,,True,True,playercards,PlainA.json,
+Plain Beta,05003,600012,6000,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/EEE.jpg,R2,10,7,12,2,1,,,,,,,,True,True,playercards,PlainB.json,

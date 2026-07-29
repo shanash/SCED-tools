@@ -1,0 +1,8 @@
+name,arkham_id,card_id,deck_key,face_url,face_source,face_num_width,face_num_height,face_cell_index,face_x,face_y,back_url,back_source,back_num_width,back_num_height,back_cell_index,back_x,back_y,unique_back,sideways,pack,source_file,anomaly
+Roland Banks,01001,273800,2738,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/AAA.jpg,R2,10,7,0,0,0,,,,,,,,True,True,playercards,RolandBanks.json,
+Roland Banks,01001,273830,2738,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/AAA.jpg,R2,10,7,30,0,3,,,,,,,,True,True,playercards,RolandBanksB.json,
+Roland Banks,01001,587400,5874,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/AAA.jpg,R2,10,7,0,0,0,,,,,,,,True,True,playercards,RolandBanksPromo.json,
+Single Art,02002,990000,9900,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/BBB.jpg,R2,1,1,0,0,0,,,,,,,,False,False,playercards,SingleArt.json,
+Steam Card,03003,400005,4000,https://steamusercontent-a.akamaihd.net/ugc/SSS.jpg,Steam,10,7,5,5,0,,,,,,,,False,False,playercards,SteamCard.json,
+Versioned Two,04004,410001,4100,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/CCC.jpg?v=2,R2,10,7,1,1,0,,,,,,,,False,False,playercards,VerTwo.json,
+Versioned Three,04005,420002,4200,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/CCC.jpg?v=3,R2,10,7,2,2,0,,,,,,,,False,False,playercards,VerThree.json,

@@ -1,0 +1,3 @@
+name,arkham_id,card_id,deck_key,face_url,face_source,face_num_width,face_num_height,face_cell_index,face_x,face_y,back_url,back_source,back_num_width,back_num_height,back_cell_index,back_x,back_y,unique_back,sideways,pack,source_file,anomaly
+Good Card,08001,800000,8000,https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/ugc/FFF.jpg,R2,10,7,0,0,0,,,,,,,,False,False,playercards,GoodCard.json,
+Bad Card,08002,800001,8000,,R2,10,7,1,1,0,,,,,,,,False,False,playercards,BadCard.json,

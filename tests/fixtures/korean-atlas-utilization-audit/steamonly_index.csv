@@ -1,0 +1,3 @@
+name,arkham_id,card_id,deck_key,face_url,face_source,face_num_width,face_num_height,face_cell_index,face_x,face_y,back_url,back_source,back_num_width,back_num_height,back_cell_index,back_x,back_y,unique_back,sideways,pack,source_file,anomaly
+Steam One,07001,700000,7000,https://steamusercontent-a.akamaihd.net/ugc/T1.jpg,Steam,10,7,0,0,0,,,,,,,,False,False,playercards,SteamOne.json,
+Steam Two,07002,700001,7000,https://steamusercontent-a.akamaihd.net/ugc/T1.jpg,Steam,10,7,1,1,0,,,,,,,,False,False,playercards,SteamTwo.json,
