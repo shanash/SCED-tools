@@ -57,6 +57,19 @@ def atomic_write_text(path: Path, text: str) -> None:
         raise
 
 
+def js_safe(text: str) -> str:
+    """Escape a ``json.dumps`` string for safe embedding in an HTML <script> island.
+
+    Prevents a premature ``</script>`` close and escapes the two raw Unicode
+    line/paragraph separators (U+2028 / U+2029) that are legal in JSON but break
+    a JavaScript string literal. Centralised here so the gallery builders share
+    one implementation instead of byte-divergent copies.
+    """
+    return (text.replace("</", "<\\/")
+                .replace(" ", "\\u2028")
+                .replace(" ", "\\u2029"))
+
+
 def atomic_write_json_batch(items) -> None:
     """Write many JSON files as a staged two-phase commit.
 

@@ -1,0 +1,12 @@
+# Runtime dependencies for the SCED-tools image/download scripts.
+#
+# These are the non-stdlib runtime dependencies used by the image/download
+# scripts: Pillow + requests (build-korean-card-crops.py and the other
+# PIL-using scripts) and PyMuPDF (the PDF card extractor extract-pdf-cards.py,
+# imported as `fitz`).
+#
+# pytest / playwright are DEV-only (the test suite) and are intentionally NOT
+# listed here — they are not imported by any tool at runtime.
+Pillow
+requests
+PyMuPDF
