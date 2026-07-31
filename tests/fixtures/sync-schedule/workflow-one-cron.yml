@@ -1,0 +1,21 @@
+# daily-upstream-sync.yml — unattended upstream rebase + redeploy
+#
+# MUST live on the default branch: scheduled workflows only run from there.
+name: daily-upstream-sync
+
+on:
+  schedule:
+    - cron: "47 18 * * *"        # 18:47 UTC = 03:47 KST. Off-the-hour per R12.
+  workflow_dispatch:
+    inputs:
+      dry_run:      { description: "Plan only; no push, no release", type: boolean, default: true }
+
+concurrency:
+  group: korean-release-assets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fixture"

@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "timezone": "Asia/Seoul",
+  "utc_offset_min": 540,
+  "updated_at": "2026-01-02T03:04:05+09:00",
+  "updated_by": "fixture",
+  "launchd": {
+    "program": "/bin/bash",
+    "wrapper": "~/scripts/sced-daily-sync-launch.sh",
+    "path_env": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "log_dir": "/tmp",
+    "process_type": "Standard",
+    "forbidden_keys": ["RunAtLoad", "WorkingDirectory", "KeepAlive", "StartInterval"]
+  },
+  "policy": {
+    "order": ["SCED-downloads", "SCED"],
+    "min_stagger_min": 30,
+    "min_ci_offset_min": 60,
+    "min_window_min": 30,
+    "min_ci_margin_min": 20,
+    "reserve": {
+      "ai_stage_min": 15,
+      "ai_claude_min": 10,
+      "run_reserve_min": 10
+    },
+    "forbid_zero_minute": true,
+    "warn_quarter_minute": true,
+    "collisions": []
+  },
+  "repos": {
+    "SCED-downloads": {
+      "local_hhmm": "0112",
+      "latest_hhmm": "0152",
+      "ci_offset_min": 60,
+      "days": "*",
+      "launchd_label": "com.shanash.sced-daily-sync.SCED-downloads",
+      "env_suffix": "SCED_DOWNLOADS",
+      "gh_repo": "shanash/SCED-downloads",
+      "ci_ref": "origin/korean",
+      "workflow_path": ".github/workflows/daily-upstream-sync.yml",
+      "collision_ack": null,
+      "notes": "fixture"
+    },
+    "SCED": {
+      "local_hhmm": "0147",
+      "latest_hhmm": "0227",
+      "ci_offset_min": 60,
+      "days": "*",
+      "launchd_label": "com.shanash.sced-daily-sync.SCED",
+      "env_suffix": "SCED",
+      "gh_repo": "shanash/SCED",
+      "ci_ref": "origin/korean",
+      "workflow_path": ".github/workflows/daily-upstream-sync.yml",
+      "collision_ack": null,
+      "notes": "fixture"
+    }
+  }
+}

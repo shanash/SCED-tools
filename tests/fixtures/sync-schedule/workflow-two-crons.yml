@@ -1,0 +1,15 @@
+# Two schedule entries: the patcher must refuse rather than guess which one is
+# the daily sync.
+name: daily-upstream-sync
+
+on:
+  schedule:
+    - cron: "47 18 * * *"        # 18:47 UTC = 03:47 KST. Off-the-hour per R12.
+    - cron: "47 6 * * *"         # a second entry someone added by hand
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fixture"

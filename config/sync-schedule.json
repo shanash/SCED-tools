@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "timezone": "Asia/Seoul",
+  "utc_offset_min": 540,
+  "updated_at": "2026-07-31T11:58:13+0900",
+  "updated_by": "sced-schedule.sh",
+  "launchd": {
+    "program": "/bin/bash",
+    "wrapper": "~/scripts/sced-daily-sync-launch.sh",
+    "path_env": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "log_dir": "/tmp",
+    "process_type": "Standard",
+    "forbidden_keys": [
+      "RunAtLoad",
+      "WorkingDirectory",
+      "KeepAlive",
+      "StartInterval"
+    ]
+  },
+  "policy": {
+    "order": [
+      "SCED-downloads",
+      "SCED"
+    ],
+    "min_stagger_min": 30,
+    "min_ci_offset_min": 60,
+    "min_window_min": 30,
+    "min_ci_margin_min": 20,
+    "reserve": {
+      "ai_stage_min": 15,
+      "ai_claude_min": 10,
+      "run_reserve_min": 10
+    },
+    "forbid_zero_minute": true,
+    "warn_quarter_minute": true,
+    "collisions": [
+      {
+        "label": "com.shanash.kod-auto-improve",
+        "hhmm": "0300",
+        "budget_min": 30,
+        "why": "runs `claude` too; see .am/sync-schedule-control/analyze.md section 6 item 6"
+      }
+    ]
+  },
+  "repos": {
+    "SCED-downloads": {
+      "local_hhmm": "0217",
+      "latest_hhmm": "0257",
+      "ci_offset_min": 60,
+      "days": "*",
+      "launchd_label": "com.shanash.sced-daily-sync.SCED-downloads",
+      "env_suffix": "SCED_DOWNLOADS",
+      "gh_repo": "shanash/SCED-downloads",
+      "ci_ref": "origin/korean",
+      "workflow_path": ".github/workflows/daily-upstream-sync.yml",
+      "collision_ack": {
+        "ack_for": "0217/0257",
+        "at": "2026-07-31",
+        "reason": "AI-stage envelope [02:17..03:12] overlaps com.shanash.kod-auto-improve 03:00+30m by 12 min. Contained: a non-zero `claude` exit yields 65 with `korean` untouched."
+      },
+      "notes": "Goes first: 1377 fork-changed paths, the longer build."
+    },
+    "SCED": {
+      "local_hhmm": "0247",
+      "latest_hhmm": "0327",
+      "ci_offset_min": 60,
+      "days": "*",
+      "launchd_label": "com.shanash.sced-daily-sync.SCED",
+      "env_suffix": "SCED",
+      "gh_repo": "shanash/SCED",
+      "ci_ref": "origin/korean",
+      "workflow_path": ".github/workflows/daily-upstream-sync.yml",
+      "collision_ack": {
+        "ack_for": "0247/0327",
+        "at": "2026-07-31",
+        "reason": "AI-stage envelope [02:47..03:42] overlaps com.shanash.kod-auto-improve 03:00+30m by 30 min. Contained as above."
+      },
+      "notes": "15 fork-changed paths; `releases/latest` has no downstream consumer."
+    }
+  }
+}

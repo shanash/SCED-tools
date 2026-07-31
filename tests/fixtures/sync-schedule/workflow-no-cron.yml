@@ -1,0 +1,14 @@
+# No `schedule:` block at all -- the workflow is dispatch-only. Patching it
+# would silently do nothing, so the patcher must refuse.
+name: daily-upstream-sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:      { description: "Plan only; no push, no release", type: boolean, default: true }
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fixture"

@@ -51,6 +51,8 @@
 #   2  preflight failed (volume / deps / env-file perms / disk)
 #   3  another run holds the lock
 #   4  skipped: staleness guard -- the GHA fallback owns tonight
+#   5  schedule interlock missing: launchd fired but the plist carried no
+#      SCED_SYNC_SCHED_* bound -- the trigger and the guard have diverged
 #  10  skipped: overlap gate tripped -- human adjudication required
 #  20  fetch failed
 #  30  rebase failed after a clean gate (unexpected)
@@ -148,9 +150,14 @@ ASSET_FLOOR_PCT=95
 OWNER="shanash"
 MARKER="sced-local-sync: assets-already-attached"
 
+# Under launchd both bounds arrive from the plist, which carries them alongside
+# the StartCalendarInterval trigger so the two cannot drift apart. The literals
+# below are MANUAL-RUN FALLBACKS ONLY; the source of truth is
+# SCED-tools/config/sync-schedule.json, applied by
+# SCED-tools/scripts/sced-schedule.sh (`verify` reports it when they diverge).
 case "${REPO}" in
-  SCED)           SCHED_HHMM=0247; LATEST_HHMM="${SCED_SYNC_LATEST_START_SCED:-0327}" ;;
-  SCED-downloads) SCHED_HHMM=0217; LATEST_HHMM="${SCED_SYNC_LATEST_START_SCED_DOWNLOADS:-0257}" ;;
+  SCED)           SCHED_HHMM="${SCED_SYNC_SCHED_SCED:-0247}";           LATEST_HHMM="${SCED_SYNC_LATEST_START_SCED:-0327}" ;;
+  SCED-downloads) SCHED_HHMM="${SCED_SYNC_SCHED_SCED_DOWNLOADS:-0217}"; LATEST_HHMM="${SCED_SYNC_LATEST_START_SCED_DOWNLOADS:-0257}" ;;
 esac
 
 REPO_PATH="${REPO_ROOT}/${REPO}"
@@ -512,6 +519,26 @@ LOG_FILE="${STATE_ROOT}/logs/${REPO}-${RUN_STAMP}.log"
 exec > >(tee -a "${LOG_FILE}") 2>&1
 
 log "=== daily-sync-local ${REPO} (dry_run=${DRY_RUN} skip_build=${SKIP_BUILD} force=${FORCE}) ==="
+
+# ---------------------------------------------------------- schedule interlock
+
+# Under launchd the plist is the single source of the schedule: it carries the
+# StartCalendarInterval trigger and the two guard bounds in the same file,
+# rendered together by SCED-tools/scripts/sced-schedule.sh. If the trigger fired
+# but the bounds did not arrive, that file was hand-edited and the two have
+# diverged -- historically a silent grey `stale-skip` at exit 4 that the notify
+# throttle then suppressed. Fail loudly instead.
+#
+# The test is XPC_SERVICE_NAME == the agent's own label, NOT merely "set":
+# measured on this box, an ordinary login shell already carries
+# XPC_SERVICE_NAME=0, so a non-empty check would trip on every manual run. Only a
+# launchd job gets its label as the value.
+SCHED_ENV_SEEN="${SCED_SYNC_SCHED_SCED:-}${SCED_SYNC_SCHED_SCED_DOWNLOADS:-}"
+if [[ "${XPC_SERVICE_NAME:-}" == "com.shanash.sced-daily-sync.${REPO}" && -z "${SCHED_ENV_SEEN}" ]]; then
+  DECISION="schedule-interlock"
+  EXTRA="launchd (${XPC_SERVICE_NAME}) started this run but the plist carries no SCED_SYNC_SCHED_* bound; the trigger and the staleness guard have diverged. Run: SCED-tools/scripts/sced-schedule.sh verify"
+  finish 5 fail "schedule interlock missing"
+fi
 
 # -------------------------------------------------------------- staleness guard
 
