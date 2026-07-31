@@ -405,6 +405,38 @@ def test_patch_workflow_cli_exit_code(cfg):
     assert "cron.ambiguous" in r.stderr
 
 
+# --------------------------------------------------------------- header block
+
+def test_header_is_rendered_from_the_configured_ref(cfg):
+    assert ss.default_branch("origin/korean") == "korean"
+    assert "(korean)" in ss.render_header("korean")
+
+
+def test_stale_header_is_migrated_and_the_false_sentence_goes(cfg):
+    src = (FIXTURE_DIR / "workflow-header-stale.yml").read_text(encoding="utf-8")
+    out = ss.patch_workflow(cfg, "SCED", src)
+    assert "default branch (main)" not in out
+    assert "It is never merged into `korean`" not in out, \
+        "the claim is exactly backwards now that the file lives on korean"
+    assert ss.render_header("korean") in out
+    # The migration must not disturb the rest of the file.
+    assert out.count("name: daily-upstream-sync") == 1
+    assert "jobs:" in out
+
+
+def test_header_migration_is_idempotent(cfg):
+    src = (FIXTURE_DIR / "workflow-header-stale.yml").read_text(encoding="utf-8")
+    once = ss.patch_workflow(cfg, "SCED", src)
+    assert ss.patch_workflow(cfg, "SCED", once) == once
+
+
+def test_unrecognised_header_is_refused_not_guessed(cfg):
+    src = (FIXTURE_DIR / "workflow-header-unknown.yml").read_text(encoding="utf-8")
+    with pytest.raises(ss.PatchError) as exc:
+        ss.patch_workflow(cfg, "SCED", src)
+    assert "header.unrecognised" in str(exc.value)
+
+
 # ------------------------------------------------------------------ doc patch
 
 def test_patch_doc_is_a_noop_when_the_table_matches(cfg):

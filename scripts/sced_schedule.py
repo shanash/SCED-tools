@@ -650,6 +650,37 @@ class PatchError(Exception):
     """The target file does not have the structure the patcher requires."""
 
 
+# The workflow header states WHERE the file must live. That is derivable from
+# `ci_ref`, so the block is rendered rather than hand-maintained -- the same
+# sole-author model as the plist comments, and for the same reason: the claim
+# went stale the moment the forks' default branch became `korean`, and a stale
+# claim in a header is read as fact.
+#
+# HEADER_STALE is the recognised predecessor, kept only so the migration can run
+# once per fork. It may be deleted once both forks carry the rendered form; the
+# patcher refuses (rather than guesses) when it finds neither.
+HEADER_STALE = (
+    "# MUST live on the default branch (main): scheduled workflows only run from the\n"
+    "# default branch. It is never merged into `korean`, so it cannot affect a rebase.\n"
+)
+
+
+def render_header(branch: str) -> str:
+    return (
+        f"# MUST live on the default branch ({branch}): scheduled workflows only ever run\n"
+        f"# from the default branch, and a workflow file that is not on it is not\n"
+        f"# registered at all -- `gh workflow list` omits it and the cron never fires,\n"
+        f"# silently. It therefore rides the branch it rebases, which makes it one more\n"
+        f"# path in the fork-changed set: an upstream file at this path would trip the\n"
+        f"# overlap gate. Upstream has none.\n"
+    )
+
+
+def default_branch(ci_ref: str) -> str:
+    """`origin/korean` -> `korean`."""
+    return ci_ref.rsplit("/", 1)[-1]
+
+
 def patch_workflow(cfg: dict, repo: str, text: str) -> str:
     """Rewrite the single `- cron:` line inside `on:` -> `schedule:`.
 
@@ -704,7 +735,20 @@ def patch_workflow(cfg: dict, repo: str, text: str) -> str:
 
     lines[i] = f'{m.group("pre")}{new_expr}{m.group("post")}{gap}{comment}'.rstrip() \
         if not comment else f'{m.group("pre")}{new_expr}{m.group("post")}{gap}{comment}'
-    return "\n".join(lines)
+    out = "\n".join(lines)
+
+    # The header block is rendered, not edited in place: accept either the
+    # recognised stale form or the already-correct one, and refuse anything else
+    # rather than pattern-match its way through prose it does not understand.
+    branch = default_branch(repo_cfg(cfg, repo)["ci_ref"])
+    current = render_header(branch)
+    if current in out:
+        return out
+    if HEADER_STALE in out:
+        return out.replace(HEADER_STALE, current, 1)
+    raise PatchError(
+        "header.unrecognised: the 'MUST live on the default branch' block matches neither "
+        "the rendered form nor the known stale one; refusing to rewrite prose it cannot verify")
 
 
 DOC_TABLE_HEADER = "| Tier | Runner | Repo | When (KST) | Definition |"
@@ -1387,12 +1431,29 @@ def cmd_patch_workflow(args) -> int:
     except (PatchError, ConfigError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return EXIT_PATCH
+
+    # What actually changed, so the caller can describe the commit truthfully
+    # instead of asserting a cron move that may not have happened.
+    if args.report:
+        def cron_of(t):
+            for line in t.split("\n"):
+                m = CRON_LINE.match(line)
+                if m:
+                    return m.group("expr")
+            return None
+        atomic_write_json(Path(args.report), {
+            "changed": out != text,
+            "cron_changed": cron_of(out) != cron_of(text),
+            "header_changed": HEADER_STALE in text and HEADER_STALE not in out,
+            "cron": cron_of(out),
+        })
+
     if args.outfile:
         atomic_write_text(Path(args.outfile), out)
         print("no change" if out == text else f"patched -> {args.outfile}")
     else:
         sys.stdout.write(out)
-    return EXIT_OK if out != text else EXIT_OK
+    return EXIT_OK
 
 
 def cmd_patch_doc(args) -> int:
@@ -1517,6 +1578,7 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--repo", required=True)
     s.add_argument("--in", dest="infile", required=True)
     s.add_argument("--out", dest="outfile")
+    s.add_argument("--report", help="write {changed, cron_changed, header_changed} JSON here")
     s.set_defaults(func=cmd_patch_workflow)
 
     s = sub.add_parser("patch-doc")

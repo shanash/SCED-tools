@@ -628,7 +628,8 @@ apply_ci_one() { # $1 = repo
   git -C "${path}" worktree add --detach "${wt}" "${obs}" >/dev/null || return 60
 
   tmpf="${TMP}/wf-${repo}.patched"
-  if ! py patch-workflow --repo "${repo}" --in "${wt}/${wf}" > "${tmpf}"; then
+  local rep="${TMP}/wf-${repo}.report.json"
+  if ! py patch-workflow --repo "${repo}" --in "${wt}/${wf}" --report "${rep}" > "${tmpf}"; then
     git -C "${path}" worktree remove --force "${wt}" 2>/dev/null || true
     return 60
   fi
@@ -648,8 +649,21 @@ apply_ci_one() { # $1 = repo
     return 60
   fi
 
+  # Describe what actually changed. The subject used to assert a cron move
+  # unconditionally, which was false whenever only the header was regenerated.
+  local subject cron_ch hdr_ch
+  cron_ch="$(json_get "${rep}" cron_changed)"
+  hdr_ch="$(json_get "${rep}" header_changed)"
+  if [[ "${cron_ch}" == "True" && "${hdr_ch}" == "True" ]]; then
+    subject="ci(sync): move the cron to ${cron} UTC ($(dget "${repo}" ci_kst) KST) and correct the header"
+  elif [[ "${cron_ch}" == "True" ]]; then
+    subject="ci(sync): move the daily-upstream-sync cron to ${cron} UTC ($(dget "${repo}" ci_kst) KST)"
+  else
+    subject="ci(sync): state the branch this workflow must live on"
+  fi
+
   git -C "${wt}" -c core.hooksPath=/dev/null commit -q -m \
-    "ci(sync): move the daily-upstream-sync cron to ${cron} UTC ($(dget "${repo}" ci_kst) KST)
+    "${subject}
 
 Rendered by SCED-tools/scripts/sced-schedule.sh from config/sync-schedule.json." \
     -- "${wf}" || { git -C "${path}" worktree remove --force "${wt}" 2>/dev/null || true; return 60; }

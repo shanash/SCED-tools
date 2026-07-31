@@ -1,0 +1,19 @@
+# A header the patcher has never seen. It must refuse rather than pattern-match
+# its way through prose it cannot verify.
+# daily-upstream-sync.yml — unattended upstream rebase + redeploy
+#
+# Somebody rewrote this paragraph by hand and it no longer resembles either the
+# rendered form or the recognised stale one.
+#
+name: daily-upstream-sync
+
+on:
+  schedule:
+    - cron: "47 18 * * *"        # 18:47 UTC = 03:47 KST. Off-the-hour per R12.
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fixture"

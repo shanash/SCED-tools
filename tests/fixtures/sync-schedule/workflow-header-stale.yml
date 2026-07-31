@@ -1,0 +1,20 @@
+# The header claim the `korean`-default switch falsified: it names the wrong
+# branch AND its second sentence is now exactly backwards. This is the one form
+# the patcher is allowed to migrate from.
+# daily-upstream-sync.yml — unattended upstream rebase + redeploy
+#
+# MUST live on the default branch (main): scheduled workflows only run from the
+# default branch. It is never merged into `korean`, so it cannot affect a rebase.
+#
+name: daily-upstream-sync
+
+on:
+  schedule:
+    - cron: "47 18 * * *"        # 18:47 UTC = 03:47 KST. Off-the-hour per R12.
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "fixture"
