@@ -648,6 +648,42 @@ def test_set_writes_and_reports_that_nothing_is_in_effect(cfg_path):
     assert doc["repos"]["SCED"]["latest_hhmm"] == "0232"
 
 
+# --------------------------------------------------- shell-level precondition
+
+SHELL = SCRIPT_DIR / "sced-schedule.sh"
+
+
+def _run_shell(tmp_path, env_body, *args):
+    env_file = tmp_path / "env"
+    env_file.write_text(env_body, encoding="utf-8")
+    env_file.chmod(0o600)
+    return subprocess.run(
+        ["/bin/bash", str(SHELL), *args,
+         "--config", str(BASE_CONFIG),
+         "--env-file", str(env_file),
+         "--launch-agents-dir", str(tmp_path / "agents"),
+         "--no-launchd-probe"],
+        capture_output=True, text=True)
+
+
+@pytest.mark.parametrize("verb", ["verify", "apply"])
+def test_env_file_schedule_key_is_a_hard_precondition(tmp_path, verb):
+    """A schedule key there is sourced AFTER launchd's env and silently wins."""
+    r = _run_shell(tmp_path, "SCED_SYNC_DISCORD_WEBHOOK=x\nSCED_SYNC_SCHED_SCED=0900\n",
+                   verb, "--dry-run")
+    assert r.returncode == 2, r.stdout + r.stderr
+    assert "SCED_SYNC_SCHED_SCED" in r.stderr
+
+
+def test_clean_env_file_does_not_trip_the_precondition(tmp_path):
+    """Regression: `grep` exits 1 on no-match, and pipefail turned the HEALTHY
+    case into an aborted run."""
+    r = _run_shell(tmp_path, "SCED_SYNC_DISCORD_WEBHOOK=x\nSCED_SYNC_MENTION=y\n",
+                   "verify")
+    assert r.returncode != 2, r.stdout + r.stderr
+    assert r.returncode != 1, f"the run aborted instead of reporting: {r.stderr}"
+
+
 def test_set_drops_an_acknowledgement_the_new_time_invalidates(tmp_path):
     path = _with_collision(tmp_path, "coll-drop.json",
                            ack={"ack_for": "0147/0227", "at": "2026-07-31", "reason": "contained"})

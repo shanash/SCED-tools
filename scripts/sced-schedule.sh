@@ -179,6 +179,30 @@ trap cleanup EXIT
 
 py() { python3 "${SCRIPT_DIR}/sced_schedule.py" --config "${CONFIG}" --home "${HOME_DIR}" "$@"; }
 
+# A schedule key in the 0600 env file defeats the entire interlock: the driver
+# sources that file with `set -a` AFTER launchd's environment
+# (daily-sync-local.sh:127-130), so it silently wins over the plist. Installing
+# or checking a plist while one exists is meaningless, so this is a hard
+# precondition for `verify` and `apply` rather than a reported finding. Only key
+# NAMES are read here -- the values in that file are secrets.
+assert_no_env_shadow() {
+  [[ -r "${ENV_FILE}" ]] || return 0
+  local bad
+  # `|| true` is load-bearing: no match is the HEALTHY case, but grep exits 1 for
+  # it and `set -o pipefail` would propagate that out of the substitution and
+  # abort the run.
+  bad="$(grep -oE '^(SCED_SYNC_SCHED_|SCED_SYNC_LATEST_START_)[A-Z_]*' "${ENV_FILE}" 2>/dev/null \
+         | LC_ALL=C sort -u | tr '\n' ' ' || true)"
+  [[ -z "${bad}" ]] && return 0
+  {
+    echo "ERROR: ${ENV_FILE} defines schedule key(s): ${bad}"
+    echo "       That file is sourced with \`set -a\` AFTER launchd's environment, so those keys"
+    echo "       silently override the plist and the trigger/guard interlock stops meaning"
+    echo "       anything. Remove them; the schedule belongs in ${CONFIG}."
+  } >&2
+  exit 2
+}
+
 # The workspace-wide lock the nightly driver uses. A stale lock is NEVER taken
 # over here: only the driver may do that, and stealing one would let this tool
 # push to origin/korean under a run whose --force-with-lease was pinned before
@@ -806,6 +830,7 @@ case "${VERB}" in
     ;;
 
   verify)
+    assert_no_env_shadow
     rc=0
     report verify || rc=$?
     exit ${rc}
@@ -833,6 +858,7 @@ case "${VERB}" in
     ;;
 
   apply)
+    assert_no_env_shadow
     rc=0
     if [[ "${DO_LOCAL}" == true ]]; then
       r=0; apply_local || r=$?
