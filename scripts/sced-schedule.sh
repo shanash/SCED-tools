@@ -297,7 +297,14 @@ print(json.dumps(out))' "${RAW}/gh-state-${repo}.json" "${RAW}/gh-branch-${repo}
   done
 
   if [[ -r "${DRIVER}" ]]; then
-    sed -n '148,160p' "${DRIVER}" > "${RAW}/driver-case.txt"
+    # Anchored on the case arms themselves, not on a line range: a hard-coded
+    # window silently loses an arm the moment anything above it grows (adding
+    # exit code 21 to the header on 2026-08-01 pushed SCED-downloads out of
+    # `148,160p`, and the site degraded to "unknown" instead of failing loudly).
+    # `|| true` for the same reason as driver-stop.txt below.
+    grep -E '^[[:space:]]*[A-Za-z][A-Za-z-]*\)[[:space:]]*SCHED_HHMM=' \
+      "${DRIVER}" > "${RAW}/driver-case.txt" 2>/dev/null || true
+    [[ -s "${RAW}/driver-case.txt" ]] || rm -f "${RAW}/driver-case.txt"
     # `|| true`: a no-match grep exits 1, which under `set -e` would end the run
     # here -- and a driver that no longer quotes the CI times is a finding to
     # report, not a reason to abort the whole report.

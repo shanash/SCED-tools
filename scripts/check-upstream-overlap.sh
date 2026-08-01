@@ -17,14 +17,26 @@
 #                             [--upstream-ref REF]  (default: upstream/main)
 #                             [--limit N]           (default: 50)
 #                             [--fetch]
+#                             [--paths-out FILE]    (machine-readable overlap set)
+#                             [--probe]             (repo-readability probe only)
+#
+# --paths-out writes the exact intersection (newline-delimited, LC_ALL=C byte
+# order, no header) to FILE. It is written on BOTH exit 0 (empty file) and exit
+# 10, so a caller can rely on its existence; nothing is written on exit 1 or 2.
+# Human-readable stdout is unaffected.
 #
 # --fetch updates the 'origin' and 'upstream' remotes of the selected repo
 # before computing. It is opt-in because the default must never touch the
 # network.
 #
+# --probe stops right after the repository-readability guard and exits 0. It
+# exists for the launchd wrapper's TCC canary, which needs to know whether git
+# can read the volume at all — no network, no ref resolution, no diff. --fetch
+# and --paths-out are ignored under --probe.
+#
 # Exit codes:
-#   0  no overlap — an unattended rebase is safe
-#   1  usage error (bad flag, unknown --repo, missing repo checkout)
+#   0  no overlap — an unattended rebase is safe  (or: --probe succeeded)
+#   1  usage error (bad flag, unknown --repo, repo checkout unreadable)
 #   2  a required ref is missing, has no common ancestor, or --fetch failed
 #  10  overlap found — the gate skips and a human must adjudicate
 
@@ -37,7 +49,9 @@ REPO=""
 FORK_REF="origin/korean"
 UPSTREAM_REF="upstream/main"
 LIMIT=50
+PATHS_OUT=""
 FETCH=false
+PROBE=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -57,8 +71,16 @@ while [[ $# -gt 0 ]]; do
       LIMIT="$2"
       shift 2
       ;;
+    --paths-out)
+      PATHS_OUT="$2"
+      shift 2
+      ;;
     --fetch)
       FETCH=true
+      shift
+      ;;
+    --probe)
+      PROBE=true
       shift
       ;;
     *)
@@ -90,9 +112,30 @@ esac
 
 REPO_PATH="${REPO_ROOT}/${REPO}"
 
-if ! git -C "${REPO_PATH}" rev-parse --git-dir &>/dev/null; then
-  echo "ERROR: '${REPO_PATH}' is not a git repository" >&2
+# `&>/dev/null` used to destroy BOTH git's stderr and its exit code, so the
+# macOS System Policy denial of 2026-08-01 (rc 128, "Operation not permitted")
+# was reported as "not a git repository" and cost a multi-hour diagnosis.
+# Distinct causes that share this guard: genuine non-repo (128), sandbox EPERM
+# (128), dubious ownership (128), unreadable directory (128), malformed config
+# (128), git missing from PATH (127), git not executable (126), signal (>128).
+# `|| rc=$?` is required: under `set -e` the bare assignment would abort, and
+# `if ! cmd` would leave $? holding the INVERTED status, not git's.
+GIT_PROBE_RC=0
+GIT_PROBE_ERR="$(git -C "${REPO_PATH}" rev-parse --git-dir 2>&1)" || GIT_PROBE_RC=$?
+if [[ "${GIT_PROBE_RC}" -ne 0 ]]; then
+  printf "ERROR: git could not read '%s' (rc=%d): %s\n" \
+    "${REPO_PATH}" "${GIT_PROBE_RC}" "${GIT_PROBE_ERR}" >&2
   exit 1
+fi
+
+# --probe: stop right after the repository-readability guard. That guard is the
+# only thing the launchd wrapper's TCC canary needs, and running the full
+# predicate there would cost a 1377-path diff on SCED-downloads every night for
+# nothing. No network, no ref resolution, no diff. --fetch and --paths-out are
+# ignored under --probe.
+if [[ "${PROBE}" == "true" ]]; then
+  echo "PROBE OK: git can read ${REPO_PATH}"
+  exit 0
 fi
 
 # Opt-in network refresh. A failure here is fatal rather than a warning: a
@@ -152,6 +195,15 @@ names() { # $1 = ref
 names "${FORK_SHA}" > "${TMP_DIR}/fork.txt"
 names "${UPSTREAM_SHA}" > "${TMP_DIR}/upstream.txt"
 LC_ALL=C comm -12 "${TMP_DIR}/fork.txt" "${TMP_DIR}/upstream.txt" > "${TMP_DIR}/overlap.txt"
+
+# Machine-readable copy of the intersection, before the counts, so it lands on
+# exit 0 (empty) and exit 10 alike. Written via a temp + rename so a reader can
+# never observe a half-written file.
+if [[ -n "${PATHS_OUT}" ]]; then
+  cp "${TMP_DIR}/overlap.txt" "${PATHS_OUT}.tmp" \
+    && mv "${PATHS_OUT}.tmp" "${PATHS_OUT}" \
+    || { echo "ERROR: could not write --paths-out ${PATHS_OUT}" >&2; exit 2; }
+fi
 
 N_FORK="$(wc -l < "${TMP_DIR}/fork.txt" | tr -d ' ')"
 N_UPSTREAM="$(wc -l < "${TMP_DIR}/upstream.txt" | tr -d ' ')"
