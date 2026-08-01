@@ -55,6 +55,7 @@
 #      SCED_SYNC_SCHED_* bound -- the trigger and the guard have diverged
 #  10  skipped: overlap gate tripped -- human adjudication required
 #  20  fetch failed
+#  21  overlap gate script failed (the gate itself errored; the gate did NOT trip)
 #  30  rebase failed after a clean gate (unexpected)
 #  40  backup push, or korean force-push rejected (lease conflict)
 #  50  tag derivation failed / tag already exists
@@ -303,7 +304,11 @@ notify() {
   now="$(date +%s)"
   case "${kind}" in
     stop) sig="overlap:${MERGE_BASE}:${OVERLAP_COUNT}" ;;
-    fail) sig="fail:${code}" ;;
+    # DECISION is in the signature because one code can be reached from several
+    # places (20 = no upstream remote / fetch origin / fetch upstream / worktree
+    # add). Without it, a change of failure MODE at a constant code is invisible
+    # to should_notify() and gets throttled as "unchanged".
+    fail) sig="fail:${code}:${DECISION}" ;;
     *)    sig="${kind}:${code}" ;;
   esac
 
@@ -351,7 +356,31 @@ if e("ASSETS") and e("ASSETS") != "0":
 if e("BACKUP"):
     fields.append({"name": "backup", "value": f'`{e("BACKUP")}`', "inline": True})
 if e("EXTRA"):
-    fields.append({"name": "detail", "value": e("EXTRA")[:1000], "inline": False})
+    # Fence-aware truncation. Two ways the detail field can render as a broken code
+    # block, and both land on the exit-21 gate text -- the one payload this
+    # notification exists to carry faithfully: a value over the 1024-char Discord
+    # field cap, cut before its closing fence; and an odd fence marker inside the
+    # git output itself. The parity test fixes both, and the truncation line points
+    # at the log, which always holds the full text.
+    #
+    # Truncating HERE and not in the producers is deliberate: git speaks Korean on
+    # this box, so a byte-level head -c in bash could split a multibyte character
+    # and leave os.environ holding a surrogate that json.dumps cannot encode. By
+    # this point the value is a decoded str.
+    #
+    # WATCH OUT when editing anything below, comments included. This heredoc sits
+    # inside a double-quoted command substitution, so bash scans the body for
+    # backticks and quote characters even though the heredoc delimiter is quoted.
+    # A literal fence, or an apostrophe in a word like doesn t, silently swallows
+    # the following lines and breaks the whole script. Hence chr 96, and hence the
+    # deliberately apostrophe-free prose in this block.
+    FENCE = chr(96) * 3
+    detail = e("EXTRA")
+    if len(detail) > 960:
+        detail = detail[:960].rstrip() + "\n… truncated; full text in the log."
+    if detail.count(FENCE) % 2:
+        detail += "\n" + FENCE
+    fields.append({"name": "detail", "value": detail, "inline": False})
 
 embed = {
     "title": e("TITLE"),
@@ -462,8 +491,17 @@ cleanup() {
 
 # ------------------------------------------------------------------- preflight
 
-if ! g "${REPO_PATH}" rev-parse --git-dir >/dev/null 2>&1; then
-  echo "ERROR: '${REPO_PATH}' is not a git repository" >&2
+# Redirecting git's stderr away used to collapse at least eight distinct causes
+# into "is not a git repository" -- among them the macOS System Policy denial of
+# 2026-08-01 (rc 128, "Operation not permitted"), which cost a multi-hour
+# diagnosis. Keep both the exit code and the message. `|| rc=$?` is required:
+# under `set -e` the bare assignment would abort, and `if ! cmd` would leave $?
+# holding the INVERTED status, not git's.
+PREFLIGHT_RC=0
+PREFLIGHT_ERR="$(g "${REPO_PATH}" rev-parse --git-dir 2>&1)" || PREFLIGHT_RC=$?
+if [[ "${PREFLIGHT_RC}" -ne 0 ]]; then
+  printf "ERROR: git could not read '%s' (rc=%d): %s\n" \
+    "${REPO_PATH}" "${PREFLIGHT_RC}" "${PREFLIGHT_ERR}" >&2
   exit 2
 fi
 
@@ -611,7 +649,19 @@ fi
 # The gate predicate lives in one place. This script calls it; it never
 # reimplements it.
 set +e
-"${SCRIPT_DIR}/check-upstream-overlap.sh" --repo "${REPO}" \
+# The interpreter is named EXPLICITLY, not left to the shebang.
+#
+# `check-upstream-overlap.sh` starts with `#!/usr/bin/env bash`, so executing it
+# directly makes the kernel exec /usr/bin/env (com.apple.env, a *different*
+# platform binary) before it ever reaches /bin/bash. That image swap is the ONLY
+# structural difference between this git process and every other git process in
+# the run -- the plist runs `/bin/bash <wrapper>`, the wrapper runs
+# `exec /bin/bash <driver>` -- and it is exactly the process macOS System Policy
+# denied file-read-data on /Volumes/PRO-G40 on 2026-08-01 at 02:17:20.160 and
+# 02:47:10.572 (see .am/daily-sync-rebase-failure/). Naming ${BASH} keeps the
+# whole pipeline on one image and out of TCC's responsible-process reattribution.
+# A manual run is unaffected: ${BASH} is whatever bash is already running us.
+"${BASH:-/bin/bash}" "${SCRIPT_DIR}/check-upstream-overlap.sh" --repo "${REPO}" \
   --fork-ref "${FORK_SHA}" --upstream-ref "${UPSTREAM_SHA}" --limit 200 \
   > "${TMPDIR}/gate-${REPO}.txt" 2>&1
 GATE_RC=$?
@@ -631,8 +681,14 @@ case "${GATE_RC}" in
     finish 10 stop "overlap gate tripped (${OVERLAP_COUNT} files)"
     ;;
   *)
+    # 21, not 20: a gate-script ERROR is not a fetch failure, and sharing 20
+    # with fetch also made them share the `fail:${code}` throttle bucket -- a
+    # real fetch failure the night after a gate error would have been silently
+    # throttled as "signature unchanged".
     DECISION="gate-error"
-    finish 20 fail "overlap gate script failed (rc=${GATE_RC})"
+    EXTRA="$(printf '```\n%s\n```\nThe gate could not run. This is NOT an overlap trip; `korean` is untouched.' \
+             "$(tail -20 "${TMPDIR}/gate-${REPO}.txt")")"
+    finish 21 fail "overlap gate script failed (rc=${GATE_RC})"
     ;;
 esac
 
