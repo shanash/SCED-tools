@@ -247,6 +247,7 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
     reserve = policy.get("reserve", {})
     ai_stage = int(reserve.get("ai_stage_min", 0))
     run_reserve = int(reserve.get("run_reserve_min", 0))
+    ai_claude = int(reserve.get("ai_claude_min", 0))
 
     # tz.drift -- a machine moved to another zone must be caught, not silently
     # mis-scheduled: every cron expression here was computed for a fixed offset.
@@ -438,6 +439,26 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
     else:
         findings.append(_finding("ai.stagger", "ok",
                                  f"min_stagger_min {min_stagger}m >= {ai_stage + run_reserve}m"))
+
+    # ai.claude-inner -- the inner `claude` wall clock is the DOMINANT term of the
+    # AI stage under the claude-driven rebase (.am/claude-driven-rebase-deploy
+    # design §5.9), so leaving it unvalidated is the wrong thing to leave
+    # unvalidated. Two minutes is the measured fixed overhead of the stage's
+    # deterministic phases: shadow seed, classification, decide, the nine checks
+    # and the attestation commit. `sced-schedule.sh verify` separately checks that
+    # SCED_SYNC_AI_TIMEOUT in ~/.config/sced-sync/env is <= ai_claude_min * 60.
+    if ai_claude < 1:
+        findings.append(_finding("ai.claude-inner", "fail",
+                                 f"reserve.ai_claude_min is {ai_claude}; the inner `claude` "
+                                 f"bound must be at least 1 minute"))
+    elif ai_claude + 2 > ai_stage:
+        findings.append(_finding("ai.claude-inner", "fail",
+                                 f"ai_claude_min {ai_claude}m + 2m of deterministic overhead "
+                                 f"exceeds ai_stage_min {ai_stage}m"))
+    else:
+        findings.append(_finding("ai.claude-inner", "ok",
+                                 f"ai_claude_min {ai_claude}m + 2m <= ai_stage_min {ai_stage}m "
+                                 f"(slack {ai_stage - ai_claude - 2}m)"))
 
     if strict:
         for f in findings:
@@ -963,6 +984,11 @@ def collect(cfg: dict, raw: Path, meta: dict) -> dict:
     obs["env_shadow_keys"] = ([k.strip().rstrip("=") for k in keys.split("\n") if k.strip()]
                               if keys is not None else None)
 
+    # Absent file = the key is unset, which is legal (the stage falls back to its
+    # own default). Only a SET value can drift.
+    ai_timeout = _read(raw / "env-ai-timeout.txt")
+    obs["env_ai_timeout_s"] = int(ai_timeout.strip()) if ai_timeout and ai_timeout.strip() else None
+
     docs = _read(raw / "docs.md")
     if docs is None:
         obs["docs_table"] = None
@@ -1192,6 +1218,31 @@ def compare(cfg: dict, obs: dict, home: str, strict: bool = False) -> list:
         else:
             sites.append(_site("5E", 5, "env-shadow", None, etarget, "(no schedule keys)",
                                "(none)", "ok", "report"))
+
+    # --- site 5F: the inner `claude` bound must fit reserve.ai_claude_min
+    # This is the check that finally gives ai_claude_min a consumer (R-16). The
+    # env file owns the runtime value; sync-schedule.json owns the bound that the
+    # ai.claude-inner invariant validated against ai_stage_min. If the two
+    # disagree, the stage can overrun the envelope the schedule was proved safe
+    # for -- and the failure would only show up as a run that still held the
+    # workspace lock when the sibling repo's job started.
+    ai_claude_min = int((cfg["policy"].get("reserve") or {}).get("ai_claude_min", 0))
+    cap_s = ai_claude_min * 60
+    got_s = obs.get("env_ai_timeout_s")
+    if got_s is None:
+        sites.append(_site("5F", 5, "env-ai-timeout", None, etarget,
+                           f"<= {cap_s}s", "(unset)", "ok", "report",
+                           "unset: the stage uses its own default"))
+    elif got_s > cap_s:
+        sites.append(_site("5F", 5, "env-ai-timeout", None, etarget,
+                           f"<= {cap_s}s", f"{got_s}s", "drift", "report",
+                           f"SCED_SYNC_AI_TIMEOUT exceeds reserve.ai_claude_min "
+                           f"({ai_claude_min}m). Either lower it or raise ai_claude_min "
+                           f"in {cfg.get('_path', 'sync-schedule.json')} -- but raising it "
+                           f"must keep ai_claude_min + 2 <= ai_stage_min."))
+    else:
+        sites.append(_site("5F", 5, "env-ai-timeout", None, etarget,
+                           f"<= {cap_s}s", f"{got_s}s", "ok", "report"))
 
     # --- site 5S: the CI times quoted in the driver's STOP embed
     sm = obs.get("driver_stop_msg") or {}

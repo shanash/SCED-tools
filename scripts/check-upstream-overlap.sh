@@ -17,13 +17,22 @@
 #                             [--upstream-ref REF]  (default: upstream/main)
 #                             [--limit N]           (default: 50)
 #                             [--fetch]
-#                             [--paths-out FILE]    (machine-readable overlap set)
+#                             [--paths-out FILE]          (the overlap set)
+#                             [--fork-paths-out FILE]     (fork-changed set)
+#                             [--upstream-paths-out FILE] (upstream-changed set)
 #                             [--probe]             (repo-readability probe only)
 #
 # --paths-out writes the exact intersection (newline-delimited, LC_ALL=C byte
 # order, no header) to FILE. It is written on BOTH exit 0 (empty file) and exit
 # 10, so a caller can rely on its existence; nothing is written on exit 1 or 2.
 # Human-readable stdout is unaffected.
+#
+# --fork-paths-out and --upstream-paths-out write the two INPUTS of that
+# intersection, with the same idiom and the same guarantees. They exist so a
+# caller can bound a change's blast radius -- a path that appears in neither set
+# was touched by neither side and has no business differing after a rebase. They
+# are inputs to the predicate, never the predicate: the `comm -12` below is the
+# only thing that decides whether the gate trips.
 #
 # --fetch updates the 'origin' and 'upstream' remotes of the selected repo
 # before computing. It is opt-in because the default must never touch the
@@ -32,7 +41,7 @@
 # --probe stops right after the repository-readability guard and exits 0. It
 # exists for the launchd wrapper's TCC canary, which needs to know whether git
 # can read the volume at all — no network, no ref resolution, no diff. --fetch
-# and --paths-out are ignored under --probe.
+# and all three --*-paths-out flags are ignored under --probe.
 #
 # Exit codes:
 #   0  no overlap — an unattended rebase is safe  (or: --probe succeeded)
@@ -50,6 +59,12 @@ FORK_REF="origin/korean"
 UPSTREAM_REF="upstream/main"
 LIMIT=50
 PATHS_OUT=""
+# The two INPUTS of the intersection. --paths-out gives the predicate's result;
+# these give the sets it was computed from, which a caller needs to bound a
+# change's blast radius ("did anything outside what either side touched move?").
+# They are not the predicate and nothing below reads them back.
+FORK_PATHS_OUT=""
+UPSTREAM_PATHS_OUT=""
 FETCH=false
 PROBE=false
 
@@ -73,6 +88,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --paths-out)
       PATHS_OUT="$2"
+      shift 2
+      ;;
+    --fork-paths-out)
+      FORK_PATHS_OUT="$2"
+      shift 2
+      ;;
+    --upstream-paths-out)
+      UPSTREAM_PATHS_OUT="$2"
       shift 2
       ;;
     --fetch)
@@ -203,6 +226,21 @@ if [[ -n "${PATHS_OUT}" ]]; then
   cp "${TMP_DIR}/overlap.txt" "${PATHS_OUT}.tmp" \
     && mv "${PATHS_OUT}.tmp" "${PATHS_OUT}" \
     || { echo "ERROR: could not write --paths-out ${PATHS_OUT}" >&2; exit 2; }
+fi
+
+# Same idiom, same guarantees, for the two INPUTS of the comm above. Written here
+# -- after the comm, before the counts -- so all three land on exit 0 and exit 10
+# alike, and none of them on exit 1 or 2.
+if [[ -n "${FORK_PATHS_OUT}" ]]; then
+  cp "${TMP_DIR}/fork.txt" "${FORK_PATHS_OUT}.tmp" \
+    && mv "${FORK_PATHS_OUT}.tmp" "${FORK_PATHS_OUT}" \
+    || { echo "ERROR: could not write --fork-paths-out ${FORK_PATHS_OUT}" >&2; exit 2; }
+fi
+
+if [[ -n "${UPSTREAM_PATHS_OUT}" ]]; then
+  cp "${TMP_DIR}/upstream.txt" "${UPSTREAM_PATHS_OUT}.tmp" \
+    && mv "${UPSTREAM_PATHS_OUT}.tmp" "${UPSTREAM_PATHS_OUT}" \
+    || { echo "ERROR: could not write --upstream-paths-out ${UPSTREAM_PATHS_OUT}" >&2; exit 2; }
 fi
 
 N_FORK="$(wc -l < "${TMP_DIR}/fork.txt" | tr -d ' ')"

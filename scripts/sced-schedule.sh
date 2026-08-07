@@ -316,6 +316,15 @@ print(json.dumps(out))' "${RAW}/gh-state-${repo}.json" "${RAW}/gh-branch-${repo}
   # never logged, and never leave this line.
   if [[ -r "${ENV_FILE}" ]]; then
     grep -oE '^[A-Za-z_][A-Za-z0-9_]*=' "${ENV_FILE}" > "${RAW}/env-keys.txt" || true
+    # The ONE exception, and it is deliberately narrow: SCED_SYNC_AI_TIMEOUT is
+    # the inner `claude` wall clock in seconds, so it is a schedule number that
+    # happens to live in the secrets file, and leaving it unvalidated is what
+    # made reserve.ai_claude_min dead config in the first place. The pattern
+    # accepts digits only -- a value that is not a bare integer is not extracted
+    # at all, so nothing that could be a secret can be captured by a typo'd key.
+    grep -oE '^SCED_SYNC_AI_TIMEOUT=[0-9]+$' "${ENV_FILE}" 2>/dev/null \
+      | cut -d= -f2 > "${RAW}/env-ai-timeout.txt" || true
+    [[ -s "${RAW}/env-ai-timeout.txt" ]] || rm -f "${RAW}/env-ai-timeout.txt"
   fi
 
   [[ -r "${DOCS}" ]] && cp "${DOCS}" "${RAW}/docs.md"

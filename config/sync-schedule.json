@@ -28,7 +28,7 @@
     "min_ci_margin_min": 20,
     "reserve": {
       "ai_stage_min": 15,
-      "ai_claude_min": 10,
+      "ai_claude_min": 13,
       "run_reserve_min": 10
     },
     "forbid_zero_minute": true,
@@ -56,9 +56,9 @@
       "collision_ack": {
         "ack_for": "0217/0257",
         "at": "2026-07-31",
-        "reason": "AI-stage envelope [02:17..03:12] overlaps com.shanash.kod-auto-improve 03:00+30m by 12 min. Contained: a non-zero `claude` exit yields 65 with `korean` untouched."
+        "reason": "AI-stage envelope [02:17..03:12] overlaps com.shanash.kod-auto-improve 03:00+30m by 12 min. Contained: a non-zero `claude` exit yields 65 with `korean` untouched. Dormant here -- SCED-downloads is behind the rollout gate and runs no AI stage, so today the real overlap is 0."
       },
-      "notes": "Goes first: 1377 fork-changed paths, the longer build."
+      "notes": "Goes first: 1377 fork-changed paths, the longer build. Gated OUT of the claude-driven rebase stage (design §5.11): it has never once tripped the overlap gate, its releases/latest is every mod user's download, and approach (b) does not scale to 1377 paths."
     },
     "SCED": {
       "local_hhmm": "0247",
@@ -73,9 +73,9 @@
       "collision_ack": {
         "ack_for": "0247/0327",
         "at": "2026-07-31",
-        "reason": "AI-stage envelope [02:47..03:42] overlaps com.shanash.kod-auto-improve 03:00+30m by 30 min. Contained as above."
+        "reason": "AI-stage envelope [02:47..03:42] overlaps com.shanash.kod-auto-improve 03:00+30m by 30 min. Contained as above. Under approach (b) -- claude DRIVES the rebase (.am/claude-driven-rebase-deploy) -- the inner `claude` bound is 780s and the session is stateful, so a rate-limit mid-rebase leaves a half-finished rebase rather than a failed read; it is contained by worktree disposal, not avoided. Moving kod-auto-improve to 04:00 would clear this ack outright and is a recommended independent follow-up."
       },
-      "notes": "15 fork-changed paths; `releases/latest` has no downstream consumer."
+      "notes": "3 fork-changed paths after the 2026-08-06 InvestigatorTokens drop (was 15); `releases/latest` has no downstream consumer. This is the ONLY repo wired to the claude-driven rebase stage."
     }
   }
 }

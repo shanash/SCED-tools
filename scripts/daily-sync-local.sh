@@ -19,16 +19,39 @@
 #     (c) create and delete `auto/korean-backup-*` branches on that fork;
 #     (d) send paths and SHAs outbound to a Discord webhook;
 #     (e) execute upstream code (`git rebase upstream/main`) and a locally built,
-#         unreleased Mach-O binary (TTSModManager-Darwin) on this machine.
+#         unreleased Mach-O binary (TTSModManager-Darwin) on this machine;
+#     (f) when -- and only when -- SCED_SYNC_AI_RESOLVE names this repo: send this
+#         repository's conflicting content to Anthropic's API and invoke an LLM
+#         agent holding file-write and `git rebase` capability inside a throwaway
+#         detached worktree, to resolve a tripped overlap gate.
+#         This is the single largest thing a `bootstrap` authorises, and it is off
+#         by default: SCED_SYNC_AI_RESOLVE is empty in ~/.config/sced-sync/env
+#         until someone puts a repo name in it, and blanking that one line is the
+#         kill switch.
 #   `launchctl bootout gui/$(id -u)/com.shanash.sced-daily-sync.<repo>` revokes it
 #   in seconds, and the GHA fallback keeps running either way.
 #
 # WHAT IT WILL NEVER DO
-#   Resolve a rebase conflict. There is no `-X ours`, no `--strategy`, no
-#   `rebase --continue`, and no `rerere` anywhere in this file. The overlap gate
-#   below is a stricter predicate than git's own conflict signal -- on 2026-06-27
-#   both sides had touched 142 files and git reported only 18 -- so when it trips,
-#   the run stops and a human decides.
+#   Resolve a rebase conflict ITSELF. That claim is still literally true of this
+#   file: there is no `-X ours`, no `--strategy`, no `rebase --continue` and no
+#   `rerere` anywhere in it, and the grep in .am/claude-driven-rebase-deploy/
+#   design.md S13 is the standing proof.
+#
+#   What changed is what a TRIPPED gate hands off to. With the stage disabled --
+#   the default, and the only state until SCED_SYNC_AI_RESOLVE names a repo -- the
+#   run stops and a human decides, exactly as before. With it enabled for a repo,
+#   the tripped gate hands off to resolve-rebase-with-ai.sh, which drives a real
+#   rebase in a throwaway worktree, verifies the result against nine checks, and
+#   commits one empty attestation; this script then pushes it or does not.
+#
+#   The never-list is therefore: never push an unverified tree; never resolve when
+#   the stage is disabled; never `rerere`; never touch the primary checkouts (now
+#   asserted at runtime, not merely by this file's structure); and never let
+#   anything but this script push.
+#
+#   The overlap gate below remains a stricter predicate than git's own conflict
+#   signal -- on 2026-06-27 both sides had touched 142 files and git reported only
+#   18 -- and it is still not bypassable: --force never reaches it.
 #
 # Usage:
 #   daily-sync-local.sh --repo <SCED|SCED-downloads> [options]
@@ -40,7 +63,13 @@
 #     --skip-build      stop after the force-push; no build, verify or release
 #     --force           ignore the no-op guard and the staleness guard.
 #                       NEVER ignores the overlap gate.
-#     --no-notify       do not POST to Discord (the payload is still logged)
+#     --no-ai           force the claude-driven resolution stage off for this run.
+#                       The stage is opt-in per repo via SCED_SYNC_AI_RESOLVE and
+#                       is off entirely when that is empty; --no-ai is how a single
+#                       manual run opts out while it is on. Note that --dry-run
+#                       DOES run the stage -- it is the rehearsal path -- and simply
+#                       never pushes.
+#     --no-notify      do not POST to Discord (the payload is still logged)
 #     --keep-scratch    leave the scratch worktree in place for debugging
 #     --keep-backups N  backup branches to retain (default 14)
 #     --help
@@ -54,14 +83,19 @@
 #   5  schedule interlock missing: launchd fired but the plist carried no
 #      SCED_SYNC_SCHED_* bound -- the trigger and the guard have diverged
 #  10  skipped: overlap gate tripped -- human adjudication required
+#  11  skipped: AI resolution stopped by policy -- human adjudication required
 #  20  fetch failed
 #  21  overlap gate script failed (the gate itself errored; the gate did NOT trip)
 #  30  rebase failed after a clean gate (unexpected)
 #  40  backup push, or korean force-push rejected (lease conflict)
 #  50  tag derivation failed / tag already exists
 #  60  build failed
-#  62  Darwin build-equivalence preflight failed (checksum / case collision)
+#  62  Darwin build-equivalence preflight failed (checksum / case / duplicate object)
 #  63  asset verification failed
+#  64  AI stage: shadow seed or overlap classification failed
+#  65  AI stage: claude unavailable, credential failure, or timeout
+#  66  AI stage: attestation manifest invalid (schema / coverage / binding)
+#  67  AI stage: the resolved tree failed verification
 #  70  draft release creation, asset upload, or go-live failed
 
 set -euo pipefail
@@ -75,6 +109,7 @@ REPO=""
 DRY_RUN=false
 SKIP_BUILD=false
 FORCE=false
+NO_AI=false
 NO_NOTIFY=false
 KEEP_SCRATCH=false
 KEEP_BACKUPS=""
@@ -87,6 +122,7 @@ while [[ $# -gt 0 ]]; do
     --dry-run)      DRY_RUN=true; shift ;;
     --skip-build)   SKIP_BUILD=true; shift ;;
     --force)        FORCE=true; shift ;;
+    --no-ai)        NO_AI=true; shift ;;
     --no-notify)    NO_NOTIFY=true; shift ;;
     --keep-scratch) KEEP_SCRATCH=true; shift ;;
     --keep-backups) KEEP_BACKUPS="${2:-}"; shift 2 ;;
@@ -151,6 +187,16 @@ ASSET_FLOOR_PCT=95
 OWNER="shanash"
 MARKER="sced-local-sync: assets-already-attached"
 
+# --- claude-driven rebase resolution (.am/claude-driven-rebase-deploy/design.md)
+#
+# SCED_SYNC_AI_RESOLVE is a comma-separated repo ALLOWLIST and it is the kill
+# switch: empty or unset means the stage never runs and this script behaves
+# exactly as it did before the feature existed. Everything below only matters once
+# a repo is named in it.
+AI_MAX_OVERLAP="${SCED_SYNC_AI_MAX_OVERLAP:-50}"
+AI_CI_OFFSET_MIN="${SCED_SYNC_AI_CI_OFFSET_MIN:-60}"
+KEEP_AI_RUNS="${SCED_SYNC_KEEP_AI_RUNS:-30}"
+
 # Under launchd both bounds arrive from the plist, which carries them alongside
 # the StartCalendarInterval trigger so the two cannot drift apart. The literals
 # below are MANUAL-RUN FALLBACKS ONLY; the source of truth is
@@ -186,6 +232,10 @@ UPSTREAM_SHA=""
 UPSTREAM_DATE=""
 MERGE_BASE=""
 OVERLAP_COUNT=0
+# Digest of the overlap SET, not its size. The notification signature is keyed on
+# this so a stall that swaps one path for another breaks through the throttle
+# instead of looking "unchanged" at a constant count.
+OVERLAP_SHA256=""
 BACKUP=""
 BASE=""
 TAG=""
@@ -200,6 +250,15 @@ LOG_FILE=""
 LOCK_HELD=false
 NOTIFIED=false
 EXTRA=""
+
+# AI stage, run-scoped. AI_ACTIVE is the ONE flag that branches the rebase; the
+# rest is reporting. AI_RESULT_JSON is the file write_state() embeds verbatim.
+AI_ACTIVE=false
+AI_BIN=""
+AI_REASON=""
+AI_OUTCOME="skipped"
+AI_RUN_DIR=""
+AI_RESULT_JSON=""
 
 # --------------------------------------------------------------------- logging
 
@@ -246,15 +305,108 @@ with_timeout() {
   return "${rc}"
 }
 
+# ------------------------------------------------------- AI resolution stage
+#
+# This script still drives NO rebase resolution of its own: when the stage is
+# enabled the tripped gate hands off to resolve-rebase-with-ai.sh, which is
+# treated as a black box with an exit-code contract exactly as
+# check-upstream-overlap.sh already is. That is what keeps this file free of
+# `git add`, `git commit`, `rebase --continue`, `-X ours` and `rerere`.
+
+# Runtime resolution, never a hardcoded nvm path: node upgrades move it, and
+# `claude` is NOT on the launchd PATH. `sort -V` rather than plain `tail -1`,
+# because lexical order ranks v9.x above v20.18.1.
+resolve_claude() {
+  local c=""
+  if [[ -n "${SCED_SYNC_CLAUDE_BIN:-}" ]]; then
+    [[ -x "${SCED_SYNC_CLAUDE_BIN}" ]] && printf '%s\n' "${SCED_SYNC_CLAUDE_BIN}"
+    return
+  fi
+  c="$(command -v claude 2>/dev/null || true)"
+  if [[ -z "${c}" ]]; then
+    c="$(ls -d "${HOME}"/.nvm/versions/node/*/bin/claude 2>/dev/null | LC_ALL=C sort -V | tail -1 || true)"
+  fi
+  [[ -n "${c}" && -x "${c}" ]] && printf '%s\n' "${c}"
+}
+
+# Six gates, every failure logged and NON-FATAL: a night that cannot run the stage
+# degrades to today's behaviour -- a stop at the gate -- rather than failing.
+# Always called from an `if` condition, which is what makes the `&& { ...; return 1; }`
+# form safe under `set -e`.
+ai_should_run() {
+  if [[ "${NO_AI}" == true ]]; then
+    AI_REASON="--no-ai"; log "ai: skipped (--no-ai)"; return 1
+  fi
+  case ",${SCED_SYNC_AI_RESOLVE:-}," in
+    *",${REPO},"*) ;;
+    *) AI_REASON="repo not enabled"
+       log "ai: skipped (${REPO} not in SCED_SYNC_AI_RESOLVE)"; return 1 ;;
+  esac
+  AI_BIN="$(resolve_claude)"
+  if [[ -z "${AI_BIN}" ]]; then
+    AI_REASON="no binary"; log "ai: skipped (no claude binary found)"; return 1
+  fi
+  if [[ -z "${ANTHROPIC_API_KEY:-}${CLAUDE_CODE_OAUTH_TOKEN:-}" ]]; then
+    AI_REASON="no credential"
+    log "ai: skipped (no credential in ${ENV_FILE})"; return 1
+  fi
+  # 50, not the audit path's 2000. Approach (b) holds the whole resolution in one
+  # session inside one wall-clock bound; the ceiling is the scoping decision made
+  # explicit, not a tuning knob.
+  if [[ "${OVERLAP_COUNT}" -gt "${AI_MAX_OVERLAP}" ]]; then
+    AI_REASON="overlap too large (${OVERLAP_COUNT} > ${AI_MAX_OVERLAP})"
+    log "ai: skipped (${AI_REASON})"; return 1
+  fi
+  if [[ $(( $(date +%s) - STARTED_EPOCH )) -ge 300 ]]; then
+    AI_REASON="late start"
+    log "ai: skipped (already $(( $(date +%s) - STARTED_EPOCH ))s into the run)"; return 1
+  fi
+  return 0
+}
+
+# The Discord `detail` for an AI stop. Reads decide.json field by field -- never
+# sources it -- and points at the artifact directory, because on an ai-stop the
+# agent has already ruled on everything and its rulings are readable.
+ai_stop_extra() {
+  local reason="" rules=""
+  if [[ -f "${AI_RUN_DIR}/decide.json" ]]; then
+    reason="$(python3 -c 'import json,sys
+d = json.load(open(sys.argv[1]))
+print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>/dev/null || echo '')"
+    # No f-string here on purpose: this whole program is inside a single-quoted
+    # -c argument, so an escaped double quote reaches python as a backslash and
+    # `f"{r[\"rule\"]}"` is a SyntaxError -- one that fails silently through the
+    # `|| echo ''` and empties the field this notification exists to carry.
+    rules="$(python3 -c 'import json,sys
+d = json.load(open(sys.argv[1]))
+for r in d.get("rules", []):
+    if r.get("status") == "fail":
+        for line in (r.get("detail") or [])[:4]:
+            print("  rule %s %s: %s" % (r.get("rule"), r.get("name"), line))' "${AI_RUN_DIR}/decide.json" 2>/dev/null || echo '')"
+  fi
+  if [[ -z "${reason}" && -f "${AI_RUN_DIR}/stage-error.txt" ]]; then
+    reason="$(head -3 "${AI_RUN_DIR}/stage-error.txt")"
+  fi
+  printf '```\n%s\n%s\n```\nArtifacts: `%s`\nRead `decide.json`, `verify.log`, `seed-diff.patch` and `manifest.json` there: the agent has already ruled on every overlap path and its rulings are readable.' \
+    "${reason:-no reason recorded}" "${rules}" "${AI_RUN_DIR#"${WORKSPACE}"/}"
+}
+
 # --------------------------------------------------------------- notification
 
 # Colours: released green, noop/stale grey, stop orange (a person is needed, not a
-# breakage), fail red.
+# breakage), ai-stop violet, fail red.
+#
+# ai-stop gets its own colour rather than reusing orange because the two mean
+# different things to whoever reads the channel: `stop` means nobody has looked at
+# the overlap yet, `ai-stop` means the agent looked at all of it, resolved it, and
+# the rules refused to ship the result -- so there is a manifest, a verify log and
+# a seed diff already waiting to be read.
 notify_color() {
   case "$1" in
     released)        echo 3066993 ;;
     noop|stale-skip) echo 9807270 ;;
     stop)            echo 15105570 ;;
+    ai-stop)         echo 10181046 ;;
     *)               echo 15158332 ;;
   esac
 }
@@ -283,6 +435,13 @@ should_notify() {
       send=0
     elif [[ "${streak}" -le 3 ]]; then
       send=1
+    elif [[ "${streak}" -ge "${SCED_SYNC_STALL_ESCALATE:-7}" ]]; then
+      # Escalation. Decaying to weekly after three nights is exactly how a stall
+      # becomes invisible: 2026-08-06 the SCED overlap stall reached streak 4 and
+      # the next scheduled Discord message was six nights away. A stall that has
+      # survived this many runs is MORE worth saying, not less, so it breaks
+      # through regardless of when the last send was.
+      send=1
     elif [[ $((now - p_last)) -ge 604800 ]]; then
       send=1
     fi
@@ -295,6 +454,24 @@ should_notify() {
   return $((1 - send))
 }
 
+# Read-only companion to should_notify(): what streak WOULD this run record?
+# should_notify() is called after the payload is built (so that --no-notify can
+# print a payload without mutating throttle state), so the streak has to be
+# peeked rather than returned. Never writes SIGFILE.
+peek_streak() {
+  local kind="$1" sig="$2"
+  local p_kind="" p_sig="" p_first=0 p_last=0 p_streak=0
+  if [[ -f "${SIGFILE}" ]]; then
+    { read -r p_kind; read -r p_sig; read -r p_first; read -r p_last; read -r p_streak; } < "${SIGFILE}" 2>/dev/null || true
+  fi
+  : "${p_streak:=0}"
+  if [[ "${kind}" == "${p_kind}" && "${sig}" == "${p_sig}" ]]; then
+    echo $((p_streak + 1))
+  else
+    echo 1
+  fi
+}
+
 notify() {
   local kind="$1" title="$2" code="$3"
   [[ "${NOTIFIED}" == true ]] && return 0
@@ -303,7 +480,17 @@ notify() {
   local now sig
   now="$(date +%s)"
   case "${kind}" in
-    stop) sig="overlap:${MERGE_BASE}:${OVERLAP_COUNT}" ;;
+    # Keyed on the overlap SET's digest, not its COUNT. A stall that swaps one
+    # path for another holds the count constant, so a count-keyed signature
+    # reported "unchanged" and the change was throttled into invisibility.
+    stop) sig="overlap:${MERGE_BASE}:${OVERLAP_SHA256:0:12}" ;;
+    # Keyed on the INPUT, not the outcome. A sticky stall produces a stable
+    # signature, which is the assumption the whole throttle rests on; keying an
+    # ai-stop on which rule failed would make a night that stops for a different
+    # reason on the same unchanged overlap look like news, and a night that stops
+    # for the same reason on a CHANGED overlap look like more of the same. The
+    # second of those is the one that matters.
+    ai-stop) sig="ai:${MERGE_BASE}:${OVERLAP_SHA256:0:12}" ;;
     # DECISION is in the signature because one code can be reached from several
     # places (20 = no upstream remote / fetch origin / fetch upstream / worktree
     # add). Without it, a change of failure MODE at a constant code is invisible
@@ -315,6 +502,8 @@ notify() {
   local payload
   payload="$(
     KIND="${kind}" TITLE="${title}" CODE="${code}" COLOR="$(notify_color "${kind}")" \
+    STREAK="$(peek_streak "${kind}" "${sig}")" \
+    ESCALATE="${SCED_SYNC_STALL_ESCALATE:-7}" \
     REPO="${REPO}" OWNER="${OWNER}" MENTION="${SCED_SYNC_MENTION:-}" \
     DURATION="$(( $(date +%s) - STARTED_EPOCH ))" \
     FORK_SHA="${FORK_SHA}" KOREAN_SHA="${KOREAN_SHA}" UPSTREAM_SHA="${UPSTREAM_SHA}" \
@@ -328,10 +517,20 @@ e = os.environ.get
 kind, code = e("KIND", ""), e("CODE", "")
 mention = e("MENTION", "")
 grade = {"released": "released", "noop": "no-op", "stale-skip": "skipped",
-         "stop": "STOP", "fail": "FAIL"}.get(kind, kind)
+         "stop": "STOP", "ai-stop": "AI-STOP", "fail": "FAIL"}.get(kind, kind)
+# The three kinds that mean "a person is needed". Kept as one tuple so a new kind
+# cannot be added to the colour map and silently forgotten here.
+NEEDS_A_PERSON = ("stop", "ai-stop", "fail")
 
-head = f'[{e("REPO")}] {grade} · {e("TITLE")}'
-content = (mention + " " + head).strip() if kind in ("stop", "fail") and mention else head
+# A stall that has survived ESCALATE runs says so in the title. Without this the
+# only signal of a deepening stall was its absence from the channel.
+streak, escalate = int(e("STREAK", "1") or 1), int(e("ESCALATE", "7") or 7)
+title = e("TITLE", "")
+if kind in NEEDS_A_PERSON and streak >= escalate:
+    title = f"{title} — unchanged for {streak} runs"
+
+head = f'[{e("REPO")}] {grade} · {title}'
+content = (mention + " " + head).strip() if kind in NEEDS_A_PERSON and mention else head
 
 def short(s):
     return f"`{s[:8]}`" if s else "-"
@@ -383,7 +582,7 @@ if e("EXTRA"):
     fields.append({"name": "detail", "value": detail, "inline": False})
 
 embed = {
-    "title": e("TITLE"),
+    "title": title,
     "color": int(e("COLOR")),
     "timestamp": e("TS"),
     "fields": fields,
@@ -426,6 +625,8 @@ write_state() {
   MERGE_BASE="${MERGE_BASE}" OVERLAP="${OVERLAP_COUNT}" BACKUP="${BACKUP}" \
   TAG="${TAG}" PREV_TAG="${PREV_TAG}" ASSETS="${N_NEW}" PREV_ASSETS="${N_PREV}" \
   RELEASE_URL="${RELEASE_URL}" PROVENANCE="${PROVENANCE}" LOGF="${LOG_FILE}" \
+  AI_ACTIVE="${AI_ACTIVE}" AI_OUTCOME="${AI_OUTCOME}" AI_REASON="${AI_REASON}" \
+  AI_BIN="${AI_BIN}" AI_RUN_DIR="${AI_RUN_DIR}" AI_RESULT="${AI_RESULT_JSON}" \
   OUT="${STATEFILE}" \
   python3 <<'PY' || log "state: write failed"
 import json, os
@@ -434,7 +635,11 @@ def num(k):
     try:    return int(e(k, "0") or 0)
     except ValueError: return 0
 doc = {
-    "schema": 1,
+    # Schema 2 is ADDITIVE ONLY. Every schema-1 top-level key keeps its name, its
+    # position and its type, because `:1029`'s offline asset-count baseline reads
+    # this file back and any external reader must keep working. All new material
+    # is nested under "ai".
+    "schema": 2,
     "repo": e("REPO"),
     "started_at": e("STARTED_AT"),
     "finished_at": e("FINISHED_AT"),
@@ -455,6 +660,32 @@ doc = {
     "build_provenance": e("PROVENANCE"),
     "log": e("LOGF"),
 }
+
+# The stage writes the full `ai` object (design §3.3) as result.json once it has
+# verified the tree, so on a successful night this is a straight embed rather than
+# a second, drifting transcription. On every other path -- skipped, stopped,
+# errored -- result.json does not exist and the minimum is recorded instead.
+ai = {
+    "enabled": e("AI_ACTIVE") == "true",
+    "mode": "drive",
+    "outcome": e("AI_OUTCOME") or "skipped",
+    "reason": e("AI_REASON") or "",
+    "binary": e("AI_BIN") or "",
+    "artifact_dir": e("AI_RUN_DIR") or "",
+}
+result_path = e("AI_RESULT") or ""
+if result_path and os.path.isfile(result_path):
+    try:
+        with open(result_path) as fh:
+            loaded = json.load(fh)
+        if isinstance(loaded, dict):
+            loaded.update({k: v for k, v in ai.items()
+                           if k in ("enabled", "outcome", "reason") and v not in (None, "")})
+            ai = loaded
+    except (OSError, ValueError):
+        ai["reason"] = (ai["reason"] + "; result.json unreadable").strip("; ")
+doc["ai"] = ai
+
 out = e("OUT")
 with open(out + ".tmp", "w") as fh:
     json.dump(doc, fh, indent=2, ensure_ascii=False)
@@ -482,6 +713,18 @@ cleanup() {
     # shellcheck disable=SC2012
     ls -1t "${STATE_ROOT}/logs/${REPO}-"*.log 2>/dev/null \
       | tail -n +"$((KEEP_LOGS + 1))" | while read -r old; do rm -f "${old}"; done
+  fi
+  # Same idiom as the log pruner above, one directory deeper. Names are timestamps
+  # written by this script, and the `-n` guard means a blank line from an empty
+  # listing can never expand into the parent directory.
+  if [[ -d "${STATE_ROOT}/ai/${REPO}" ]]; then
+    # shellcheck disable=SC2012
+    ls -1t "${STATE_ROOT}/ai/${REPO}" 2>/dev/null \
+      | tail -n +"$((KEEP_AI_RUNS + 1))" \
+      | while read -r old; do
+          [[ -n "${old}" && -d "${STATE_ROOT}/ai/${REPO}/${old}" ]] \
+            && rm -rf "${STATE_ROOT:?}/ai/${REPO}/${old}"
+        done
   fi
   if [[ "${LOCK_HELD}" == true ]]; then
     rm -f "${LOCK}/owner"
@@ -663,6 +906,9 @@ set +e
 # A manual run is unaffected: ${BASH} is whatever bash is already running us.
 "${BASH:-/bin/bash}" "${SCRIPT_DIR}/check-upstream-overlap.sh" --repo "${REPO}" \
   --fork-ref "${FORK_SHA}" --upstream-ref "${UPSTREAM_SHA}" --limit 200 \
+  --paths-out "${TMPDIR}/overlap-${REPO}.txt" \
+  --fork-paths-out "${TMPDIR}/fork-changed-${REPO}.txt" \
+  --upstream-paths-out "${TMPDIR}/upstream-changed-${REPO}.txt" \
   > "${TMPDIR}/gate-${REPO}.txt" 2>&1
 GATE_RC=$?
 set -e
@@ -670,15 +916,35 @@ cat "${TMPDIR}/gate-${REPO}.txt"
 MERGE_BASE="$(sed -n 's/^Merge base: *//p' "${TMPDIR}/gate-${REPO}.txt" | head -1)"
 OVERLAP_COUNT="$(sed -n 's/^Overlap: *//p' "${TMPDIR}/gate-${REPO}.txt" | head -1)"
 : "${OVERLAP_COUNT:=0}"
+# The gate guarantees --paths-out on exit 0 and 10 and writes nothing on 1/2, so
+# an absent file here means the gate errored and the digest stays empty.
+if [[ -f "${TMPDIR}/overlap-${REPO}.txt" ]]; then
+  OVERLAP_SHA256="$(shasum -a 256 < "${TMPDIR}/overlap-${REPO}.txt" | cut -d' ' -f1)"
+fi
 
 case "${GATE_RC}" in
-  0) DECISION="proceed" ;;
+  0) DECISION="proceed"; AI_REASON="gate clean -- nothing to resolve" ;;
   10)
-    DECISION="stop-overlap"
-    EXTRA="$(printf '```\n%s\n```\nNext: `SCED-tools/scripts/check-upstream-overlap.sh --repo %s`\nThe GHA fallback fires at %s KST and stops at the same gate.' \
-             "$(sed -n '/^Overlapping paths/,$p' "${TMPDIR}/gate-${REPO}.txt" | head -20)" "${REPO}" \
-             "$([[ "${REPO}" == SCED ]] && echo 03:47 || echo 03:17)")"
-    finish 10 stop "overlap gate tripped (${OVERLAP_COUNT} files)"
+    # The gate is still NOT bypassable: --force never reaches here, the predicate
+    # still ran, and it still returned 10. What changes is only what a TRIPPED gate
+    # hands off to. With the stage disabled -- which is the default, and the only
+    # state until SCED_SYNC_AI_RESOLVE names a repo -- this branch is byte-identical
+    # to what it has always done.
+    if ai_should_run; then
+      AI_ACTIVE=true
+      AI_OUTCOME="proceed"
+      AI_RUN_DIR="${STATE_ROOT}/ai/${REPO}/${RUN_STAMP}"
+      mkdir -p "${AI_RUN_DIR}"
+      DECISION="proceed-ai"
+      log "ai: enabled for ${REPO} -- ${OVERLAP_COUNT} overlap path(s) will be adjudicated"
+      log "ai: binary ${AI_BIN}, artifacts ${AI_RUN_DIR}"
+    else
+      DECISION="stop-overlap"
+      EXTRA="$(printf '```\n%s\n```\nNext: `SCED-tools/scripts/check-upstream-overlap.sh --repo %s`\nThe GHA fallback fires at %s KST and stops at the same gate.' \
+               "$(sed -n '/^Overlapping paths/,$p' "${TMPDIR}/gate-${REPO}.txt" | head -20)" "${REPO}" \
+               "$([[ "${REPO}" == SCED ]] && echo 03:47 || echo 03:17)")"
+      finish 10 stop "overlap gate tripped (${OVERLAP_COUNT} files)"
+    fi
     ;;
   *)
     # 21, not 20: a gate-script ERROR is not a fetch failure, and sharing 20
@@ -712,20 +978,87 @@ fi
 
 # --------------------------------------------------------------------- rebase
 
-# Detached rebase. `checkout -B korean` (what the GHA workflow does) is not
-# available here: the primary checkout already holds that branch and git refuses.
-# The result is identical and no local ref moves.
-if ! g "${WT}" rebase "${UPSTREAM_SHA}"; then
-  g "${WT}" rebase --abort || true
-  DECISION="rebase"
-  EXTRA="The overlap gate was clean, so this is unexpected. No resolution was attempted."
-  finish 30 fail "rebase failed after a clean gate"
+# Two explicit call sites, never one flag-array invocation: /bin/bash here is
+# 3.2.57 and expanding an empty array under `set -u` is an error there.
+#
+# The AI branch performs NO rebase of its own. It hands the tripped gate to the
+# stage, which owns the shadow seed, the agent, the ten rules, the nine checks and
+# the attestation commit. This script's structural claim survives intact: there is
+# still no `git add`, no `git commit`, no `--strategy`, no `rebase --continue` and
+# no `rerere` in it.
+if [[ "${AI_ACTIVE}" == true ]]; then
+  set +e
+  # ${BASH} for the same reason as the gate call above: keeping the whole pipeline
+  # on one image keeps it out of TCC's responsible-process reattribution.
+  "${BASH:-/bin/bash}" "${SCRIPT_DIR}/resolve-rebase-with-ai.sh" \
+    --repo "${REPO}" --worktree "${WT}" \
+    --merge-base "${MERGE_BASE}" --fork-ref "${FORK_SHA}" --upstream-ref "${UPSTREAM_SHA}" \
+    --overlap "${TMPDIR}/overlap-${REPO}.txt" \
+    --fork-paths "${TMPDIR}/fork-changed-${REPO}.txt" \
+    --upstream-paths "${TMPDIR}/upstream-changed-${REPO}.txt" \
+    --run-dir "${AI_RUN_DIR}" --claude-bin "${AI_BIN}"
+  AI_RC=$?
+  set -e
+  AI_RESULT_JSON="${AI_RUN_DIR}/result.json"
+  case "${AI_RC}" in
+    0)  log "ai: applied" ;;
+    11) DECISION="ai-stop"; AI_OUTCOME="stop"
+        AI_REASON="stopped by policy"
+        EXTRA="$(ai_stop_extra)"
+        finish 11 ai-stop "AI resolution stopped by policy -- korean untouched" ;;
+    62) DECISION="ai-verify"; AI_OUTCOME="error"
+        AI_REASON="case collision or duplicate TTS object GUID"
+        EXTRA="$(ai_stop_extra)"
+        finish 62 fail "AI resolution introduced a case collision or a duplicate object" ;;
+    64) DECISION="ai-seed"; AI_OUTCOME="error"; AI_REASON="seed or classification failed"
+        EXTRA="$(ai_stop_extra)"
+        finish 64 fail "AI stage: shadow seed or classification failed" ;;
+    65) DECISION="ai-claude"; AI_OUTCOME="error"; AI_REASON="claude unavailable or timed out"
+        EXTRA="$(ai_stop_extra)"
+        finish 65 fail "AI stage: claude unavailable, credential failure, or timeout" ;;
+    66) DECISION="ai-manifest"; AI_OUTCOME="error"; AI_REASON="manifest invalid"
+        EXTRA="$(ai_stop_extra)"
+        finish 66 fail "AI stage: the attestation manifest is invalid" ;;
+    *)  DECISION="ai-verify"; AI_OUTCOME="error"; AI_REASON="tree failed verification"
+        EXTRA="$(ai_stop_extra)"
+        finish 67 fail "AI stage: the resolved tree failed verification (rc=${AI_RC})" ;;
+  esac
+else
+  # Detached rebase. `checkout -B korean` (what the GHA workflow does) is not
+  # available here: the primary checkout already holds that branch and git refuses.
+  # The result is identical and no local ref moves.
+  if ! g "${WT}" rebase "${UPSTREAM_SHA}"; then
+    g "${WT}" rebase --abort || true
+    DECISION="rebase"
+    EXTRA="The overlap gate was clean, so this is unexpected. No resolution was attempted."
+    finish 30 fail "rebase failed after a clean gate"
+  fi
 fi
 KOREAN_SHA="$(g "${WT}" rev-parse HEAD)"
 if [[ -n "$(g "${WT}" status --porcelain)" ]]; then
   DECISION="rebase"; finish 30 fail "worktree is dirty after the rebase"
 fi
 log "rebased: ${FORK_SHA} -> ${KOREAN_SHA}"
+
+# ------------------------------------------------------------ push-window guard
+#
+# AI branch only. Absolute as well as elapsed, and the absolute half is the one
+# that matters: the staleness guard permits a start as late as LATEST_HHMM, so an
+# elapsed-only budget would still allow a push AFTER the GHA fallback has begun
+# its own run against the pre-push merge base. Two tiers writing the same branch
+# minutes apart is the one race this whole design is arranged to avoid.
+if [[ "${AI_ACTIVE}" == true ]]; then
+  CI_MIN=$(( SCHED_MIN + AI_CI_OFFSET_MIN ))
+  NOW_MIN=$(( 10#$(date +%H) * 60 + 10#$(date +%M) ))
+  if [[ "${NOW_MIN}" -ge $((CI_MIN - 10)) ]] || [[ $(( $(date +%s) - STARTED_EPOCH )) -gt 1500 ]]; then
+    DECISION="ai-stop"
+    AI_OUTCOME="stop"
+    AI_REASON="completed too late to push"
+    EXTRA="$(printf 'The AI resolution completed and verified, but it is now %s and the GHA fallback starts at %02d:%02d. Refusing to push into its window; `korean` is untouched and the resolution is in `%s`.' \
+             "$(date +%H:%M)" "$((CI_MIN / 60))" "$((CI_MIN % 60))" "${AI_RUN_DIR#"${WORKSPACE}"/}")"
+    finish 11 ai-stop "AI resolution completed too late to push"
+  fi
+fi
 
 # ----------------------------------------------------------------- force-push
 
@@ -876,8 +1209,13 @@ repo_build() {
       cp -R "${WT}"/xml/* "${WT}/SCED/xml/"
 
       # Runtime-only patch, inside a scratch worktree that is deleted at the end of
-      # the run. It cannot reach a commit: this script contains no `git add` and no
-      # `git commit`, and the push already happened above.
+      # the run. It cannot reach a commit, and the reason is worth restating now
+      # that the workspace does contain a script which commits: the only commit
+      # ever made on this tip is the empty attestation, created by
+      # ai-rebase-verify.py BEFORE the force-push and therefore before this hunk
+      # runs. By the time control gets here the push has already happened, this
+      # script still contains no `git add` and no `git commit`, and nothing
+      # downstream of the push can reach one either.
       sed -i '' 's|"modexec": "\./TTSModManager-Linux"|"modexec": "./TTSModManager-Darwin"|' "${WT}/build.py"
       grep -q '"modexec": "./TTSModManager-Darwin"' "${WT}/build.py" || return 1
       [[ "$(g "${WT}" status --porcelain -- build.py)" == " M build.py" ]] || return 1
