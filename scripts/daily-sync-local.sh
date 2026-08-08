@@ -28,6 +28,11 @@
 #         by default: SCED_SYNC_AI_RESOLVE is empty in ~/.config/sced-sync/env
 #         until someone puts a repo name in it, and blanking that one line is the
 #         kill switch.
+#     (g) when -- and only when -- SCED_SYNC_FAILOVER names this repo: on a run
+#         that FAILS, dispatch the GitHub Actions fallback directly rather than
+#         waiting for its schedule. Delegated to sced-failover.sh; this file only
+#         decides whether dispatching is safe. Off by default and revoked by
+#         blanking that one line, exactly like (f).
 #   `launchctl bootout gui/$(id -u)/com.shanash.sced-daily-sync.<repo>` revokes it
 #   in seconds, and the GHA fallback keeps running either way.
 #
@@ -69,7 +74,12 @@
 #                       manual run opts out while it is on. Note that --dry-run
 #                       DOES run the stage -- it is the rehearsal path -- and simply
 #                       never pushes.
-#     --no-notify      do not POST to Discord (the payload is still logged)
+#     --no-failover     do not dispatch the GHA fallback if this run fails. The
+#                       failover is opt-in per repo via SCED_SYNC_FAILOVER and is
+#                       off entirely when that is empty; --no-failover is how a
+#                       single manual run opts out while it is on. --dry-run never
+#                       dispatches regardless.
+#     --no-notify       do not POST to Discord (the payload is still logged)
 #     --keep-scratch    leave the scratch worktree in place for debugging
 #     --keep-backups N  backup branches to retain (default 14)
 #     --help
@@ -110,6 +120,7 @@ DRY_RUN=false
 SKIP_BUILD=false
 FORCE=false
 NO_AI=false
+NO_FAILOVER=false
 NO_NOTIFY=false
 KEEP_SCRATCH=false
 KEEP_BACKUPS=""
@@ -123,6 +134,7 @@ while [[ $# -gt 0 ]]; do
     --skip-build)   SKIP_BUILD=true; shift ;;
     --force)        FORCE=true; shift ;;
     --no-ai)        NO_AI=true; shift ;;
+    --no-failover)  NO_FAILOVER=true; shift ;;
     --no-notify)    NO_NOTIFY=true; shift ;;
     --keep-scratch) KEEP_SCRATCH=true; shift ;;
     --keep-backups) KEEP_BACKUPS="${2:-}"; shift 2 ;;
@@ -197,6 +209,17 @@ AI_MAX_OVERLAP="${SCED_SYNC_AI_MAX_OVERLAP:-50}"
 AI_CI_OFFSET_MIN="${SCED_SYNC_AI_CI_OFFSET_MIN:-60}"
 KEEP_AI_RUNS="${SCED_SYNC_KEEP_AI_RUNS:-30}"
 
+# --- GHA failover (.am/local-failure-gha-failover/design.md)
+#
+# SCED_SYNC_FAILOVER is a comma-separated repo ALLOWLIST and it is the kill
+# switch, exactly like SCED_SYNC_AI_RESOLVE above: empty or unset means the
+# dispatch never happens and this script behaves exactly as it did before the
+# feature existed. 60 s rather than NET_TIMEOUT's 120: the measured dispatch
+# completed end to end in 11 s, and this call sits inside finish(), which holds
+# the workspace lock until it returns. It bounds the `gh workflow run` call ONLY,
+# never sced-failover.sh as a whole -- the COST note in finish() has the real sum.
+FAILOVER_TIMEOUT="${SCED_SYNC_FAILOVER_TIMEOUT:-60}"
+
 # Under launchd both bounds arrive from the plist, which carries them alongside
 # the StartCalendarInterval trigger so the two cannot drift apart. The literals
 # below are MANUAL-RUN FALLBACKS ONLY; the source of truth is
@@ -259,6 +282,30 @@ AI_REASON=""
 AI_OUTCOME="skipped"
 AI_RUN_DIR=""
 AI_RESULT_JSON=""
+
+# GHA failover, run-scoped.
+#
+# PUSHED is the flag the dispatch predicate keys on, and it exists because the
+# EXIT CODE ALONE IS NOT ENOUGH: exit 40 is reached from two places on opposite
+# sides of the force-push (:973 backup-push failed, :1073 lease broken), and the
+# second of those means something else is writing korean right now -- the worst
+# possible moment to hand CI a run that will force-push it.
+PUSHED=false
+FAILOVER_ATTEMPTED=false
+FAILOVER_OUTCOME="off"
+FAILOVER_REASON=""
+FAILOVER_SIG="fo-off"
+# Which CLASS of refusal failover_should_run() produced, and the ONLY thing that
+# decides `off` from `refused`. "off" = the failover does not apply to this run at
+# all (gates 1-4: --dry-run, --no-failover, repo not in the allowlist, or the run
+# did not fail). "refused" = it applies and the predicate deliberately declined
+# (gates 5-8). The 03:00 operator needs those apart: the first is a config answer,
+# the second is a ruling with its three inputs recorded beside it.
+FAILOVER_CLASS="off"
+FAILOVER_RUN_ID=""
+FAILOVER_RUN_URL=""
+FAILOVER_LINE=""
+FAILOVER_FIELD=""
 
 # --------------------------------------------------------------------- logging
 
@@ -361,6 +408,174 @@ ai_should_run() {
     AI_REASON="late start"
     log "ai: skipped (already $(( $(date +%s) - STARTED_EPOCH ))s into the run)"; return 1
   fi
+  return 0
+}
+
+# ------------------------------------------------------------------- failover
+
+# R12 / design Decision 3. The "already fired tonight" record. It lives in
+# last-run.json, is keyed by the UTC date, and therefore SELF-EXPIRES with no
+# cleanup step at all -- the exact property Alt-7 lacked when it was rejected for
+# state leakage. It never touches a remote, a ref or a lock.
+#
+# The whole nightly band (02:17-03:35 KST) maps to 17:17-18:35 UTC of the previous
+# day, so one UTC date groups one night. Same convention as the backup branch name.
+failover_already_fired() {
+  [[ -r "${STATEFILE}" ]] || return 1
+  FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
+import json, os, sys
+try:
+    d = json.load(open(sys.argv[1]))
+except Exception:
+    sys.exit(1)
+f = d.get("failover") or {}
+sys.exit(0 if f.get("date") == os.environ["FO_TODAY"] and f.get("outcome") == "dispatched" else 1)
+' "${STATEFILE}" 2>/dev/null
+}
+
+# Eight gates, every refusal logged. Always called from an `if`, which is what
+# makes the form safe under `set -e` -- same contract as ai_should_run() above.
+#
+# The allow-list is DEFAULT DENY on purpose: a future exit code cannot dispatch by
+# accident, it has to be added here deliberately.
+failover_should_run() {
+  local code="$1" kind="$2"
+
+  if [[ "${DRY_RUN}" == true ]]; then
+    FAILOVER_CLASS="off"; FAILOVER_REASON="--dry-run"; log "failover: skipped (--dry-run)"; return 1
+  fi
+  if [[ "${NO_FAILOVER}" == true ]]; then
+    FAILOVER_CLASS="off"; FAILOVER_REASON="--no-failover"; log "failover: skipped (--no-failover)"; return 1
+  fi
+  case ",${SCED_SYNC_FAILOVER:-}," in
+    *",${REPO},"*) ;;
+    *) FAILOVER_CLASS="off"; FAILOVER_REASON="repo not enabled"
+       log "failover: skipped (${REPO} not in SCED_SYNC_FAILOVER)"; return 1 ;;
+  esac
+  # kind != fail covers exits 0 (noop / skip-build / dry-run / released),
+  # 4 (stale-skip: the GHA fallback already owns tonight), 10 (overlap gate) and
+  # 11 (AI-STOP). 10 and 11 are DESIGNED SKIPS where a human is required: CI has no
+  # AI stage, so dispatching there trips the same gate, opens an Issue an hour
+  # early, and -- because stalls are sticky -- would do so every night until someone
+  # acts, while a completed adjudication sits unread in .local-sync/ai/.
+  if [[ "${kind}" != fail ]]; then
+    FAILOVER_CLASS="off"; FAILOVER_REASON="kind=${kind} is a designed outcome, not a failure"
+    log "failover: skipped (${FAILOVER_REASON})"; return 1
+  fi
+  # ---- CLASS BOUNDARY. Gates 1-4 above are the "does not apply" class; 5-8 below
+  # are the predicate proper and are reachable only when kind == fail. A new gate
+  # must declare FAILOVER_CLASS explicitly and must go on the correct side of this
+  # line -- failover_dispatch() reads nothing else to tell `off` from `refused`.
+  case "${code}" in
+    2|5|20|21|30|40|50|60|62|63|70) ;;
+    *) FAILOVER_CLASS="refused"; FAILOVER_REASON="exit ${code} is not in the dispatch set"
+       log "failover: skipped (${FAILOVER_REASON})"; return 1 ;;
+  esac
+  # One structural refusal that generalises the 10/11 rule to every AI exit code.
+  # Before the push korean is still at the pre-rebase tip, so CI would compute the
+  # same merge base and trip the same gate.
+  if [[ "${AI_ACTIVE}" == true && "${PUSHED}" != true ]]; then
+    FAILOVER_CLASS="refused"
+    FAILOVER_REASON="AI stage stopped before the push -- CI has no AI stage and would trip the same gate"
+    log "failover: skipped (${FAILOVER_REASON})"; return 1
+  fi
+  # R4. Exit 40 from the push site means the lease was broken, i.e. an unknown
+  # writer holds korean. This is why the predicate cannot key on the code alone.
+  if [[ "${code}" == 40 && "${DECISION}" == push ]]; then
+    FAILOVER_CLASS="refused"; FAILOVER_REASON="lease conflict -- another writer holds korean"
+    log "failover: skipped (${FAILOVER_REASON})"; return 1
+  fi
+  if failover_already_fired; then
+    FAILOVER_CLASS="refused"; FAILOVER_REASON="already dispatched tonight"
+    log "failover: skipped (${FAILOVER_REASON})"; return 1
+  fi
+  return 0
+}
+
+# The Discord `failover` field and the one-line EXTRA prefix. Deliberately
+# apostrophe- and backtick-free: both strings end up inside the notify() heredoc,
+# which bash scans for quote characters (see the WATCH OUT block there).
+failover_render_field() {
+  local kind="${1:-}"
+  case "${FAILOVER_OUTCOME}" in
+    dispatched)
+      if [[ -n "${FAILOVER_RUN_URL}" ]]; then
+        FAILOVER_FIELD="dispatched"$'\n'"${FAILOVER_RUN_URL}"
+        FAILOVER_LINE="GHA failover dispatched: ${FAILOVER_RUN_URL}"
+      else
+        FAILOVER_FIELD="dispatched (${FAILOVER_REASON:-run url unavailable})"
+        FAILOVER_LINE="GHA failover dispatched (run url unavailable)."
+      fi ;;
+    refused)
+      FAILOVER_FIELD="refused: ${FAILOVER_REASON}"
+      FAILOVER_LINE="GHA failover not dispatched: ${FAILOVER_REASON}." ;;
+    error)
+      FAILOVER_FIELD="error: ${FAILOVER_REASON} -- CI was NOT armed"
+      FAILOVER_LINE="GHA failover FAILED to dispatch: ${FAILOVER_REASON}. CI was NOT armed." ;;
+    off)
+      # Design 5.7(b) specifies this field and it was never implemented. Rendered
+      # on a FAILURE only: a green night must not carry a failover field at all,
+      # which is what "renders only when non-empty" there means. No EXTRA line --
+      # 5.7(c)'s prepend exists to keep a dispatched run URL out of the 960-char
+      # tail truncation, and an `off` record has neither a URL nor an action.
+      if [[ "${kind}" == fail ]]; then
+        FAILOVER_FIELD="off (${FAILOVER_REASON})"
+      else
+        FAILOVER_FIELD=""
+      fi
+      FAILOVER_LINE="" ;;
+    *)
+      FAILOVER_FIELD=""
+      FAILOVER_LINE="" ;;
+  esac
+}
+
+# Never returns non-zero and never changes the exit code the run reports. The
+# dispatch is delegated to sced-failover.sh, which owns the gh probes, the
+# orphan-draft precondition and the call itself; this function owns only the
+# predicate and the reporting.
+failover_dispatch() {
+  local code="$1" kind="$2" rc=0 out=""
+  # In-memory reentrancy guard, mirroring notify()'s NOTIFIED.
+  [[ "${FAILOVER_ATTEMPTED}" == true ]] && return 0
+  FAILOVER_ATTEMPTED=true
+  FAILOVER_OUTCOME="off"; FAILOVER_SIG="fo-off"; FAILOVER_CLASS="off"
+
+  # The refusing gate classified itself; nothing else is consulted. `kind` is NOT
+  # re-tested here: gate 4 is the only gate a non-failing run can reach and it
+  # declares class=off itself, so the old `kind == fail` test was doing this job
+  # by proxy -- and getting the three config gates wrong (verify F11).
+  if ! failover_should_run "${code}" "${kind}"; then
+    if [[ "${FAILOVER_CLASS}" == refused ]]; then
+      FAILOVER_OUTCOME="refused"; FAILOVER_SIG="fo-no"
+    fi
+    failover_render_field "${kind}"
+    return 0
+  fi
+
+  # Interpreter pinned for the same reason as the gate and the AI stage: a
+  # `#!/usr/bin/env bash` shebang makes the kernel exec /usr/bin/env first, and
+  # that image swap is what macOS System Policy denied on 2026-08-01.
+  set +e
+  out="$("${BASH:-/bin/bash}" "${SCRIPT_DIR}/sced-failover.sh" --dispatch \
+          --repo "${REPO}" --tag "${TAG}" --release-id "${RELEASE_ID}" \
+          --reason "exit ${code} ${DECISION}" --timeout "${FAILOVER_TIMEOUT}" 2>&1)"
+  rc=$?
+  set -e
+  printf '%s\n' "${out}" | sed 's/^/failover: /'
+
+  FAILOVER_RUN_URL="$(printf '%s\n' "${out}" | sed -n 's/^run_url: *//p' | head -1)"
+  FAILOVER_RUN_ID="$(printf '%s\n' "${out}"  | sed -n 's/^run_id: *//p'  | head -1)"
+  FAILOVER_REASON="$(printf '%s\n' "${out}"  | sed -n 's/^reason: *//p'  | head -1)"
+
+  case "${rc}" in
+    0) FAILOVER_OUTCOME="dispatched"; FAILOVER_SIG="fo-ok" ;;
+    3|5) FAILOVER_OUTCOME="refused";  FAILOVER_SIG="fo-no"
+         : "${FAILOVER_REASON:=refused by sced-failover.sh (rc ${rc})}" ;;
+    *) FAILOVER_OUTCOME="error";      FAILOVER_SIG="fo-err"
+       : "${FAILOVER_REASON:=sced-failover.sh exited ${rc}}" ;;
+  esac
+  failover_render_field "${kind}"
   return 0
 }
 
@@ -495,7 +710,13 @@ notify() {
     # places (20 = no upstream remote / fetch origin / fetch upstream / worktree
     # add). Without it, a change of failure MODE at a constant code is invisible
     # to should_notify() and gets throttled as "unchanged".
-    fail) sig="fail:${code}:${DECISION}" ;;
+    # FAILOVER_SIG is a FOUR-VALUE token (fo-off/fo-no/fo-ok/fo-err), never the run
+    # URL and never the refusal text. Cardinality is the whole point: a signature
+    # that changed every night would break should_notify() open permanently and
+    # destroy the throttle. Four tokens distinguishes exactly the case that matters
+    # -- two identical exit-60 nights where the first armed CI and the second could
+    # not reach gh -- while a sticky stall still produces a stable signature.
+    fail) sig="fail:${code}:${DECISION}:${FAILOVER_SIG}" ;;
     *)    sig="${kind}:${code}" ;;
   esac
 
@@ -510,6 +731,7 @@ notify() {
     UPSTREAM_DATE="${UPSTREAM_DATE}" MERGE_BASE="${MERGE_BASE}" TAG="${TAG}" \
     RELEASE_URL="${RELEASE_URL}" ASSETS="${N_NEW}" BACKUP="${BACKUP}" \
     EXTRA="${EXTRA}" LOGF="${LOG_FILE#"${WORKSPACE}"/}" TS="$(date +%Y-%m-%dT%H:%M:%S%z)" \
+    FAILOVER="${FAILOVER_FIELD}" \
     python3 <<'PY'
 import json, os
 
@@ -554,6 +776,10 @@ if e("ASSETS") and e("ASSETS") != "0":
     fields.append({"name": "assets", "value": e("ASSETS"), "inline": True})
 if e("BACKUP"):
     fields.append({"name": "backup", "value": f'`{e("BACKUP")}`', "inline": True})
+# Whether CI was armed. This is the field that lets the reader tell a night that
+# recovered itself from one that is still waiting for a person.
+if e("FAILOVER"):
+    fields.append({"name": "failover", "value": e("FAILOVER")[:1000], "inline": False})
 if e("EXTRA"):
     # Fence-aware truncation. Two ways the detail field can render as a broken code
     # block, and both land on the exit-21 gate text -- the one payload this
@@ -618,6 +844,14 @@ PY
 write_state() {
   local code="$1"
   mkdir -p "${STATE_ROOT}/state"
+  # FO_ENABLED's two case patterns below carry a LEADING "(" and must keep it. The
+  # shebang is /usr/bin/env bash, which on macOS is bash 3.2, whose $( ) parser
+  # takes an unparenthesised pattern's own ")" as the closing paren of the
+  # substitution. Without the leading "(" this printed a `syntax error near
+  # unexpected token' on EVERY run and assigned FO_ENABLED the literal tail of the
+  # case body -- so failover.enabled was ALWAYS false, whatever SCED_SYNC_FAILOVER
+  # said. That voids the `enabled == false implies outcome == off` invariant and
+  # the CLAUDE.md rollback row that sends a 03:00 operator to read .failover.enabled.
   REPO="${REPO}" DECISION="${DECISION}" CODE="${code}" \
   STARTED_AT="${STARTED_AT}" FINISHED_AT="$(date +%Y-%m-%dT%H:%M:%S%z)" \
   DURATION="$(( $(date +%s) - STARTED_EPOCH ))" \
@@ -627,6 +861,10 @@ write_state() {
   RELEASE_URL="${RELEASE_URL}" PROVENANCE="${PROVENANCE}" LOGF="${LOG_FILE}" \
   AI_ACTIVE="${AI_ACTIVE}" AI_OUTCOME="${AI_OUTCOME}" AI_REASON="${AI_REASON}" \
   AI_BIN="${AI_BIN}" AI_RUN_DIR="${AI_RUN_DIR}" AI_RESULT="${AI_RESULT_JSON}" \
+  FO_OUTCOME="${FAILOVER_OUTCOME}" FO_REASON="${FAILOVER_REASON}" \
+  FO_RUN_ID="${FAILOVER_RUN_ID}" FO_RUN_URL="${FAILOVER_RUN_URL}" \
+  FO_PUSHED="${PUSHED}" FO_DATE="$(date -u +%Y%m%d)" \
+  FO_ENABLED="$(case ",${SCED_SYNC_FAILOVER:-}," in (*",${REPO},"*) echo true ;; (*) echo false ;; esac)" \
   OUT="${STATEFILE}" \
   python3 <<'PY' || log "state: write failed"
 import json, os
@@ -635,11 +873,11 @@ def num(k):
     try:    return int(e(k, "0") or 0)
     except ValueError: return 0
 doc = {
-    # Schema 2 is ADDITIVE ONLY. Every schema-1 top-level key keeps its name, its
-    # position and its type, because `:1029`'s offline asset-count baseline reads
-    # this file back and any external reader must keep working. All new material
-    # is nested under "ai".
-    "schema": 2,
+    # Schema 3 is ADDITIVE ONLY. Every schema-1 and schema-2 top-level key keeps
+    # its name, its position and its type, because the offline asset-count baseline
+    # below reads this file back and any external reader must keep working. All new
+    # material is nested under "ai" and "failover".
+    "schema": 3,
     "repo": e("REPO"),
     "started_at": e("STARTED_AT"),
     "finished_at": e("FINISHED_AT"),
@@ -686,6 +924,60 @@ if result_path and os.path.isfile(result_path):
         ai["reason"] = (ai["reason"] + "; result.json unreadable").strip("; ")
 doc["ai"] = ai
 
+# The failover record. `date` is the UTC night key and is what makes the "already
+# fired tonight" test self-expiring: tomorrow reads a date that is not today's and
+# treats the record as absent, so no cleanup step exists or is needed. The three
+# predicate INPUTS are recorded alongside the outcome so a disputed refusal or
+# dispatch is auditable after the fact.
+fo = {
+    "enabled": e("FO_ENABLED") == "true",
+    "tier": "driver",
+    "date": e("FO_DATE", ""),
+    "outcome": e("FO_OUTCOME") or "off",
+    "reason": e("FO_REASON") or "",
+    "exit_code": num("CODE"),
+    "decision": e("DECISION"),
+    "pushed": e("FO_PUSHED") == "true",
+    "run_id": e("FO_RUN_ID") or "",
+    "run_url": e("FO_RUN_URL") or "",
+}
+
+# THE ONE FIELD IN THIS DOCUMENT THAT DOES NOT BELONG TO THIS RUN (verify F3).
+# Everything above and below is a from-scratch projection of this run, and that is
+# deliberate -- it is what lets this function repair a corrupted state file. The
+# (date, outcome) pair is different: it is read back by a LATER process, three of
+# them -- failover_already_fired() above, sced-failover.sh's gate 5, and the AI
+# push-window guard, which is R14 mitigation (3). Rebuilding it from this run
+# erased a live `dispatched` record on the second run of a night, so a third run --
+# or the AI stage -- saw no live dispatch and could push into the CI run's window.
+# Read the prior value and keep it.
+#
+# ONLY a `dispatched` record for TONIGHT is protected, and only from a NON-dispatch.
+# `error` stays overwritable on purpose: design 3.1 makes an errored dispatch a
+# legitimate retry. A later successful dispatch wins, since its URL is the useful
+# one. Do NOT generalise this read to other keys -- a partial merge would resurrect
+# yesterday's release_url on a run that failed before the release.
+prev_fo = {}
+try:
+    with open(e("OUT")) as fh:
+        loaded = json.load(fh)
+    if isinstance(loaded, dict) and isinstance(loaded.get("failover"), dict):
+        prev_fo = loaded["failover"]
+except (OSError, ValueError):
+    prev_fo = {}
+
+if (fo["date"]
+        and prev_fo.get("date") == fo["date"]
+        and prev_fo.get("outcome") == "dispatched"
+        and fo["outcome"] != "dispatched"):
+    prev_fo = dict(prev_fo)
+    prev_fo["superseded_by"] = (
+        fo["outcome"] + " (exit " + str(fo["exit_code"]) + " " + fo["decision"] + "): "
+        + (fo["reason"] or "no reason recorded"))[:200]
+    fo = prev_fo
+
+doc["failover"] = fo
+
 out = e("OUT")
 with open(out + ".tmp", "w") as fh:
     json.dump(doc, fh, indent=2, ensure_ascii=False)
@@ -699,6 +991,32 @@ PY
 finish() {
   local code="$1" kind="$2" title="$3"
   log "finish: decision=${DECISION} kind=${kind} exit=${code} -- ${title}"
+  # BEFORE write_state and notify, because both report its outcome. Never in the
+  # trap, for the same reason notify() is not: cleanup() is the only thing that
+  # releases the lock and it runs only on exit.
+  #
+  # COST. FAILOVER_TIMEOUT bounds ONE call inside sced-failover.sh -- the
+  # `gh workflow run` in do_dispatch() -- and nothing else. Its probes carry their
+  # own fixed bounds, so the serial worst case of this one line is
+  #     auth 20 + draft query 30 + draft DELETE 30 + re-query 30 + dispatch 60
+  #   = 170 s, or 195 s if every one of them has to be SIGKILLed after
+  # with_timeout's 5 s grace. The cheapest path -- no TAG yet, so no draft probe
+  # at all -- is still 20 + 60 = 80 s, which already exceeds the notify POST's own
+  # worst case of 70 s (--max-time 20 --retry 2 --retry-delay 5). So this IS the
+  # longest pole in finish(), and every second of it is spent holding the
+  # workspace lock.
+  # Accepted, not fixed: 195 s against the 1800 s stagger between the two repos'
+  # agents, finish() is terminal so it can never eat the AI stage's reserve, and
+  # the measured dispatch is 11 s end to end. If you add or retime a network call
+  # in sced-failover.sh, this arithmetic moves with it -- and so do the COST block
+  # in that file's header and design.feature-v1.md 5.4.
+  failover_dispatch "${code}" "${kind}" || true
+  # PREPENDED, not appended: the detail field truncates its TAIL at 960 chars, so
+  # an appended line would be the first thing lost on exactly the failures with the
+  # longest detail (exit 21 git text, exit 62 collision lists).
+  if [[ -n "${FAILOVER_LINE}" ]]; then
+    if [[ -n "${EXTRA}" ]]; then EXTRA="${FAILOVER_LINE}"$'\n'"${EXTRA}"; else EXTRA="${FAILOVER_LINE}"; fi
+  fi
   write_state "${code}"
   notify "${kind}" "${title}" "${code}"
   exit "${code}"
@@ -1050,6 +1368,18 @@ log "rebased: ${FORK_SHA} -> ${KOREAN_SHA}"
 if [[ "${AI_ACTIVE}" == true ]]; then
   CI_MIN=$(( SCHED_MIN + AI_CI_OFFSET_MIN ))
   NOW_MIN=$(( 10#$(date +%H) * 60 + 10#$(date +%M) ))
+  # A DISPATCHED CI run falsifies the CI_MIN arithmetic below: the fallback is no
+  # longer starting at its cron, it is already running. Without this the guard
+  # would compute "plenty of time" and push straight into it -- reintroducing the
+  # exact two-tier race the rest of this block exists to prevent.
+  if failover_already_fired; then
+    DECISION="ai-stop"
+    AI_OUTCOME="stop"
+    AI_REASON="a failover dispatch is already live tonight"
+    EXTRA="$(printf 'The AI resolution completed and verified, but a GHA failover run was already dispatched for tonight. Refusing to push into its window; korean is untouched and the resolution is in %s.' \
+             "${AI_RUN_DIR#"${WORKSPACE}"/}")"
+    finish 11 ai-stop "AI resolution completed, but a failover run is already live"
+  fi
   if [[ "${NOW_MIN}" -ge $((CI_MIN - 10)) ]] || [[ $(( $(date +%s) - STARTED_EPOCH )) -gt 1500 ]]; then
     DECISION="ai-stop"
     AI_OUTCOME="stop"
@@ -1073,6 +1403,10 @@ else
     finish 40 fail "korean force-push rejected (lease conflict)"
   fi
   log "pushed korean -> ${KOREAN_SHA}"
+  # From here on korean is on the upstream tip with no +korean.N tag -- the state
+  # CI's own no-op guard reads as NEEDS_RELEASE=1. This flag is what tells the
+  # failover predicate that a dispatch is now both safe and useful.
+  PUSHED=true
 fi
 
 # ------------------------------------------------------- prune + Darwin preflight
