@@ -460,6 +460,92 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
                                  f"ai_claude_min {ai_claude}m + 2m <= ai_stage_min {ai_stage}m "
                                  f"(slack {ai_stage - ai_claude - 2}m)"))
 
+    # failover.window -- the GHA failover watchdog
+    # (.am/local-failure-gha-failover/design.md §3.3).
+    #
+    # Severity is `warn` throughout, deliberately: these times govern the LATENCY of
+    # a recovery path, never whether a rebase or a release is safe, so `set` must
+    # never refuse because of them. Same posture as minute.quarter.
+    #
+    # The bound is PER REPO, not global. An earlier draft of the design wrote it as
+    # "every watchdog_hhmm < min(ci_kst)", which is wrong: min(ci_kst) is
+    # SCED-downloads' 03:17, and the design's own 03:35 -- correct, because gate 2
+    # makes it ineligible for SCED-downloads anyway -- violates it. A firing only has
+    # to precede the CI cron of a repo it is actually eligible for.
+    fo = policy.get("failover") or {}
+    if not fo:
+        findings.append(_finding("failover.window", "ok",
+                                 "no policy.failover block; the failover is not configured",
+                                 severity="warn"))
+    else:
+        grace = int(fo.get("watchdog_grace_min", 0))
+        try:
+            wd_mins = [(h, hhmm_to_min(h)) for h in fo.get("watchdog_hhmm", [])]
+        except (ValueError, TypeError) as exc:
+            wd_mins = []
+            findings.append(_finding("failover.window", "fail",
+                                     f"malformed watchdog_hhmm: {exc}"))
+        for repo, d in derived.items():
+            lo = d["latest_min"] + grace
+            hi = d["local_min"] + d["ci_offset_min"]
+            covering = [h for h, m in wd_mins if lo <= m < hi]
+            if covering:
+                findings.append(_finding(
+                    "failover.window", "ok",
+                    f"{repo}: {'/'.join(covering)} lands in "
+                    f"[{min_to_colon(lo)},{min_to_colon(hi)})"))
+            else:
+                findings.append(_finding(
+                    "failover.window", "warn",
+                    f"{repo}: no watchdog firing in [{min_to_colon(lo)},{min_to_colon(hi)}) "
+                    f"-- latest start {d['latest']} + grace {grace}m to CI cron "
+                    f"{min_to_colon(hi)}; this repo has no bounded-latency recovery",
+                    severity="warn"))
+
+        # A firing must not sit on a local trigger or a latest-start boundary, and
+        # must not be on the hour -- same reasoning as minute.zero.
+        boundaries = {d["local_min"] for d in derived.values()} | {
+            d["latest_min"] for d in derived.values()}
+        for h, m in wd_mins:
+            if m in boundaries:
+                findings.append(_finding("failover.window", "warn",
+                                         f"watchdog {h} coincides with a local trigger "
+                                         f"or latest-start boundary", severity="warn"))
+            if m % 60 == 0 and policy.get("forbid_zero_minute", True):
+                findings.append(_finding("failover.window", "warn",
+                                         f"watchdog {h} is on the hour", severity="warn"))
+
+        # A firing inside a declared collision budget needs a pinned acknowledgement.
+        # The pin is the (label, hhmm, watchdog_hhmm) triple, so moving either time
+        # invalidates it -- identical semantics to the driver's own collision_ack.
+        acks = fo.get("collision_ack") or []
+        for coll in policy.get("collisions", []):
+            try:
+                c_start = hhmm_to_min(coll["hhmm"])
+            except (ValueError, KeyError):
+                continue
+            c_end = c_start + int(coll.get("budget_min", 0))
+            for h, m in wd_mins:
+                if not (c_start <= m < c_end):
+                    continue
+                pinned = any(a.get("label") == coll["label"]
+                             and a.get("hhmm") == coll["hhmm"]
+                             and a.get("watchdog_hhmm") == h
+                             for a in acks)
+                detail = (f"watchdog {h} falls inside {coll['label']} "
+                          f"{coll['hhmm'][:2]}:{coll['hhmm'][2:]}"
+                          f"+{coll.get('budget_min', 0)}m")
+                if strict:
+                    findings.append(_finding("failover.window", "warn",
+                                             detail + " (--strict ignores acks)",
+                                             severity="warn"))
+                elif pinned:
+                    findings.append(_finding("failover.window", "ack", detail + " -- acknowledged",
+                                             severity="ack"))
+                else:
+                    findings.append(_finding("failover.window", "warn",
+                                             detail + " -- unacknowledged", severity="warn"))
+
     if strict:
         for f in findings:
             if f["status"] == "warn":

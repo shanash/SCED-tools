@@ -693,3 +693,75 @@ def test_set_drops_an_acknowledgement_the_new_time_invalidates(tmp_path):
     assert r.returncode == ss.EXIT_OK, r.stderr
     doc = json.loads(path.read_text(encoding="utf-8"))
     assert "collision_ack" not in doc["repos"]["SCED"]
+
+
+# ------------------------------------------------------- failover watchdog window
+
+
+def _with_failover(tmp_path, name, **failover):
+    """Base config plus a policy.failover block."""
+    block = {
+        "enabled_env": "SCED_SYNC_FAILOVER",
+        "watchdog_label": "com.shanash.sced-failover-watchdog",
+        "watchdog_hhmm": ["0205", "0235"],
+        "watchdog_grace_min": 5,
+        "dispatch_timeout_s": 60,
+    }
+    block.update(failover)
+    return mutate(tmp_path, name, policy={"failover": block})
+
+
+def test_failover_window_accepts_a_firing_per_repo(tmp_path):
+    """The bound is PER REPO. SCED-downloads' window is [01:57,02:12) and SCED's is
+    [02:32,02:47); one firing each is what the rule requires -- NOT that every
+    firing precede every repo's cron, which an earlier draft of the design said and
+    which its own times would have violated."""
+    path = _with_failover(tmp_path, "fo-ok.json", watchdog_hhmm=["0205", "0235"])
+    findings = ss.validate(ss.load_config(path), check_tz=False)
+    assert "warn" not in rule_status(findings, "failover.window")
+    assert rule_status(findings, "failover.window").count("ok") == 2
+
+
+def test_failover_window_warns_when_a_repo_has_no_covering_firing(tmp_path):
+    """A repo with no firing in its window has no bounded-latency recovery at all --
+    it falls back to GitHub's own schedule, whose delivery was measured at 71.6-359.9
+    minutes late. That is worth saying out loud."""
+    path = _with_failover(tmp_path, "fo-gap.json", watchdog_hhmm=["0205"])
+    findings = ss.validate(ss.load_config(path), check_tz=False)
+    assert "warn" in rule_status(findings, "failover.window")
+
+
+def test_failover_window_never_escalates_to_an_error(tmp_path):
+    """Severity is advisory by construction: these times govern the LATENCY of a
+    recovery path, never whether a rebase or a release is safe, so `set` must never
+    refuse because of them."""
+    path = _with_failover(tmp_path, "fo-none.json", watchdog_hhmm=[])
+    findings = ss.validate(ss.load_config(path), check_tz=False)
+    assert "fail" not in rule_status(findings, "failover.window")
+    assert not ss.has_errors([f for f in findings if f["id"] == "failover.window"])
+
+
+def test_failover_collision_ack_is_pinned_to_the_exact_time_pair(tmp_path):
+    """Same pinning semantics as the driver's own collision_ack: an acknowledgement
+    that names a different firing time does not cover this one."""
+    coll = [{"label": "com.shanash.kod-auto-improve", "hhmm": "0200", "budget_min": 30}]
+    doc = json.loads(BASE_CONFIG.read_text(encoding="utf-8"))
+    doc["policy"]["collisions"] = coll
+    doc["policy"]["failover"] = {
+        "watchdog_hhmm": ["0205", "0235"],
+        "watchdog_grace_min": 5,
+        "collision_ack": [{"label": "com.shanash.kod-auto-improve",
+                           "hhmm": "0200", "watchdog_hhmm": "0205"}],
+    }
+    dst = tmp_path / "fo-ack.json"
+    dst.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+    assert "ack" in rule_status(ss.validate(ss.load_config(dst), check_tz=False),
+                                "failover.window")
+
+    # Move the firing: the ack pins 0205 and must not carry over to 0210.
+    doc["policy"]["failover"]["watchdog_hhmm"] = ["0210", "0235"]
+    dst2 = tmp_path / "fo-ack-stale.json"
+    dst2.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+    statuses = rule_status(ss.validate(ss.load_config(dst2), check_tz=False), "failover.window")
+    assert "ack" not in statuses
+    assert "warn" in statuses

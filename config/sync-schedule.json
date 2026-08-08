@@ -40,7 +40,26 @@
         "budget_min": 30,
         "why": "runs `claude` too; see .am/sync-schedule-control/analyze.md section 6 item 6"
       }
-    ]
+    ],
+    "failover": {
+      "enabled_env": "SCED_SYNC_FAILOVER",
+      "watchdog_label": "com.shanash.sced-failover-watchdog",
+      "watchdog_hhmm": [
+        "0305",
+        "0335"
+      ],
+      "watchdog_grace_min": 5,
+      "dispatch_timeout_s": 60,
+      "collision_ack": [
+        {
+          "label": "com.shanash.kod-auto-improve",
+          "hhmm": "0300",
+          "watchdog_hhmm": "0305",
+          "reason": "UNAVOIDABLE and BENIGN. SCED-downloads' only legal watchdog window is [0302,0317) - 15 minutes - and the acknowledged collision declares budget_min 30, i.e. 0300-0330, so every legal slot is inside it. The collision policy exists because kod-auto-improve runs `claude` too; the watchdog runs neither claude nor a build - it makes a handful of gh API calls and exits in seconds. The rule's mechanism does not apply. Pinned to this exact time pair: changing either time invalidates this acknowledgement."
+        }
+      ],
+      "notes": "The watchdog plist is NOT rendered by `apply --local` and carries no SCED_SYNC_SCHED_* guard bound. Per-repo eligibility is derived at RUNTIME from this file, so a hand-edited fire time shifts latency and cannot desynchronise a guard -- the failure mode the driver's plist interlock exists to prevent does not exist here. These times are advisory and are checked by the `failover.window` rule."
+    }
   },
   "repos": {
     "SCED-downloads": {
