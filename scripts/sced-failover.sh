@@ -52,6 +52,17 @@
 #   case, so three places move together: this block, the COST comment in
 #   daily-sync-local.sh's finish(), and design.feature-v1.md 5.4.
 #
+#   The 170/195 s figures are the --dispatch tier and are UNCHANGED by the R3
+#   retry, which is why the retry is tier-split rather than global: in --watchdog
+#   mode the auth probe may run twice, and nothing there holds the lock. Costed in
+#   the SAME convention as the 195 s above -- i.e. each with_timeout 20 bounded at
+#   its SIGKILL worst case of 25 s, not at its nominal 20 -- that is
+#   25 + 5 pause + 25 = 55 s, so +30 s over the single-shot worst case of 25 s.
+#   (Nominally 45 s / +25 s; the two conventions must not be mixed inside one
+#   block, which an earlier draft of this paragraph did.) The draft probes are not
+#   retried in either tier -- draft_precondition_ok() is reachable only from
+#   run_dispatch().
+#
 # Usage:
 #   sced-failover.sh --dispatch --repo <SCED|SCED-downloads> [options]
 #   sced-failover.sh --watchdog [--repo NAME] [--no-dispatch] [--grace-min N]
@@ -152,7 +163,6 @@ if [[ -n "${REPO}" && "${REPO}" != "SCED" && "${REPO}" != "SCED-downloads" ]]; t
   echo "ERROR: unknown --repo '${REPO}'" >&2
   exit 1
 fi
-
 # ------------------------------------------------------------------- env file
 #
 # Same contract as daily-sync-local.sh: the mode check is first and fatal. A
@@ -172,12 +182,52 @@ if [[ -r "${ENV_FILE}" ]]; then
   set +a
 fi
 
+# PROVED NUMERIC AT THE BOUNDARY (verify R2). RELEASE_ID is interpolated into the
+# PATH of a `gh api -X DELETE` (draft_precondition_ok) -- the only destructive call
+# in either script -- so a value that was never checked must not be able to reach
+# it.
+#
+# BELOW THE ENV FILE, NOT ABOVE IT (verify round 7, N20). RELEASE_ID has THREE
+# writers, not one: the `RELEASE_ID=""` init neutralises an INHERITED value, the
+# --release-id arm of the parse loop sets it, and `. "${ENV_FILE}"` under `set -a`
+# can assign it like any other variable. This guard used to sit between the second
+# and the third while claiming to cover every path. An env-file line would have
+# reached the DELETE unchecked -- and, landing after the parse loop, would have
+# silently overridden an explicit --release-id as well. Here it runs after the LAST
+# writer, which is what makes that claim true rather than nearly true.
+#
+# `grep -n '^[^#]*RELEASE_ID=' sced-failover.sh` must show 3: the init, the parse
+# arm, and this guard's own clear. The `^[^#]*` is what keeps this comment's own
+# mentions out of its own count -- a first draft said "must show 3" against a plain
+# grep that returned 5, which is the defect this rule exists to catch, committed
+# inside the rule. A fourth hit means a writer was added and this block has to move
+# again, or stop being the last word.
+#
+# CLEARING, not aborting, and that is deliberate twice over: an empty RELEASE_ID is
+# an ALREADY-DESIGNED state (the orphan case has no id by construction, see the
+# comment above draft_holds_tag), and this file deliberately invents no exit codes.
+# `echo >&2` rather than log(), which is not defined until further down. The message
+# does not name --release-id, because the env file can now be the source too.
+case "${RELEASE_ID}" in
+  '') ;;
+  *[!0-9]*)
+    echo "WARNING: ignoring non-numeric release id '${RELEASE_ID}'; no draft will be deleted by id" >&2
+    RELEASE_ID="" ;;
+esac
+
 # ------------------------------------------------------------------ parameters
 
 OWNER="shanash"
 WORKFLOW="daily-upstream-sync.yml"
 REF="korean"
 GH_MIN_VERSION="2.87.0"
+
+# The repo list, in ONE place (verify R9). Order is load-bearing in exactly one
+# way -- SCED-downloads before SCED, matching the nightly stagger -- so the two
+# consumers (enabled_repos and run_status) read it rather than each carrying a
+# literal. `grep -n FAILOVER_REPOS` must show 4: this line, the assignment, and
+# those two. fallback_hhmm()'s case labels are a keyed lookup, not a third copy.
+FAILOVER_REPOS="SCED-downloads SCED"
 
 # WORKSPACE is derived, not assumed: this script has an install copy on the boot
 # volume (see design section 2 row 6) whose SCRIPT_DIR is NOT inside the workspace.
@@ -297,8 +347,8 @@ print(json.dumps({
 # lifted by the return_run_details parameter (GitHub Changelog 2026-02-19),
 # supported in gh from v2.87.0 and defaulted on. Below that floor the dispatch
 # still WORKS, it simply returns nothing -- so this probe is ADVISORY and must
-# never block. `sort -V` is the established idiom here (daily-sync-local.sh :327,
-# :1163); at exactly 2.87.0 the head is 2.87.0, so the comparison is inclusive.
+# never block. `sort -V` is the established idiom here (daily-sync-local.sh :381,
+# :1534); at exactly 2.87.0 the head is 2.87.0, so the comparison is inclusive.
 GH_VERSION=""
 gh_version() {
   [[ -n "${GH_VERSION}" ]] && { printf '%s' "${GH_VERSION}"; return 0; }
@@ -313,21 +363,56 @@ gh_run_url_supported() {
 }
 
 # Exit 2 conditions, checked once per invocation.
+#
+# ONE RETRY, WATCHDOG TIER ONLY (verify R3). A transient auth blip forfeiting the
+# night is the exact failure this whole feature exists to prevent, so a second look
+# is worth buying -- but only where it is free.
+#
+#   --watchdog   nothing holds the workspace lock (gate 3 refuses outright when a
+#                run does), and the next firing is 30 minutes out. +30 s worst case
+#                (45 s / +25 s nominal) -- the COST block above owns both figures
+#                and says which convention is which. Stating the nominal number
+#                under the word "worst case" was the D2 defect (verify round 5, N16).
+#   --dispatch   this runs inside the driver's finish() while it holds the
+#                workspace-wide LOCK, and the COST block above pins that path at
+#                170/195 s -- a number three documents quote. Not retried there.
+#
+# The draft probe is NOT retried at all, in either tier, and that is not an
+# oversight: draft_precondition_ok() is called only from run_dispatch(), i.e. only
+# on the lock-holding tier. Adding a retry there would be dead code in the tier that
+# could afford it and a lock-hold increase in the tier that cannot.
 PROBE_REASON=""
+# `if`, not `[[ ]] && PROBE_RETRY=1`. NOT because the && form would abort: it would
+# not, and an earlier draft of this comment claimed it would. `set -e` exempts a
+# command that is not the last in an && list, which is exactly the failing `[[ ]]`
+# here -- measured under `set -euo pipefail` on bash 3.2.57, at file scope and
+# inside a function, for MODE in dispatch/watchdog/status/empty: the list returns 1,
+# the script continues, rc 0. The `if` is kept because it reads as what it is, a
+# conditional assignment, and because its correctness does not depend on knowing
+# that exemption rule at all.
+PROBE_RETRY=0
+if [[ "${MODE}" == "watchdog" ]]; then PROBE_RETRY=1; fi
 gh_usable() {
+  local attempt=0
   if ! command -v gh >/dev/null 2>&1; then
     PROBE_REASON="gh-missing"; return 1
   fi
-  if ! with_timeout 20 gh auth status >/dev/null 2>&1; then
-    PROBE_REASON="gh-unauthenticated"; return 1
-  fi
-  return 0
+  while :; do
+    with_timeout 20 gh auth status >/dev/null 2>&1 && return 0
+    [[ "${attempt}" -lt "${PROBE_RETRY}" ]] || break
+    attempt=$(( attempt + 1 ))
+    log "gh auth probe failed; retrying once in 5s (watchdog tier)"
+    sleep 5
+  done
+  PROBE_REASON="gh-unauthenticated"
+  return 1
 }
 
 # ------------------------------------------------------- orphan-draft guard (R5)
 #
 # R5's real shape is sharper than "call delete_draft() first". At the driver's two
-# no-id sites (:1372, :1375) RELEASE_ID is empty by construction: the orphan case
+# no-id sites -- daily-sync-local.sh's "could not create the draft release" (:1743)
+# and "draft release returned no id" (:1746) -- RELEASE_ID is empty: the orphan case
 # IS a POST that succeeded server-side while the client timed out or the --jq .id
 # pipeline failed. Deletion by id is therefore unavailable, and delete_draft() is
 # best-effort besides -- it clears RELEASE_ID unconditionally, so any post-check on
@@ -346,10 +431,32 @@ gh_usable() {
 #
 # --method GET is belt-and-braces: it pins the verb even if this call ever grows a
 # parameter flag.
+#
+# The tag reaches jq through the ENVIRONMENT, never the program text (verify R1).
+# This call site was the file's one exception to the discipline that notify(),
+# state_get() and sched_hhmm_for() already follow -- named rather than cited by
+# line, because the two line numbers that stood here pointed at neither of them and
+# one of them pointed four lines into THIS paragraph (verify round 4, N10). A tag
+# carrying a `"` terminated the jq string literal. `env.FO_TAG` is
+# supported by gh's embedded jq engine (verified against gh 2.87.3: a literal
+# comparison and an env comparison return the same count).
+#
+# The assignment lives INSIDE the command substitution -- a subshell -- so it cannot
+# leak past the call under any shell option.
+#
+# The plain `FO_TAG=x with_timeout ...` prefix form would ALSO be clean here today,
+# and the first draft of this comment claimed otherwise; measured on bash 3.2.57 --
+# the only bash on this machine, and what this script's shebang resolves to, so the
+# "and 5.x" this sentence used to claim was never run and has been struck (D6) -- an
+# assignment prefixing a shell-function call persists only under `set -o posix`,
+# which this script does not set. The subshell form is kept because it does not
+# depend on that: `set -o posix` appearing anywhere above would silently turn the
+# prefix form into a leak, and this shape has no such precondition.
 draft_holds_tag() {
   local repo="$1" tag="$2" n=""
-  n="$(with_timeout 30 gh api --method GET "repos/${OWNER}/${repo}/releases?per_page=100" \
-        --jq "[.[] | select(.draft) | select(.tag_name==\"${tag}\")] | length" 2>/dev/null)" || return 2
+  n="$(export FO_TAG="${tag}"
+       with_timeout 30 gh api --method GET "repos/${OWNER}/${repo}/releases?per_page=100" \
+         --jq '[.[] | select(.draft) | select(.tag_name==env.FO_TAG)] | length' 2>/dev/null)" || return 2
   [[ -n "${n}" ]] || return 2
   [[ "${n}" -gt 0 ]]
 }
@@ -445,9 +552,18 @@ stamp_says_fired() {
 # NEVER fatal and NEVER blocks a dispatch: a local bookkeeping failure must not
 # cost the night this whole feature exists to save. Same atomic idiom as
 # should_notify() in daily-sync-local.sh -- write .tmp, then rename.
+#
+# The `$$` in the temp name separates the two writers that can race for one repo:
+# a driver-tier `--dispatch`, exec'd as a child process by the driver's finish(),
+# and a watchdog-tier firing, which launchd starts as its own process. They differ
+# because they are separate INVOCATIONS, not because `$$` is per-write -- bash
+# subshells inherit `$$`, so calling write_stamp twice inside one invocation would
+# reuse the same temp name. Nothing does that today; a future retry loop must not.
+# A hard kill between the write and the rename leaves a `.tmp` nobody reaps, but it
+# is inert: every reader opens `<repo>.dispatch` by exact name, never a glob.
 write_stamp() {
   local repo="$1" outcome="$2" run_id="$3" run_url="$4" tier="driver"
-  local f="${WD_STATE_DIR}/${repo}.dispatch" tmp="${WD_STATE_DIR}/${repo}.dispatch.tmp"
+  local f="${WD_STATE_DIR}/${repo}.dispatch" tmp="${WD_STATE_DIR}/${repo}.dispatch.$$.tmp"
   [[ "${MODE}" == "watchdog" ]] && tier="watchdog"
   if ! mkdir -p "${WD_STATE_DIR}" 2>/dev/null; then
     log "${repo}: cannot create ${WD_STATE_DIR} -- the per-night dispatch bound is UNENFORCED"
@@ -616,6 +732,30 @@ do_dispatch() {
   return 0
 }
 
+# ------------------------------------------------------------- drift self-check
+#
+# The watchdog LaunchAgent runs ~/scripts/sced-failover.sh, not the repo copy, so a
+# pass that changes executable bytes does not exist in production until the mirror
+# step runs. Nothing detected that drift; two passes in a row have now changed these
+# bytes (verify R6).
+#
+# ADVISORY, and SILENT when the repo copy is unreachable. The entire reason the boot
+# volume holds a copy is the night /Volumes/PRO-G40 is not mounted, so "cannot
+# compare" is a NORMAL state here and can never be an error. This function cannot
+# refuse, cannot exit, and returns 0 on every path.
+#
+# Returns its verdict on stdout for run_status: same | drift | unknown.
+install_copy_state() {
+  local repo_copy="${WORKSPACE}/SCED-tools/scripts/sced-failover.sh"
+  local self="${SCRIPT_DIR}/$(basename "${BASH_SOURCE[0]}")"
+  # Only meaningful when THIS is the boot-volume copy; when the repo copy is the one
+  # running, it is trivially identical to itself.
+  if [[ ! -r "${repo_copy}" || ! -r "${self}" ]]; then printf 'unknown'; return 0; fi
+  if [[ "${repo_copy}" -ef "${self}" ]]; then printf 'same'; return 0; fi
+  if cmp -s "${repo_copy}" "${self}"; then printf 'same'; else printf 'drift'; fi
+  return 0
+}
+
 emit() {
   local outcome="$1" repo="$2" reason="$3"
   printf 'outcome: %s\n' "${outcome}"
@@ -676,7 +816,7 @@ run_dispatch() {
 enabled_repos() {
   local want="${REPO}"
   local r
-  for r in SCED-downloads SCED; do
+  for r in ${FAILOVER_REPOS}; do
     [[ -n "${want}" && "${r}" != "${want}" ]] && continue
     case ",${SCED_SYNC_FAILOVER:-}," in
       *",${r},"*) printf '%s\n' "${r}" ;;
@@ -724,10 +864,30 @@ hhmm_to_min() { printf '%s' "$(( 10#${1:0:2} * 60 + 10#${1:2:2} ))"; }
 # invariant rather than a timing assumption. A STALE lock (dead pid) is the
 # opposite signal: the driver died without running cleanup(), which is exactly a
 # report failure, so it does NOT refuse.
+#
+# PARSED BY KEY, the way it is written (verify R7). The driver writes
+#   pid=%s repo=%s started=%s host=%s        (daily-sync-local.sh:1152)
+# and reads it back by key itself. This function used to take the first digit run on
+# line 1 by POSITION, which is correct only for as long as `pid=` stays first. Get
+# the wrong number and `kill -0` may find an unrelated LIVE pid -- and then gate 3
+# refuses permanently, silently, on every future night.
+#
+# The positional form is kept as an explicit FALLBACK so an owner file written by an
+# older driver still parses. It can only ever find more, never something different:
+# it is consulted only when the keyed form found nothing at all.
 lock_is_live() {
   local owner="${LOCK}/owner" pid=""
   [[ -r "${owner}" ]] || return 1
-  pid="$(sed -n '1s/[^0-9]*\([0-9][0-9]*\).*/\1/p' "${owner}" 2>/dev/null)"
+  # THREE FIXED programs, never one with alternation: BSD sed has no `\|` in a BRE
+  # and would match it literally (the exact shape that made design.fix-f5-f11.md's
+  # S5 harness pass vacuously under macOS sed). Leading `pid=` first, then `pid=`
+  # anywhere on the line, then the legacy positional form.
+  pid="$(sed -n '1s/^pid=\([0-9][0-9]*\).*/\1/p' "${owner}" 2>/dev/null | head -1)"
+  [[ -n "${pid}" ]] || pid="$(sed -n '1s/.*[^A-Za-z_]pid=\([0-9][0-9]*\).*/\1/p' "${owner}" 2>/dev/null | head -1)"
+  if [[ -z "${pid}" ]]; then
+    pid="$(sed -n '1s/[^0-9]*\([0-9][0-9]*\).*/\1/p' "${owner}" 2>/dev/null | head -1)"
+    [[ -n "${pid}" ]] && log "lock owner file carries no pid= key; falling back to the positional parse (pid ${pid})"
+  fi
   [[ -n "${pid}" ]] || return 1
   kill -0 "${pid}" 2>/dev/null
 }
@@ -774,12 +934,29 @@ sys.exit(0 if t >= start else 1)
 }
 
 run_watchdog() {
-  local rc_any=0 repo="" latest="" now_min=0 latest_min=0 acted=0
+  local rc_any=0 repo="" latest="" now_min=0 latest_min=0 acted=0 copy_state=""
   now_min=$(( 10#$(date +%H) * 60 + 10#$(date +%M) ))
 
   if [[ -z "$(enabled_repos)" ]]; then
     log "no repo enabled (SCED_SYNC_FAILOVER is empty or does not name one)"
     return 0
+  fi
+
+  # Advisory only; never gates anything (verify R6).
+  #
+  # BELOW the short-circuit, not above it (verify round 4, N7). This is the first
+  # thing in this function that touches /Volumes/PRO-G40, and neither the `[[ -r ]]`
+  # nor the `cmp` inside it is bounded by with_timeout. Above the short-circuit a
+  # mounted-but-HUNG volume would stall even a pass with nothing enabled to
+  # dispatch; below it, a pass that has no work to do returns without touching the
+  # volume at all. It buys nothing on the armed path -- latest_hhmm_for() and
+  # lock_is_live() read the same volume just as unboundedly a few lines down, and
+  # every notify() is further down still -- so a hung volume still costs that night
+  # silently. That exposure is pre-existing and is NOT closed here; this only
+  # refuses to widen it to the no-op case.
+  copy_state="$(install_copy_state)"
+  if [[ "${copy_state}" == "drift" ]]; then
+    log "WARNING: this copy differs from ${WORKSPACE}/SCED-tools/scripts/sced-failover.sh -- the repo copy is the source of truth and this one is what runs at 03:05"
   fi
 
   while read -r repo; do
@@ -815,7 +992,9 @@ run_watchdog() {
     fi
 
     acted=1
-    if [[ "${NO_DISPATCH}" == true || "${MODE}" == "status" ]]; then
+    # `|| MODE == status` was here and was DEAD (verify R8): main dispatches
+    # `status` to run_status(), so this function only ever runs with MODE=watchdog.
+    if [[ "${NO_DISPATCH}" == true ]]; then
       log "${repo}: WOULD dispatch (local tier did not report tonight)"
       emit would-dispatch "${repo}" "watchdog rehearsal"
       continue
@@ -859,7 +1038,8 @@ run_status() {
   printf 'url_supported: %s\n' "$(gh_run_url_supported && echo true || echo false)"
   printf 'enabled: %s\n' "${SCED_SYNC_FAILOVER:-(none)}"
   printf 'lock_live: %s\n' "$(lock_is_live && echo true || echo false)"
-  for repo in SCED-downloads SCED; do
+  printf 'install_copy: %s\n' "$(install_copy_state)"
+  for repo in ${FAILOVER_REPOS}; do
     latest="$(latest_hhmm_for "${repo}")"
     printf -- '--- %s\n' "${repo}"
     printf '  latest_hhmm: %s\n' "${latest}"

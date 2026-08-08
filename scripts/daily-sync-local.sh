@@ -287,9 +287,16 @@ AI_RESULT_JSON=""
 #
 # PUSHED is the flag the dispatch predicate keys on, and it exists because the
 # EXIT CODE ALONE IS NOT ENOUGH: exit 40 is reached from two places on opposite
-# sides of the force-push (:973 backup-push failed, :1073 lease broken), and the
-# second of those means something else is writing korean right now -- the worst
-# possible moment to hand CI a run that will force-push it.
+# sides of the force-push -- "could not push the backup branch" (:1328) and
+# "korean force-push rejected (lease conflict)" (:1440). The second of those means
+# something else is writing korean right now -- the worst possible moment to hand
+# CI a run that will force-push it.
+#
+# Quoted as well as cited (verify round 5, N14). The two numbers that stood here
+# were wrong from the commit that introduced them: written against the pre-edit
+# file, then shifted by that same commit's own insertions, and shifted a further
+# +30 by the R10 fix below. A citation that carries its target's text drifts
+# loudly instead of silently.
 PUSHED=false
 FAILOVER_ATTEMPTED=false
 FAILOVER_OUTCOME="off"
@@ -420,9 +427,25 @@ ai_should_run() {
 #
 # The whole nightly band (02:17-03:35 KST) maps to 17:17-18:35 UTC of the previous
 # day, so one UTC date groups one night. Same convention as the backup branch name.
+# THE BOOT-VOLUME STAMP IS AN OR HERE TOO (verify R10). This is the driver's own
+# copy of sced-failover.sh's gate 5, and it was missing gate 5's second store.
+#
+# design 5.1(e) ruled the omission acceptable, but its argument only covers one of
+# the two consumers: the gate at the dispatch site is backstopped by the sub-script
+# refusing with exit 5, because that site actually calls the sub-script. The AI
+# push-window guard does NOT -- it reads this predicate and pushes. So on a night
+# where last-run.json is lost or corrupted between two runs, the AI stage saw no
+# live dispatch and could push into a dispatched CI run's window: the R14 race, by
+# the one path R14's mitigations do not cover.
+#
+# Same two fixed `sed` programs, same UTC date key and the same `error`-is-not-fired
+# rule as the sub-script, so the two predicates cannot disagree. The read is an OR,
+# so it can only ever make this MORE conservative -- it can never cause a dispatch.
 failover_already_fired() {
-  [[ -r "${STATEFILE}" ]] || return 1
-  FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
+  local wd_dir="${SCED_SYNC_FAILOVER_STATE_DIR:-${HOME}/.local/state/sced-failover}"
+  local stamp="${wd_dir}/${REPO}.dispatch" sdate="" soutcome=""
+  if [[ -r "${STATEFILE}" ]]; then
+    FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
 import json, os, sys
 try:
     d = json.load(open(sys.argv[1]))
@@ -430,7 +453,21 @@ except Exception:
     sys.exit(1)
 f = d.get("failover") or {}
 sys.exit(0 if f.get("date") == os.environ["FO_TODAY"] and f.get("outcome") == "dispatched" else 1)
-' "${STATEFILE}" 2>/dev/null
+' "${STATEFILE}" 2>/dev/null && return 0
+  fi
+  [[ -r "${stamp}" ]] || return 1
+  sdate="$(sed -n 's/^date: *//p' "${stamp}" 2>/dev/null | head -1)"
+  soutcome="$(sed -n 's/^outcome: *//p' "${stamp}" 2>/dev/null | head -1)"
+  # An unparseable stamp FAILS OPEN, exactly as stamp_says_fired() does: a stamp
+  # read as fired is only ever rewritten by a dispatch, so failing closed on a
+  # corrupt one would suppress this predicate with no self-healing path.
+  [[ "${sdate}" == "$(date -u +%Y%m%d)" ]] || return 1
+  case "${soutcome}" in
+    dispatched|attempting)
+      log "failover: the boot-volume dispatch stamp records ${soutcome} for today"
+      return 0 ;;
+  esac
+  return 1
 }
 
 # Eight gates, every refusal logged. Always called from an `if`, which is what
