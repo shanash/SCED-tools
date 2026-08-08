@@ -734,11 +734,80 @@ def test_failover_window_warns_when_a_repo_has_no_covering_firing(tmp_path):
 def test_failover_window_never_escalates_to_an_error(tmp_path):
     """Severity is advisory by construction: these times govern the LATENCY of a
     recovery path, never whether a rebase or a release is safe, so `set` must never
-    refuse because of them."""
+    refuse because of them.
+
+    THE strict=True HALF IS THE POINT. The original form of this test called
+    validate() with the default strict=False and so never reached the escalation
+    loop that contained the defect it was written to prevent -- it passed against
+    the unfixed code (measured: strict=False -> ['warn','warn'], strict=True ->
+    ['fail','fail']). Same class as design.fix-f5-f11.md's D3, one document later.
+    """
     path = _with_failover(tmp_path, "fo-none.json", watchdog_hhmm=[])
-    findings = ss.validate(ss.load_config(path), check_tz=False)
-    assert "fail" not in rule_status(findings, "failover.window")
-    assert not ss.has_errors([f for f in findings if f["id"] == "failover.window"])
+    for strict in (False, True):
+        findings = ss.validate(ss.load_config(path), strict=strict, check_tz=False)
+        fo = [f for f in findings if f["id"] == "failover.window"]
+        assert fo, f"the rule must still report under strict={strict}"
+        assert "fail" not in rule_status(findings, "failover.window"), \
+            f"failover.window escalated under strict={strict}"
+        assert not ss.has_errors(fo)
+
+
+def test_strict_still_escalates_other_rules(tmp_path):
+    """The R5 exemption is keyed on ONE rule id and must not disarm --strict at
+    large. Without this, widening the exemption would be invisible.
+
+    The quarter slot is forced rather than hoped for: an earlier form of this test
+    read whatever warnings the base config happened to raise and SKIPPED when there
+    were none, which is the same do-nothing shape as the bug it guards.
+    """
+    doc = json.loads(BASE_CONFIG.read_text(encoding="utf-8"))
+    doc["repos"]["SCED-downloads"]["local_hhmm"] = "0215"   # -> minute.quarter warn
+    doc["policy"]["failover"] = {"watchdog_hhmm": ["0205", "0235"],
+                                 "watchdog_grace_min": 5}
+    path = tmp_path / "fo-strict.json"
+    path.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+    cfg = ss.load_config(path)
+
+    lax = {f["id"] for f in ss.validate(cfg, strict=False, check_tz=False)
+           if f["status"] == "warn"}
+    assert "minute.quarter" in lax, "the fixture stopped producing a warn to escalate"
+    assert lax - {"failover.window"}, "no non-failover warning present"
+
+    strict = ss.validate(cfg, strict=True, check_tz=False)
+    escalated = {f["id"] for f in strict if f["status"] == "fail"}
+    assert (lax - {"failover.window"}) <= escalated, \
+        f"--strict stopped escalating {(lax - {'failover.window'}) - escalated}"
+    assert "failover.window" not in escalated, "the exemption stopped working"
+
+
+def test_failover_window_survives_a_malformed_grace(tmp_path):
+    """R4: a non-numeric watchdog_grace_min used to raise ValueError out of
+    validate(), taking down show/verify/set alike."""
+    path = _with_failover(tmp_path, "fo-grace.json", watchdog_grace_min="five")
+    findings = ss.validate(ss.load_config(path), check_tz=False)   # must not raise
+    assert any("watchdog_grace_min" in f["detail"]
+               for f in findings if f["id"] == "failover.window")
+
+
+def test_failover_window_still_fails_on_a_malformed_watchdog_hhmm(tmp_path):
+    """The R5 exemption must not mask the one finding this rule can raise that is
+    NOT advisory. A malformed watchdog_hhmm means the window cannot be evaluated at
+    all -- unlike "no firing covers this repo", which only costs latency -- so `set`
+    has to keep refusing it under --strict.
+
+    It survives because that finding is created with status "fail" before the strict
+    loop runs, and the loop only ever rewrites "warn". Nothing asserted that until
+    now: both other tests here exercise the well-formed, advisory case only, so the
+    exemption's blast radius was measured by hand in verify round 4 and by nothing
+    in CI (verify round 4, N13)."""
+    path = _with_failover(tmp_path, "fo-bad-hhmm.json", watchdog_hhmm=["not-a-time"])
+    cfg = ss.load_config(path)
+    for strict in (False, True):
+        findings = ss.validate(cfg, strict=strict, check_tz=False)
+        fo = [f for f in findings if f["id"] == "failover.window"]
+        assert "fail" in {f["status"] for f in fo}, \
+            f"a malformed watchdog_hhmm stopped failing under strict={strict}"
+        assert ss.has_errors(fo), f"has_errors went false under strict={strict}"
 
 
 def test_failover_collision_ack_is_pinned_to_the_exact_time_pair(tmp_path):

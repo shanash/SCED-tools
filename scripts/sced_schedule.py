@@ -478,7 +478,18 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
                                  "no policy.failover block; the failover is not configured",
                                  severity="warn"))
     else:
-        grace = int(fo.get("watchdog_grace_min", 0))
+        # Guarded, like its sibling below (verify R4). This was a bare int() while
+        # the watchdog_hhmm parse two lines down was already wrapped, so a
+        # non-numeric grace raised ValueError straight out of validate() and took
+        # `show`, `verify` AND `set` down with it -- for a field that only shifts a
+        # recovery path's latency. Degrade to 0 and say so.
+        try:
+            grace = int(fo.get("watchdog_grace_min", 0))
+        except (TypeError, ValueError):
+            grace = 0
+            findings.append(_finding("failover.window", "warn",
+                                     "malformed watchdog_grace_min; treating it as 0",
+                                     severity="warn"))
         try:
             wd_mins = [(h, hhmm_to_min(h)) for h in fo.get("watchdog_hhmm", [])]
         except (ValueError, TypeError) as exc:
@@ -548,6 +559,17 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
 
     if strict:
         for f in findings:
+            # failover.window is EXEMPT (verify R5). Its severity is advisory by
+            # construction -- these times govern the LATENCY of a recovery path,
+            # never whether a rebase or a release is safe -- so `set --strict` must
+            # not refuse because of them. The rule declares severity="warn" for that
+            # reason and it did NOTHING, because this loop rewrote it afterwards;
+            # the intent has to be enforced where the escalation happens.
+            #
+            # Keyed on the one rule id, deliberately narrow:
+            # test_strict_still_escalates_other_rules fails if this ever widens.
+            if f["id"] == "failover.window":
+                continue
             if f["status"] == "warn":
                 f["status"] = "fail"
                 f["severity"] = "error"
