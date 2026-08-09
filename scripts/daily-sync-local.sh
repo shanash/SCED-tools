@@ -370,7 +370,15 @@ with_timeout() {
   # carries an explicit redirection, so `with_timeout N python3 <<'PY' ... PY`
   # silently feeds python an EMPTY script. Measured 2026-08-09: without this the
   # notify payload build returns "" and the state file is written empty, with no
-  # error anywhere. It is a no-op for every other caller here (none read stdin).
+  # error anywhere.
+  #
+  # It is a no-op under launchd, where this script's own stdin is /dev/null -- but
+  # NOT unconditionally, so do not restate it that way. On a manual terminal run
+  # the wrapped `git`/`gh` children now inherit the tty. That is harmless today for
+  # two checked reasons and both must stay true: GIT_TERMINAL_PROMPT=0, GIT_ASKPASS
+  # and ssh BatchMode=yes are exported above so git cannot prompt, and no
+  # with_timeout call sits inside a `while read` loop, so no wrapped child can eat
+  # a loop's input. Verify both before adding a caller that reads stdin.
   "$@" <&0 & pid=$!
   # The watchdog's own stdout MUST be closed. Most calls here sit inside a command
   # substitution, and a background process that inherits the substitution's pipe
@@ -469,7 +477,7 @@ ai_should_run() {
 # so it can only ever make this MORE conservative -- it can never cause a dispatch.
 failover_already_fired() {
   local wd_dir="${SCED_SYNC_FAILOVER_STATE_DIR:-${HOME}/.local/state/sced-failover}"
-  local stamp="${wd_dir}/${REPO}.dispatch" sdate="" soutcome=""
+  local stamp="${wd_dir}/${REPO}.dispatch" sdate="" soutcome="" fo_rc=0
   if [[ -r "${STATEFILE}" ]]; then
     # `env` rather than a bare assignment prefix: with_timeout runs "$@", which
     # cannot carry one. A timeout here reads as "not recorded as fired", which is
@@ -483,7 +491,17 @@ except Exception:
     sys.exit(1)
 f = d.get("failover") or {}
 sys.exit(0 if f.get("date") == os.environ["FO_TODAY"] and f.get("outcome") == "dispatched" else 1)
-' "${STATEFILE}" 2>/dev/null && return 0
+' "${STATEFILE}" 2>/dev/null || fo_rc=$?
+    [[ "${fo_rc}" -eq 0 ]] && return 0
+    # 1 is the designed "not recorded as fired" and is silent on purpose -- it is
+    # the common case. Anything else means the predicate did not actually RUN:
+    # 143 is the bound's SIGTERM, 2 a python crash. The answer is the same either
+    # way (fall through to the stamp), but a disputed dispatch is audited from this
+    # log, and "the state file said no" and "we never got to ask it" are different
+    # claims. Not logging that was the one place silence survived this change.
+    if [[ "${fo_rc}" -ne 1 ]]; then
+      log "failover: the state-file predicate did not run (rc ${fo_rc}); the boot-volume stamp is now the only evidence"
+    fi
   fi
   [[ -r "${stamp}" ]] || return 1
   sdate="$(sed -n 's/^date: *//p' "${stamp}" 2>/dev/null | head -1)"
@@ -649,22 +667,37 @@ failover_dispatch() {
 # The Discord `detail` for an AI stop. Reads decide.json field by field -- never
 # sources it -- and points at the artifact directory, because on an ai-stop the
 # agent has already ruled on everything and its rulings are readable.
+#
+# Every log() in here MUST carry `>&2`. This function's stdout IS its return value
+# (`EXTRA="$(ai_stop_extra)"`), so an ordinary log line would be captured into the
+# Discord detail field instead of the run log. stderr is safe: the script-level
+# `exec … 2>&1` at the tee sends it to the log file, and a command substitution
+# captures only stdout.
 ai_stop_extra() {
-  local reason="" rules=""
+  local reason="" rules="" rc=0
   if [[ -f "${AI_RUN_DIR}/decide.json" ]]; then
     reason="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
 d = json.load(open(sys.argv[1]))
-print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>/dev/null || echo '')"
+print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>/dev/null)" || rc=$?
+    if [[ "${rc}" -ne 0 ]]; then
+      reason=""
+      log "ai: could not read the reason from decide.json (rc ${rc})" >&2
+    fi
     # No f-string here on purpose: this whole program is inside a single-quoted
     # -c argument, so an escaped double quote reaches python as a backslash and
     # `f"{r[\"rule\"]}"` is a SyntaxError -- one that fails silently through the
     # `|| echo ''` and empties the field this notification exists to carry.
+    rc=0
     rules="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 for r in d.get("rules", []):
     if r.get("status") == "fail":
         for line in (r.get("detail") or [])[:4]:
-            print("  rule %s %s: %s" % (r.get("rule"), r.get("name"), line))' "${AI_RUN_DIR}/decide.json" 2>/dev/null || echo '')"
+            print("  rule %s %s: %s" % (r.get("rule"), r.get("name"), line))' "${AI_RUN_DIR}/decide.json" 2>/dev/null)" || rc=$?
+    if [[ "${rc}" -ne 0 ]]; then
+      rules=""
+      log "ai: could not read the failing rules from decide.json (rc ${rc})" >&2
+    fi
   fi
   if [[ -z "${reason}" && -f "${AI_RUN_DIR}/stage-error.txt" ]]; then
     reason="$(head -3 "${AI_RUN_DIR}/stage-error.txt")"
@@ -791,6 +824,13 @@ notify() {
   # `with_timeout ... env` and not a bare assignment prefix -- see write_state().
   # The heredoc below is why with_timeout carries `<&0`: without it python would be
   # handed an empty script here and this would post an EMPTY payload, silently.
+  #
+  # The bound covers the python, NOT the assignments' own substitutions: bash
+  # evaluates $(notify_color ...) and $(peek_streak ...) before with_timeout is
+  # ever entered, and peek_streak opens SIGFILE on the same volume. Accepted rather
+  # than fixed -- it is a builtin read in a process that already holds the volume
+  # grant, whereas the 2026-08-09 wedge was per-binary against the Homebrew
+  # python3 -- but it is a real residual and belongs on the record here.
   payload="$(
     with_timeout "${PY_TIMEOUT}" env \
     KIND="${kind}" TITLE="${title}" CODE="${code}" COLOR="$(notify_color "${kind}")" \
@@ -890,7 +930,24 @@ if e("RELEASE_URL"):
 
 print(json.dumps({"username": "SCED daily sync", "content": content, "embeds": [embed]}))
 PY
-  )" || { log "notify: payload build failed (rc $?)"; return 0; }
+  )" || {
+    # `return 0` used to live here, and the bound above is what made that
+    # unacceptable: notify() is the ONLY channel by which an unattended failure
+    # reaches a human, so a wedge that trips the bound would have closed the very
+    # channel that exists to report the wedge. Fall back to a payload the SHELL
+    # builds -- no interpreter, no heredoc, so it cannot fail the same way.
+    #
+    # There is no json.dumps() here, so every interpolated value is first stripped
+    # to an ASCII class that contains no `"`, no `\` and no newline. tr BEFORE cut,
+    # so the length cap can never split a multi-byte character into invalid bytes;
+    # `-` is last in the tr set so it is a literal and not a range.
+    local nrc=$? safe_title safe_kind
+    safe_title="$(printf '%s' "${title}" | LC_ALL=C tr -cd 'A-Za-z0-9 ._:+@()/-' | cut -c1-200)"
+    safe_kind="$(printf '%s' "${kind}" | LC_ALL=C tr -cd 'A-Za-z0-9-' | cut -c1-32)"
+    log "notify: payload build failed (rc ${nrc}) -- falling back to a minimal payload"
+    payload="$(printf '{"username":"SCED daily sync","content":"[%s] %s %s (exit %s) — notify payload build failed rc %s, detail is in the run log"}' \
+      "${safe_kind}" "${REPO}" "${safe_title}" "${code}" "${nrc}")"
+  }
 
   if [[ "${NO_NOTIFY}" == true ]]; then
     log "notify (suppressed by --no-notify): ${payload}"
