@@ -194,6 +194,19 @@ KEEP_BACKUPS="${KEEP_BACKUPS:-${SCED_SYNC_KEEP_BACKUPS:-14}}"
 KEEP_LOGS="${SCED_SYNC_KEEP_LOGS:-30}"
 NET_TIMEOUT="${SCED_SYNC_NET_TIMEOUT:-120}"
 BUILD_TIMEOUT="${SCED_SYNC_BUILD_TIMEOUT:-1800}"
+# Bounds every SHORT-LIVED python3 helper: the state write, the notify payload, the
+# two JSON readers, and the four JSON checks in the verify stage (see repo_verify).
+# NOT build.py / minify.py -- those are real work and run under BUILD_TIMEOUT, so
+# raising this knob will not move them.
+# The costliest bounded call is the SCED mod-JSON parse: ~0.1 s for an 11.7 MB
+# asset, measured 2026-08-09, so 30 s is ~200x it and the rest are far cheaper.
+# A trip therefore means something is genuinely wedged rather than slow. Added
+# 2026-08-09: a macOS TCC consent prompt for the Homebrew python3
+# (kTCCServiceSystemPolicyRemovableVolumes on /Volumes/PRO-G40) that nobody could
+# answer at 02:17 turned write_state() into a 6h15m block that held the workspace
+# lock and could not report itself. Every site below already had a failure branch;
+# all a bound does is reach it.
+PY_TIMEOUT="${SCED_SYNC_PY_TIMEOUT:-30}"
 MAX_RUN_SECONDS="${SCED_SYNC_MAX_RUN_SECONDS:-3600}"
 ASSET_FLOOR_PCT=95
 OWNER="shanash"
@@ -339,13 +352,26 @@ g() {
       "$@"
 }
 
-# timeout(1) is not installed (no coreutils). A watchdog subshell stands in.
+# A watchdog subshell stands in for timeout(1). Homebrew coreutils DOES provide
+# timeout(1) on this machine and the launchd wrapper now requires it, but this
+# helper predates that and every caller below is a direct child, which is the case
+# it handles correctly -- so it stays. Know its ONE limitation before reusing it:
+# it kills the child only, so a caller whose child spawns a GRANDCHILD inside a
+# command substitution still hangs, because the surviving grandchild holds the
+# substitution's pipe open. That is why the wrapper's `bash -> git` probe uses
+# GNU timeout, which signals the whole process group, and not this.
 # `|| rc=$?` is required: under `set -e` a non-zero `wait` would kill the script
 # before the caller can decide what the failure means.
 with_timeout() {
   local secs="$1"; shift
   local rc=0 pid wd
-  "$@" & pid=$!
+  # `<&0` is LOAD-BEARING. With job control off -- every non-interactive run --
+  # bash redirects an async command's stdin from /dev/null unless the command
+  # carries an explicit redirection, so `with_timeout N python3 <<'PY' ... PY`
+  # silently feeds python an EMPTY script. Measured 2026-08-09: without this the
+  # notify payload build returns "" and the state file is written empty, with no
+  # error anywhere. It is a no-op for every other caller here (none read stdin).
+  "$@" <&0 & pid=$!
   # The watchdog's own stdout MUST be closed. Most calls here sit inside a command
   # substitution, and a background process that inherits the substitution's pipe
   # keeps it open: the substitution then blocks for the whole timeout even though
@@ -445,7 +471,11 @@ failover_already_fired() {
   local wd_dir="${SCED_SYNC_FAILOVER_STATE_DIR:-${HOME}/.local/state/sced-failover}"
   local stamp="${wd_dir}/${REPO}.dispatch" sdate="" soutcome=""
   if [[ -r "${STATEFILE}" ]]; then
-    FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
+    # `env` rather than a bare assignment prefix: with_timeout runs "$@", which
+    # cannot carry one. A timeout here reads as "not recorded as fired", which is
+    # the same answer an unreadable state file already gives, so the boot-volume
+    # stamp below still gets its say -- the OR can only make this more conservative.
+    with_timeout "${PY_TIMEOUT}" env FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
 import json, os, sys
 try:
     d = json.load(open(sys.argv[1]))
@@ -622,14 +652,14 @@ failover_dispatch() {
 ai_stop_extra() {
   local reason="" rules=""
   if [[ -f "${AI_RUN_DIR}/decide.json" ]]; then
-    reason="$(python3 -c 'import json,sys
+    reason="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>/dev/null || echo '')"
     # No f-string here on purpose: this whole program is inside a single-quoted
     # -c argument, so an escaped double quote reaches python as a backslash and
     # `f"{r[\"rule\"]}"` is a SyntaxError -- one that fails silently through the
     # `|| echo ''` and empties the field this notification exists to carry.
-    rules="$(python3 -c 'import json,sys
+    rules="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 for r in d.get("rules", []):
     if r.get("status") == "fail":
@@ -758,7 +788,11 @@ notify() {
   esac
 
   local payload
+  # `with_timeout ... env` and not a bare assignment prefix -- see write_state().
+  # The heredoc below is why with_timeout carries `<&0`: without it python would be
+  # handed an empty script here and this would post an EMPTY payload, silently.
   payload="$(
+    with_timeout "${PY_TIMEOUT}" env \
     KIND="${kind}" TITLE="${title}" CODE="${code}" COLOR="$(notify_color "${kind}")" \
     STREAK="$(peek_streak "${kind}" "${sig}")" \
     ESCALATE="${SCED_SYNC_STALL_ESCALATE:-7}" \
@@ -856,7 +890,7 @@ if e("RELEASE_URL"):
 
 print(json.dumps({"username": "SCED daily sync", "content": content, "embeds": [embed]}))
 PY
-  )" || { log "notify: payload build failed"; return 0; }
+  )" || { log "notify: payload build failed (rc $?)"; return 0; }
 
   if [[ "${NO_NOTIFY}" == true ]]; then
     log "notify (suppressed by --no-notify): ${payload}"
@@ -889,6 +923,14 @@ write_state() {
   # case body -- so failover.enabled was ALWAYS false, whatever SCED_SYNC_FAILOVER
   # said. That voids the `enabled == false implies outcome == off` invariant and
   # the CLAUDE.md rollback row that sends a 03:00 operator to read .failover.enabled.
+  #
+  # `env` carries the assignments because with_timeout runs "$@", which cannot take
+  # a bash assignment prefix. THIS is the call that hung for 6h15m on 2026-08-09 --
+  # the state file's 08:32 mtime against its 02:17 content pins it here, not to
+  # notify() -- so the bound is the point of the whole change. Writing is atomic
+  # (OUT + ".tmp" then os.replace below), so a killed python can never truncate the
+  # real file; the worst case is a stray .tmp, which cleanup() sweeps.
+  with_timeout "${PY_TIMEOUT}" env \
   REPO="${REPO}" DECISION="${DECISION}" CODE="${code}" \
   STARTED_AT="${STARTED_AT}" FINISHED_AT="$(date +%Y-%m-%dT%H:%M:%S%z)" \
   DURATION="$(( $(date +%s) - STARTED_EPOCH ))" \
@@ -903,7 +945,7 @@ write_state() {
   FO_PUSHED="${PUSHED}" FO_DATE="$(date -u +%Y%m%d)" \
   FO_ENABLED="$(case ",${SCED_SYNC_FAILOVER:-}," in (*",${REPO},"*) echo true ;; (*) echo false ;; esac)" \
   OUT="${STATEFILE}" \
-  python3 <<'PY' || log "state: write failed"
+  python3 <<'PY' || log "state: write failed (rc $?)"
 import json, os
 e = os.environ.get
 def num(k):
@@ -1060,6 +1102,12 @@ finish() {
 }
 
 cleanup() {
+  # write_state()'s python writes OUT + ".tmp" and os.replace()s it, so the real
+  # state file is never truncated -- but a python killed by the PY_TIMEOUT bound
+  # leaves the .tmp behind. Sweep it: the next run reads the state file back for
+  # the offline asset-count baseline and for the failover "already fired tonight"
+  # record, and a stray sibling is the kind of debris that outlives its cause.
+  rm -f "${STATEFILE}.tmp"
   if [[ "${KEEP_SCRATCH}" != true && -n "${WT}" && -e "${WT}" ]]; then
     g "${REPO_PATH}" worktree remove --force "${WT}" 2>/dev/null \
       || log "cleanup: could not remove worktree ${WT}"
@@ -1155,6 +1203,34 @@ LOG_FILE="${STATE_ROOT}/logs/${REPO}-${RUN_STAMP}.log"
 exec > >(tee -a "${LOG_FILE}") 2>&1
 
 log "=== daily-sync-local ${REPO} (dry_run=${DRY_RUN} skip_build=${SKIP_BUILD} force=${FORCE}) ==="
+
+# An unparseable PY_TIMEOUT is not a wider bound, it is a COLLAPSED one, and it
+# fails in the one direction these bounds exist to close. with_timeout's watchdog
+# runs `sleep "${secs}"`; sleep rejects a non-integer instantly, so the SIGTERM
+# lands within milliseconds of the python3 starting. Measured 2026-08-09 with
+# SCED_SYNC_PY_TIMEOUT=abc: write_state() AND notify() both fail rc 143, so the
+# night keeps the PREVIOUS run's state file and sends no Discord at all -- silence,
+# and the failover watchdog then reads a stale finished_at. Falling back keeps the
+# night correct; the log line is the only way the operator learns the value in the
+# env file was ignored. Plain integer seconds only: `30s` happens to work with this
+# machine's sleep and `5m` does not, and depending on which is undocumented luck.
+#
+# Validated here rather than at the assignment because log() needs the tee at
+# :1203; nothing reads PY_TIMEOUT before this point (every consumer is reached via
+# finish() or the verify stage). NET_TIMEOUT, BUILD_TIMEOUT and FAILOVER_TIMEOUT
+# share the shape but NOT the consequence -- a collapsed bound there kills the
+# fetch, the build or the dispatch, which reports loudly through a notify path
+# whose own knob is still valid. Deliberately left; see verify.md M2.
+case "${PY_TIMEOUT}" in
+  ''|*[!0-9]*)
+    log "config: SCED_SYNC_PY_TIMEOUT='${PY_TIMEOUT}' is not a positive integer of seconds -- using 30"
+    PY_TIMEOUT=30 ;;
+  *)
+    if [[ "${PY_TIMEOUT}" -lt 1 ]]; then
+      log "config: SCED_SYNC_PY_TIMEOUT=${PY_TIMEOUT} must be at least 1 second -- using 30"
+      PY_TIMEOUT=30
+    fi ;;
+esac
 
 # ---------------------------------------------------------- schedule interlock
 
@@ -1612,6 +1688,14 @@ log "build ok (${PROVENANCE})"
 
 FILES=()
 
+# Every python3 below is bounded for the same reason as the four in write_state(),
+# notify(), failover_already_fired() and ai_stop_extra() -- but the exposure here is
+# WORSE, not milder, and that is why they are not left out. These run AFTER the lock
+# is taken (:1194) and after the rebase, so a python3 wedged on the same TCC consent
+# prompt holds the workspace lock, never reaches finish(), and writes no state and no
+# Discord: the 2026-08-09 outage reproduced one stage later. MAX_RUN_SECONDS does not
+# cap a wedged run -- it only lets a LATER run steal the lock. All are direct-child,
+# no-stdin shapes, which is the case with_timeout handles correctly.
 repo_verify() {
   case "${REPO}" in
     SCED)
@@ -1621,8 +1705,10 @@ repo_verify() {
       # silently producing short or empty output.
       local size
       [[ -s "${WT}/${FILENAME}" ]] || { log "verify: ${FILENAME} missing or empty"; return 1; }
-      python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${FILENAME}" \
-        || { log "verify: ${FILENAME} is not valid JSON"; return 1; }
+      # The rc separates the two causes this one branch now carries: a real parse
+      # failure exits 1, a bound that tripped exits 143.
+      with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${FILENAME}" \
+        || { log "verify: ${FILENAME} is not valid JSON (rc $?)"; return 1; }
       size="$(stat -f%z "${WT}/${FILENAME}")"     # BSD stat; the CI runner uses -c%s
       [[ "${size}" -ge 8000000 ]] || { log "verify: mod json is ${size} B, floor 8 MB"; return 1; }
       N_NEW=1
@@ -1640,7 +1726,10 @@ repo_verify() {
       # "Warning: No .json file found" and CONTINUES when an input directory is
       # missing, so a silently short build is otherwise invisible. Deriving the
       # expected count from library.json makes the check self-calibrating.
-      n_expect="$(cd "${WT}" && python3 -c 'import json;print(sum(1 for i in json.load(open("library.json"))["content"] if i.get("decomposed")))')" || return 1
+      # `|| return 1` alone was the one site here with no log line at all, so a
+      # tripped bound would have produced a bare exit 63 with nothing naming it.
+      n_expect="$(cd "${WT}" && with_timeout "${PY_TIMEOUT}" python3 -c 'import json;print(sum(1 for i in json.load(open("library.json"))["content"] if i.get("decomposed")))')" \
+        || { log "verify: could not derive the expected count from library.json (rc $?)"; return 1; }
       n_build="$(find "${WT}/.build" -maxdepth 1 -type f | wc -l | tr -d ' ')"
       if [[ "${n_build}" -ne "${n_expect}" ]]; then
         log "verify: .build has ${n_build} files, library.json declares ${n_expect} decomposed entries"
@@ -1649,8 +1738,8 @@ repo_verify() {
       n_dl="$(find "${WT}/downloadable" -name '*.json' -type f | wc -l | tr -d ' ')"
       N_NEW=$((n_build + n_dl + 2))
       for f in library.json modversion.json; do
-        python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${f}" \
-          || { log "verify: ${f} is not valid JSON"; return 1; }
+        with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${f}" \
+          || { log "verify: ${f} is not valid JSON (rc $?)"; return 1; }
       done
       if grep -q 'No .json file found' "${TMPDIR}/build-${REPO}.log" 2>/dev/null; then
         log "verify: build.py reported a missing input directory"
@@ -1688,7 +1777,11 @@ if [[ -n "${PREV_REF}" ]]; then
     sleep 5
   done
   if [[ -z "${N_PREV}" ]]; then
-    N_PREV="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1])).get("asset_count",0))' "${STATEFILE}" 2>/dev/null || echo "")"
+    # Reads ${STATEFILE} -- the same path on the same volume as the call that
+    # blocked for 6h15m on 2026-08-09, and the last unbounded one on this path.
+    # A tripped bound yields "", which the fail-closed branch below already
+    # handles: no baseline means exit 63, never a silently disarmed floor.
+    N_PREV="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys;print(json.load(open(sys.argv[1])).get("asset_count",0))' "${STATEFILE}" 2>/dev/null || echo "")"
     if [[ -z "${N_PREV}" ]]; then
       DECISION="verify"; finish 63 fail "no asset baseline available (fail closed)"
     fi
