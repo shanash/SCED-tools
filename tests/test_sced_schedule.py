@@ -57,8 +57,8 @@ def mutate(tmp_path, name, **repo_overrides):
     """Write a variant of the base config with one repo's fields overridden."""
     doc = json.loads(BASE_CONFIG.read_text(encoding="utf-8"))
     for repo, fields in repo_overrides.items():
-        if repo == "policy":
-            doc["policy"].update(fields)
+        if repo in ("policy", "launchd"):
+            doc[repo].update(fields)
         else:
             doc["repos"][repo].update(fields)
     dst = tmp_path / name
@@ -146,6 +146,19 @@ def test_day_of_month_is_rejected(tmp_path):
 def test_base_fixture_is_clean(cfg):
     findings = ss.validate(cfg, check_tz=False)
     assert not ss.has_errors(findings), [f for f in findings if f["status"] == "fail"]
+
+
+def test_launchd_program_must_be_a_platform_binary(tmp_path):
+    # A Homebrew interpreter at argv[0] puts a non-platform, ungranted binary at
+    # the top of the TCC attribution chain for the entire night.
+    path = mutate(tmp_path, "program.json", launchd={"program": "/opt/homebrew/bin/bash"})
+    findings = ss.validate(ss.load_config(path), check_tz=False)
+    assert "fail" in rule_status(findings, "program.platform")
+    assert ss.has_errors(findings)
+
+
+def test_platform_program_passes(cfg):
+    assert "ok" in rule_status(ss.validate(cfg, check_tz=False), "program.platform")
 
 
 def test_latest_before_local_is_rejected_as_no_wrap(tmp_path, cfg):

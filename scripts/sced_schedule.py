@@ -90,6 +90,17 @@ SCHEMA = 1
 DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 QUARTER_MINUTES = (0, 15, 30, 45)
 
+# `launchd.program` is argv[0] of every nightly run, so it is the TOP of the TCC
+# attribution chain: macOS attributes a file request to the responsible process,
+# and /bin/bash carries the ONLY Full Disk Access grant this workspace has
+# (kTCCServiceSystemPolicyAllFiles = 2). Pointing this at /opt/homebrew/bin/bash
+# would render, pass assert-plist and go green in `verify` while silently removing
+# that grant from every process below it -- the 2026-08-10 failure
+# (.am/wrapper-timeout-tcc-attribution/analyze.md F6) one level higher and for a
+# whole night rather than one probe. Latent only because no Homebrew bash is
+# installed today; one `brew install bash` makes it live.
+PLATFORM_PROGRAM_PREFIXES = ("/bin/", "/sbin/", "/usr/bin/", "/usr/sbin/", "/usr/libexec/")
+
 DEFAULT_CONFIG = Path(__file__).resolve().parent.parent / "config" / "sync-schedule.json"
 
 
@@ -429,6 +440,21 @@ def validate(cfg: dict, strict: bool = False, allow_round_minute: bool = False,
         else:
             findings.append(_finding("stagger", "ok",
                                      f"{prev} +{gap}m <= {cur} (slack {gap - min_stagger}m)"))
+
+    # program.platform -- refuses rather than warns. This is not a latency
+    # question like failover.window; it is the whole night's TCC grant.
+    program = cfg["launchd"].get("program", "")
+    if not isinstance(program, str) or not program.startswith(PLATFORM_PROGRAM_PREFIXES):
+        findings.append(_finding(
+            "program.platform", "fail",
+            f"launchd.program is {program!r}; it must be a macOS platform binary under "
+            f"one of {', '.join(PLATFORM_PROGRAM_PREFIXES)}. TCC attributes a file request to "
+            f"the RESPONSIBLE process and /bin/bash carries the only Full Disk Access grant "
+            f"this nightly has, so a non-platform interpreter here removes that grant from "
+            f"every process below it"))
+    else:
+        findings.append(_finding("program.platform", "ok",
+                                 f"launchd.program {program} is a platform path"))
 
     # ai.stagger -- the same gap must also absorb a full AI stage plus the rest
     # of a run once the stage lands.

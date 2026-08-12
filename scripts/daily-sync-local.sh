@@ -352,14 +352,26 @@ g() {
       "$@"
 }
 
-# A watchdog subshell stands in for timeout(1). Homebrew coreutils DOES provide
-# timeout(1) on this machine and the launchd wrapper now requires it, but this
-# helper predates that and every caller below is a direct child, which is the case
-# it handles correctly -- so it stays. Know its ONE limitation before reusing it:
-# it kills the child only, so a caller whose child spawns a GRANDCHILD inside a
-# command substitution still hangs, because the surviving grandchild holds the
-# substitution's pipe open. That is why the wrapper's `bash -> git` probe uses
-# GNU timeout, which signals the whole process group, and not this.
+# A watchdog subshell stands in for timeout(1). Nothing in the local tier uses GNU
+# timeout(1) any more -- not this script, and since 2026-08-10 not the launchd
+# wrapper either, which no longer even requires it on PATH. Do not reintroduce it:
+# macOS attributes a file request to the RESPONSIBLE process, so a Homebrew
+# `gtimeout` above a process that opens /Volumes/PRO-G40 displaces /bin/bash's Full
+# Disk Access grant -- the only grant this nightly has -- and the request prompts
+# instead, unanswerably, under launchd.
+#
+# Know this helper's ONE limitation before reusing it: it kills the child only, so a
+# caller whose child spawns a GRANDCHILD inside a COMMAND SUBSTITUTION still hangs,
+# because the surviving grandchild holds the substitution's pipe open. That is a
+# property of the pipe, not of the timeout, and the fix is a file rather than a
+# different timeout: the wrapper's `bash -> git` probe uses this same pure-bash
+# shape and redirects to a file under /tmp/sced-daily-sync-probe.*, so `wait` on the
+# direct child is the only thing it blocks on. Every caller below is a direct child
+# whose output is small, which is the case this handles correctly -- so it stays.
+#
+# `<&0` below is load-bearing HERE and deliberately absent in the wrapper's
+# counterpart: this helper wraps `python3 <<'PY'` heredocs that would otherwise be
+# fed an empty script, and nothing the wrapper wraps reads stdin at all.
 # `|| rc=$?` is required: under `set -e` a non-zero `wait` would kill the script
 # before the caller can decide what the failure means.
 with_timeout() {
