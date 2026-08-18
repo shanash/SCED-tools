@@ -87,7 +87,7 @@
 # Exit codes:
 #   0  released, or nothing to do (no-op guard)
 #   1  usage error
-#   2  preflight failed (volume / deps / env-file perms / disk)
+#   2  preflight failed (volume / deps / interpreter / env-file perms / disk)
 #   3  another run holds the lock
 #   4  skipped: staleness guard -- the GHA fallback owns tonight
 #   5  schedule interlock missing: launchd fired but the plist carried no
@@ -190,6 +190,25 @@ WORKSPACE="${SCED_SYNC_WORKSPACE:-${REPO_ROOT}}"
 STATE_ROOT="${SCED_SYNC_STATE_ROOT:-${WORKSPACE}/.local-sync}"
 TTSMM="${SCED_SYNC_TTSMM:-${WORKSPACE}/TTSModManager-Darwin}"
 TTSMM_SHA256="${SCED_SYNC_TTSMM_SHA256:-d40df046b928a224295c2b8be2cd6543bd27eb0d739e8346afed33ff1f26f1ff}"
+# The python interpreter for EVERY python3 in this script, pinned to a PLATFORM
+# path rather than resolved from PATH. This is the same rule sced_schedule.py's
+# `program.platform` already enforces for launchd.program, applied one level down.
+#
+# 2026-08-18: `brew upgrade` installed python@3.14 3.14.7 at 21:23 and moved the
+# Cellar path; five hours later `python3 build.py` -- /opt/homebrew/bin/python3 --
+# raised kTCCServiceSystemPolicyRemovableVolumes for /Volumes/PRO-G40 at 02:17:29
+# (msgID 650.4830, no REPLY ever) and wedged until BUILD_TIMEOUT SIGTERMed it 1800 s
+# later, exit 60. write_state()'s python3 then queued behind the same prompt and
+# tripped PY_TIMEOUT, and SCED's wrapper probe at 02:47 tripped its own 60 s bound.
+#
+# Homebrew's python is the ONE interpreter that cannot inherit /bin/bash's grant:
+# its image is .../Resources/Python.app/Contents/MacOS/Python -- an app bundle, so
+# TCC makes it its own `responsible_path` instead of bash. It is adhoc-signed with
+# no TeamIdentifier, so any grant is keyed to a Cellar path and cdhash that the next
+# `brew upgrade` invalidates. That is why the answer here is to leave the ancestry,
+# never to grant the Homebrew path Full Disk Access. `gh`, `git-lfs` and `curl` stay
+# on PATH: they are plain Mach-O executables, not app bundles, and do inherit.
+PYBIN="${SCED_SYNC_PYTHON:-/usr/bin/python3}"
 KEEP_BACKUPS="${KEEP_BACKUPS:-${SCED_SYNC_KEEP_BACKUPS:-14}}"
 KEEP_LOGS="${SCED_SYNC_KEEP_LOGS:-30}"
 NET_TIMEOUT="${SCED_SYNC_NET_TIMEOUT:-120}"
@@ -495,7 +514,7 @@ failover_already_fired() {
     # cannot carry one. A timeout here reads as "not recorded as fired", which is
     # the same answer an unreadable state file already gives, so the boot-volume
     # stamp below still gets its say -- the OR can only make this more conservative.
-    with_timeout "${PY_TIMEOUT}" env FO_TODAY="$(date -u +%Y%m%d)" python3 -c '
+    with_timeout "${PY_TIMEOUT}" env FO_TODAY="$(date -u +%Y%m%d)" "${PYBIN}" -c '
 import json, os, sys
 try:
     d = json.load(open(sys.argv[1]))
@@ -688,7 +707,7 @@ failover_dispatch() {
 ai_stop_extra() {
   local reason="" rules="" rc=0
   if [[ -f "${AI_RUN_DIR}/decide.json" ]]; then
-    reason="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
+    reason="$(with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>/dev/null)" || rc=$?
     if [[ "${rc}" -ne 0 ]]; then
@@ -700,7 +719,7 @@ print(d.get("reason") or d.get("outcome") or "")' "${AI_RUN_DIR}/decide.json" 2>
     # `f"{r[\"rule\"]}"` is a SyntaxError -- one that fails silently through the
     # `|| echo ''` and empties the field this notification exists to carry.
     rc=0
-    rules="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys
+    rules="$(with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json,sys
 d = json.load(open(sys.argv[1]))
 for r in d.get("rules", []):
     if r.get("status") == "fail":
@@ -855,7 +874,7 @@ notify() {
     RELEASE_URL="${RELEASE_URL}" ASSETS="${N_NEW}" BACKUP="${BACKUP}" \
     EXTRA="${EXTRA}" LOGF="${LOG_FILE#"${WORKSPACE}"/}" TS="$(date +%Y-%m-%dT%H:%M:%S%z)" \
     FAILOVER="${FAILOVER_FIELD}" \
-    python3 <<'PY'
+    "${PYBIN}" <<'PY'
 import json, os
 
 e = os.environ.get
@@ -1014,7 +1033,7 @@ write_state() {
   FO_PUSHED="${PUSHED}" FO_DATE="$(date -u +%Y%m%d)" \
   FO_ENABLED="$(case ",${SCED_SYNC_FAILOVER:-}," in (*",${REPO},"*) echo true ;; (*) echo false ;; esac)" \
   OUT="${STATEFILE}" \
-  python3 <<'PY' || log "state: write failed (rc $?)"
+  "${PYBIN}" <<'PY' || log "state: write failed (rc $?)"
 import json, os
 e = os.environ.get
 def num(k):
@@ -1224,6 +1243,37 @@ if [[ "${NO_NOTIFY}" != true && -z "${SCED_SYNC_DISCORD_WEBHOOK:-}" ]]; then
   echo "ERROR: SCED_SYNC_DISCORD_WEBHOOK is not set in ${ENV_FILE}" >&2
   exit 2
 fi
+
+# The interpreter is a dependency like git or gh, so it is checked here, BEFORE
+# the lock: a python that cannot run must never reach the point where it can hold
+# the workspace lock while wedged. Two separate assertions, because they fail for
+# opposite reasons.
+#
+# (1) Platform path. This is sced_schedule.py's `program.platform` rule applied one
+#     level down, and it is the whole point of the pin: a Homebrew interpreter is
+#     an app bundle that TCC makes its own responsible_path, so it cannot inherit
+#     /bin/bash's grant on /Volumes/PRO-G40 and its own grant dies with the next
+#     `brew upgrade`. Refusing the value is correct even when it happens to work
+#     today -- it worked every night from 2026-08-10 to 2026-08-17 and then did not.
+case "${PYBIN}" in
+  /bin/*|/sbin/*|/usr/bin/*|/usr/sbin/*|/usr/libexec/*) ;;
+  *)
+    echo "ERROR: SCED_SYNC_PYTHON='${PYBIN}' is not a platform path (/bin, /sbin, /usr/bin, /usr/sbin, /usr/libexec)." >&2
+    echo "       A non-platform interpreter -- notably /opt/homebrew/bin/python3 -- takes its own TCC" >&2
+    echo "       responsibility and will wedge on a consent prompt nobody can answer under launchd." >&2
+    exit 2 ;;
+esac
+
+# (2) It has to actually run. `cd /` keeps the probe off the external volume so a
+#     denial there cannot be mistaken for a broken interpreter, and the bound is a
+#     literal because PY_TIMEOUT is not validated until after the tee is up.
+if ! ( cd / && with_timeout 30 "${PYBIN}" -c 'pass' ) >/dev/null 2>&1; then
+  echo "ERROR: ${PYBIN} is not runnable. On this machine /usr/bin/python3 is the Xcode/CLT" >&2
+  echo "       shim; if the developer directory was removed, restore it with" >&2
+  echo "       'xcode-select --install' rather than repointing SCED_SYNC_PYTHON at Homebrew." >&2
+  exit 2
+fi
+
 
 mkdir -p "${STATE_ROOT}/run" "${STATE_ROOT}/state" "${STATE_ROOT}/logs" "${STATE_ROOT}/scratch"
 
@@ -1736,9 +1786,9 @@ repo_build() {
       grep -q '"modexec": "./TTSModManager-Darwin"' "${WT}/build.py" || return 1
       [[ "$(g "${WT}" status --porcelain -- build.py)" == " M build.py" ]] || return 1
 
-      ( cd "${WT}" && with_timeout "${BUILD_TIMEOUT}" python3 build.py ) \
+      ( cd "${WT}" && with_timeout "${BUILD_TIMEOUT}" "${PYBIN}" build.py ) \
         >> "${TMPDIR}/build-${REPO}.log" 2>&1 || return 1
-      ( cd "${WT}" && with_timeout "${BUILD_TIMEOUT}" python3 minify.py ) \
+      ( cd "${WT}" && with_timeout "${BUILD_TIMEOUT}" "${PYBIN}" minify.py ) \
         >> "${TMPDIR}/build-${REPO}.log" 2>&1 || return 1
       PROVENANCE="TTSModManager-Darwin sha256:${TTSMM_SHA256:0:16}, argonui/SCED@main=${argonui_sha}"
       # --- end BUILD ---
@@ -1776,7 +1826,7 @@ repo_verify() {
       [[ -s "${WT}/${FILENAME}" ]] || { log "verify: ${FILENAME} missing or empty"; return 1; }
       # The rc separates the two causes this one branch now carries: a real parse
       # failure exits 1, a bound that tripped exits 143.
-      with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${FILENAME}" \
+      with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${FILENAME}" \
         || { log "verify: ${FILENAME} is not valid JSON (rc $?)"; return 1; }
       size="$(stat -f%z "${WT}/${FILENAME}")"     # BSD stat; the CI runner uses -c%s
       [[ "${size}" -ge 8000000 ]] || { log "verify: mod json is ${size} B, floor 8 MB"; return 1; }
@@ -1797,7 +1847,7 @@ repo_verify() {
       # expected count from library.json makes the check self-calibrating.
       # `|| return 1` alone was the one site here with no log line at all, so a
       # tripped bound would have produced a bare exit 63 with nothing naming it.
-      n_expect="$(cd "${WT}" && with_timeout "${PY_TIMEOUT}" python3 -c 'import json;print(sum(1 for i in json.load(open("library.json"))["content"] if i.get("decomposed")))')" \
+      n_expect="$(cd "${WT}" && with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json;print(sum(1 for i in json.load(open("library.json"))["content"] if i.get("decomposed")))')" \
         || { log "verify: could not derive the expected count from library.json (rc $?)"; return 1; }
       n_build="$(find "${WT}/.build" -maxdepth 1 -type f | wc -l | tr -d ' ')"
       if [[ "${n_build}" -ne "${n_expect}" ]]; then
@@ -1807,7 +1857,7 @@ repo_verify() {
       n_dl="$(find "${WT}/downloadable" -name '*.json' -type f | wc -l | tr -d ' ')"
       N_NEW=$((n_build + n_dl + 2))
       for f in library.json modversion.json; do
-        with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${f}" \
+        with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json,sys; json.load(open(sys.argv[1]))' "${WT}/${f}" \
           || { log "verify: ${f} is not valid JSON (rc $?)"; return 1; }
       done
       if grep -q 'No .json file found' "${TMPDIR}/build-${REPO}.log" 2>/dev/null; then
@@ -1850,7 +1900,7 @@ if [[ -n "${PREV_REF}" ]]; then
     # blocked for 6h15m on 2026-08-09, and the last unbounded one on this path.
     # A tripped bound yields "", which the fail-closed branch below already
     # handles: no baseline means exit 63, never a silently disarmed floor.
-    N_PREV="$(with_timeout "${PY_TIMEOUT}" python3 -c 'import json,sys;print(json.load(open(sys.argv[1])).get("asset_count",0))' "${STATEFILE}" 2>/dev/null || echo "")"
+    N_PREV="$(with_timeout "${PY_TIMEOUT}" "${PYBIN}" -c 'import json,sys;print(json.load(open(sys.argv[1])).get("asset_count",0))' "${STATEFILE}" 2>/dev/null || echo "")"
     if [[ -z "${N_PREV}" ]]; then
       DECISION="verify"; finish 63 fail "no asset baseline available (fail closed)"
     fi

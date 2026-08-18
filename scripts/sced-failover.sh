@@ -182,6 +182,21 @@ if [[ -r "${ENV_FILE}" ]]; then
   set +a
 fi
 
+# Same pin, same reason, as daily-sync-local.sh: this script runs unattended under
+# launchd (the watchdog at 03:05/03:35, and the driver's own dispatch on a failed
+# run) and reads .local-sync/state/<repo>.last-run.json on /Volumes/PRO-G40.
+# Homebrew's python3 is an app bundle, so TCC makes it its own responsible_path
+# instead of inheriting /bin/bash's grant, and its adhoc-signed grant dies at the
+# next `brew upgrade` -- 2026-08-18, where one such prompt cost the whole night.
+# Read-only assertion here rather than the driver's two: this script must degrade
+# to "the failover did not fire", never abort a night on its own.
+PYBIN="${SCED_SYNC_PYTHON:-/usr/bin/python3}"
+case "${PYBIN}" in
+  /bin/*|/sbin/*|/usr/bin/*|/usr/sbin/*|/usr/libexec/*) ;;
+  *) echo "WARNING: SCED_SYNC_PYTHON='${PYBIN}' is not a platform path; falling back to /usr/bin/python3" >&2
+     PYBIN=/usr/bin/python3 ;;
+esac
+
 # PROVED NUMERIC AT THE BOUNDARY (verify R2). RELEASE_ID is interpolated into the
 # PATH of a `gh api -X DELETE` (draft_precondition_ok) -- the only destructive call
 # in either script -- so a value that was never checked must not be able to reach
@@ -315,7 +330,7 @@ notify() {
   [[ -n "${SCED_SYNC_DISCORD_WEBHOOK:-}" ]] || { log "no webhook configured, cannot notify"; return 0; }
   local payload
   payload="$(TITLE="${title}" DETAIL="${detail}" COLOR="${color}" \
-             MENTION="${SCED_SYNC_MENTION:-}" python3 -c '
+             MENTION="${SCED_SYNC_MENTION:-}" "${PYBIN}" -c '
 import json, os
 title = os.environ["TITLE"]
 detail = os.environ.get("DETAIL", "")
@@ -489,7 +504,7 @@ state_get() {
   local repo="$1" path="$2"
   local f="${STATE_ROOT}/state/${repo}.last-run.json"
   [[ -r "${f}" ]] || return 1
-  FO_PATH="${path}" python3 -c '
+  FO_PATH="${path}" "${PYBIN}" -c '
 import json, os, sys
 try:
     d = json.load(open(sys.argv[1]))
@@ -639,7 +654,7 @@ record_failover() {
   FO_RUN_URL="${run_url}" FO_DATE="${TODAY_UTC}" FO_GH="$(gh_version)" \
   FO_URLOK="$(gh_run_url_supported && echo true || echo false)" \
   FO_AT="$(date +%Y-%m-%dT%H:%M:%S%z)" \
-  python3 -c '
+  "${PYBIN}" -c '
 import json, os, sys
 p = sys.argv[1]
 try:
@@ -830,7 +845,7 @@ enabled_repos() {
 sched_hhmm_for() {
   local repo="$1" key="$2" v=""
   if [[ -r "${SCHEDULE_JSON}" ]]; then
-    v="$(FO_REPO="${repo}" FO_KEY="${key}" python3 -c '
+    v="$(FO_REPO="${repo}" FO_KEY="${key}" "${PYBIN}" -c '
 import json, os, sys
 try:
     d = json.load(open(sys.argv[1]))
@@ -917,7 +932,7 @@ reported_tonight() {
   fi
   # finished_at carries a local offset; both sides of the comparison are naive
   # local, which is the same assumption the driver's own NOW_MIN arithmetic makes.
-  FO_FIN="${fin}" FO_HHMM="${hhmm}" python3 -c '
+  FO_FIN="${fin}" FO_HHMM="${hhmm}" "${PYBIN}" -c '
 import datetime as dt, os, sys
 try:
     t = dt.datetime.strptime(os.environ["FO_FIN"][:19], "%Y-%m-%dT%H:%M:%S")
