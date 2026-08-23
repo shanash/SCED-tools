@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "stage": "S6",
+  "stage_name": "triage",
+  "slug": "the-midwinter-gala",
+  "scenario_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "unit": "finding",
+  "batch": 2,
+  "batch_of": 2,
+  "universe": [
+    "typeset:T1:71012-back"
+  ],
+  "units": {
+    "typeset:T1:71012-back": {
+      "key": "71012-back",
+      "arkham_id": "71012",
+      "guid": "1e7f1b",
+      "card_id": 917512,
+      "deck_key": "9175",
+      "cell": 12,
+      "num_width": 8,
+      "num_height": 5,
+      "detail": "flavor line box tail sits 4 px outside CLEAR on the back face",
+      "check": "T1",
+      "check_name": "line_box_containment",
+      "gate_stage": "typeset"
+    }
+  },
+  "identity": {
+    "typeset:T1:71012-back": {
+      "arkham_id": "71012",
+      "guid": "1e7f1b",
+      "card_id": 917512,
+      "deck_key": "9175",
+      "cell": 12,
+      "num_width": 8,
+      "num_height": 5
+    }
+  },
+  "material_sha256": {
+    "material/gate-typeset.json": "3fea51f9e2f8520f8a16f107794b6acf8fc5feab9e2a99f6eab8263c916f0774",
+    "material/lock.json": "cb8e8e22c9faf45acf289d117d1ce3e5e5eae78c23a43b2483dc492ef2328b0c"
+  }
+}

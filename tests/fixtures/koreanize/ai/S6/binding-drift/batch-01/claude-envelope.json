@@ -1,0 +1,12 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "result": "{\"schema\": 1, \"stage\": \"S6\", \"slug\": \"the-midwinter-gala\", \"batch\": 1, \"batch_of\": 2, \"scenario_sha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\", \"inputs_sha256\": \"0000000000000000000000000000000000000000000000000000000000000000\", \"summary\": \"Adjudicated 2 typeset gate finding(s) for batch 1.\", \"rulings\": [{\"unit_id\": \"typeset:T3:71006-front\", \"verdict\": \"defect\", \"confidence\": \"high\", \"rationale\": \"The overflow is 12 px of real ink past the CLEAR boundary on a face whose window is not narrowed, so it is a typeset defect and not a measurement artefact.\", \"value\": {\"owner_stage\": \"typeset\", \"suggested_action\": \"re-run typeset with the shrink ladder one step deeper on this face\"}, \"reaches_pixels\": true, \"identity\": {\"arkham_id\": \"71006\", \"guid\": \"a26b6b\", \"card_id\": 917506, \"deck_key\": \"9175\", \"cell\": 6, \"num_width\": 8, \"num_height\": 5}, \"evidence\": [{\"file\": \"material/gate-typeset.json\", \"sha256\": \"3fea51f9e2f8520f8a16f107794b6acf8fc5feab9e2a99f6eab8263c916f0774\", \"locator\": \"$.checks[0].detail[0]\"}]}, {\"unit_id\": \"typeset:T3:71005-front\", \"verdict\": \"tolerance\", \"confidence\": \"high\", \"rationale\": \"3 px is inside the recorded residual baseline for this group and window, and the lock already carries the sibling face, so this reproduces a ruled tolerance rather than a new defect.\", \"value\": {\"owner_stage\": \"mask\", \"suggested_action\": \"add (T3, Act/front, body, 71005-front) to mask.residual_baseline[] via --accept-mask-residual\"}, \"reaches_pixels\": true, \"identity\": {\"arkham_id\": \"71005\", \"guid\": \"0782c0\", \"card_id\": 917505, \"deck_key\": \"9175\", \"cell\": 5, \"num_width\": 8, \"num_height\": 5}, \"evidence\": [{\"file\": \"material/lock.json\", \"sha256\": \"cb8e8e22c9faf45acf289d117d1ce3e5e5eae78c23a43b2483dc492ef2328b0c\", \"locator\": \"$.mask.residual_baseline[1]\"}]}], \"wrote\": [\"out/manifest.json\"], \"declared_input_sha256\": {\"material/gate-typeset.json\": \"3fea51f9e2f8520f8a16f107794b6acf8fc5feab9e2a99f6eab8263c916f0774\", \"material/lock.json\": \"cb8e8e22c9faf45acf289d117d1ce3e5e5eae78c23a43b2483dc492ef2328b0c\"}}",
+  "session_id": "00000001-0000-4000-8000-000000000001",
+  "total_cost_usd": 0.42,
+  "num_turns": 3,
+  "duration_ms": 41000,
+  "duration_api_ms": 39500,
+  "permission_denials": []
+}

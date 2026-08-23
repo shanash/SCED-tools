@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "stage": "S6",
+  "stage_name": "triage",
+  "slug": "the-midwinter-gala",
+  "scenario_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "unit": "finding",
+  "gate_stage": "typeset",
+  "universe": [
+    "typeset:T3:71006-front",
+    "typeset:T3:71005-front",
+    "typeset:T1:71012-back"
+  ],
+  "universe_size": null,
+  "max_units_per_call": 2,
+  "max_calls": 3,
+  "batch_of": 2,
+  "budget": {
+    "model": "claude-opus-5",
+    "fallback_model": "claude-opus-4-8",
+    "effort": "high",
+    "timeout_s": 780,
+    "call_budget_s": 900,
+    "stage_wall_clock_s": 5400,
+    "max_budget_usd_per_call": 10,
+    "max_budget_usd_per_stage": 60
+  },
+  "units": {
+    "typeset:T3:71006-front": {
+      "key": "71006-front",
+      "arkham_id": "71006",
+      "guid": "a26b6b",
+      "card_id": 917506,
+      "deck_key": "9175",
+      "cell": 6,
+      "num_width": 8,
+      "num_height": 5,
+      "detail": "body band 2 overflows the CLEAR window by 12 px on the Act front face",
+      "check": "T3",
+      "check_name": "clear_containment",
+      "gate_stage": "typeset"
+    },
+    "typeset:T3:71005-front": {
+      "key": "71005-front",
+      "arkham_id": "71005",
+      "guid": "0782c0",
+      "card_id": 917505,
+      "deck_key": "9175",
+      "cell": 5,
+      "num_width": 8,
+      "num_height": 5,
+      "detail": "body band 1 overflows the CLEAR window by 3 px on the Act front face",
+      "check": "T3",
+      "check_name": "clear_containment",
+      "gate_stage": "typeset"
+    },
+    "typeset:T1:71012-back": {
+      "key": "71012-back",
+      "arkham_id": "71012",
+      "guid": "1e7f1b",
+      "card_id": 917512,
+      "deck_key": "9175",
+      "cell": 12,
+      "num_width": 8,
+      "num_height": 5,
+      "detail": "flavor line box tail sits 4 px outside CLEAR on the back face",
+      "check": "T1",
+      "check_name": "line_box_containment",
+      "gate_stage": "typeset"
+    }
+  },
+  "identity": {
+    "typeset:T3:71006-front": {
+      "arkham_id": "71006",
+      "guid": "a26b6b",
+      "card_id": 917506,
+      "deck_key": "9175",
+      "cell": 6,
+      "num_width": 8,
+      "num_height": 5
+    },
+    "typeset:T3:71005-front": {
+      "arkham_id": "71005",
+      "guid": "0782c0",
+      "card_id": 917505,
+      "deck_key": "9175",
+      "cell": 5,
+      "num_width": 8,
+      "num_height": 5
+    },
+    "typeset:T1:71012-back": {
+      "arkham_id": "71012",
+      "guid": "1e7f1b",
+      "card_id": 917512,
+      "deck_key": "9175",
+      "cell": 12,
+      "num_width": 8,
+      "num_height": 5
+    }
+  },
+  "material_sha256": {
+    "material/gate-typeset.json": "3fea51f9e2f8520f8a16f107794b6acf8fc5feab9e2a99f6eab8263c916f0774",
+    "material/lock.json": "cb8e8e22c9faf45acf289d117d1ce3e5e5eae78c23a43b2483dc492ef2328b0c"
+  }
+}

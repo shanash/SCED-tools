@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.1.0",
+  "stage": "typeset",
+  "slug": "the-midwinter-gala",
+  "verdict": "FAIL",
+  "exit_code": 22,
+  "checks": [
+    {
+      "id": "T3",
+      "name": "clear_containment",
+      "status": "fail",
+      "exit_on_fail": 20,
+      "detail": [
+        {
+          "key": "71006-front",
+          "arkham_id": "71006",
+          "guid": "a26b6b",
+          "card_id": 917506,
+          "deck_key": "9175",
+          "cell": 6,
+          "num_width": 8,
+          "num_height": 5,
+          "detail": "body band 2 overflows the CLEAR window by 12 px on the Act front face"
+        },
+        {
+          "key": "71005-front",
+          "arkham_id": "71005",
+          "guid": "0782c0",
+          "card_id": 917505,
+          "deck_key": "9175",
+          "cell": 5,
+          "num_width": 8,
+          "num_height": 5,
+          "detail": "body band 1 overflows the CLEAR window by 3 px on the Act front face"
+        }
+      ]
+    },
+    {
+      "id": "T1",
+      "name": "line_box_containment",
+      "status": "fail",
+      "exit_on_fail": 20,
+      "detail": [
+        {
+          "key": "71012-back",
+          "arkham_id": "71012",
+          "guid": "1e7f1b",
+          "card_id": 917512,
+          "deck_key": "9175",
+          "cell": 12,
+          "num_width": 8,
+          "num_height": 5,
+          "detail": "flavor line box tail sits 4 px outside CLEAR on the back face"
+        }
+      ]
+    }
+  ]
+}

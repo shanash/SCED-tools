@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.1.0",
+  "slug": "the-midwinter-gala",
+  "mask": {
+    "residual_baseline": [
+      {
+        "check": "T3",
+        "group": "Act/front",
+        "window_name": "body",
+        "face": "71006-front"
+      },
+      {
+        "check": "T3",
+        "group": "Act/front",
+        "window_name": "body",
+        "face": "71005-front"
+      }
+    ]
+  }
+}
