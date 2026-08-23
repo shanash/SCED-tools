@@ -1204,10 +1204,31 @@ def build_scenario_config(slug, scenario_name, source_dir, source_tree_sha256,
     pack_container = dict(KOREAN_PACKS).get(pack)
     write_roots = [
         "%s/%s/%s/%s/" % (LANGPACK_ROOT, pack, pack_container, container_stem),
+        # The scenario container OBJECT, which is a sibling of the directory above
+        # and therefore matches NEITHER of the other roots: a root ending in "/"
+        # is a prefix test, and "<stem>.json" is not under "<stem>/". Without this
+        # row `register` cannot create the container that holds the overrides, so
+        # v0 stops one stage short of `verify` -- and it stops at exit 4, a guard
+        # refusal, which reads as a misconfiguration rather than as a missing root.
+        "%s/%s/%s/%s.json" % (LANGPACK_ROOT, pack, pack_container, container_stem),
         "%s/%s/%s.json" % (LANGPACK_ROOT, pack, pack_container),
-        "%s/%s/%s/" % (LANGPACK_ROOT, "Korean - Player Cards",
-                       "Korean-PlayerCards.KoreanI"),
     ]
+    # The Player Cards container is a root only when `repoint` can actually
+    # reach it, and `repoint` is v1. §5.3's rule is that Player Cards selection
+    # is "by URL predicate alone, never directory-wide" -- a cross-scenario
+    # repoint of overrides sharing an atlas -- so a Campaigns scenario does
+    # legitimately need it THEN. Adding it unconditionally NOW opens an entire
+    # foreign pack's container tree in every scenario's guard for a stage that
+    # refuses at 13, which is deny-by-default widened for no reachable caller:
+    # every v0 destination is derived from cfg["pack"]/pack_container/
+    # container_stem and none of them can land here. It is therefore added only
+    # when the scenario's own pack IS Player Cards, where it is the same tree the
+    # first root already covers; §6 step 15 widens it again when repoint lands,
+    # and the config regeneration that implies is the point at which an operator
+    # re-reads the blast radius.
+    if pack_container == "Korean-PlayerCards.KoreanI":
+        write_roots.append("%s/%s/%s/" % (LANGPACK_ROOT, "Korean - Player Cards",
+                                          "Korean-PlayerCards.KoreanI"))
 
     cfg = collections.OrderedDict([
         ("schema_version", kz.SCHEMA_VERSION),
@@ -1220,6 +1241,12 @@ def build_scenario_config(slug, scenario_name, source_dir, source_tree_sha256,
         ("pack", pack),
         ("pack_container", pack_container),
         ("container_guid", container_guid),
+        # The langpack DESTINATION stem, which is scenario identity and not a
+        # derived convenience: `kz_langpack.py` resolves every one of its write
+        # destinations from it, and the only other place it appears is inside a
+        # guard.write_roots STRING, where reading it back means index-slicing a
+        # path prefix. Carried here so the stdlib-tier writer never has to.
+        ("container_stem", container_stem),
         ("arkham_prefixes", arkham_prefixes),
         ("guard", collections.OrderedDict([
             ("write_roots", write_roots),

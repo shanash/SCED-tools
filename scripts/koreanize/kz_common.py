@@ -1023,6 +1023,21 @@ def _as_path(path):
     return path if hasattr(path, "parent") else Path(str(path))
 
 
+def json_bytes(data):
+    """Exactly the bytes atomic_write_json will put on disk.
+
+    One owner for the convention, because two callers need it for two different
+    reasons and a copy that drifted would break both silently: `kz_langpack`
+    serialises a planned override to hash it BEFORE writing (its `plan_sha256`,
+    which is what `revert` compares a created file against), and `kz_source`
+    hashes an artifact for its own `binding{}` before `emit` writes it. A binding
+    computed with different bytes than the writer produces is never equal to the
+    file, so the stage reads STALE on the very next --status -- which is the
+    defect this function exists to make impossible rather than to document.
+    """
+    return (json.dumps(data, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+
 def atomic_write_json(path, data):
     sced_io.atomic_write_json(_as_path(path), data)
 

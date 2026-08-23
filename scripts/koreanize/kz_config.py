@@ -26,6 +26,7 @@ would drag whatever kz_common imported into the stdlib tier's import graph.
 """
 
 import argparse
+import collections
 import errno
 import json
 import os
@@ -83,11 +84,68 @@ assert len(set(STAGES)) == len(STAGES) == 22                             # 22 = 
 PREDECESSOR_EXEMPT = frozenset({"revert"})
 assert PREDECESSOR_EXEMPT <= set(STAGES)
 
+# §1.2's predecessor table, AUTHORITATIVE -- the stage drawing in the design omits
+# three edges for legibility and this is the version `plan` implements. A stage
+# may run when every predecessor's report is `consumable` and no binding{} sha256
+# has moved.
+#
+# It lives HERE rather than in koreanize.sh because the shell would have to parse
+# stage reports to evaluate it, and here it is one table that `plan`, `--status`
+# and `test_koreanize_gates.py` all read. `golden` is deliberately absent: it is a
+# koreanize.sh COMMAND that drives five stages, not a stage with a report (§5.8).
+PREDECESSORS = {
+    "init": (),
+    "source": ("init",),
+    "scaffold": ("source",),
+    "reuse": ("scaffold",),
+    "terms": ("init",),
+    "translate": ("terms",),
+    "check": ("translate",),
+    "slice": ("init",),
+    "mask": ("slice",),
+    "erase": ("mask",),
+    "composite": ("slice", "mask", "erase"),
+    "typeset": ("composite", "check"),
+    "recompose": ("slice", "typeset"),
+    "upload": ("recompose",),
+    # The two PER-OBJECT disjuncts. The tuple is the unconditional half; the
+    # disjunct is resolved from source.json per object by resolve_disjunct().
+    "objtext": ("scaffold",),
+    "repoint": ("scaffold", "upload"),
+    "register": ("objtext",),
+    "verify": ("register",),
+    # Exempt (revert) and gate-invoked / positionless (triage, audit, ocr).
+    "revert": (),
+    "triage": (),
+    "audit": (),
+    "ocr": (),
+}
+assert set(PREDECESSORS) == set(STAGES), "the predecessor table must be total"
+for _stage, _preds in PREDECESSORS.items():
+    assert set(_preds) <= set(STAGES), "%s names an unknown predecessor" % _stage
+
+#: The per-object disjuncts of §1.2, as {stage: {decision: extra_predecessor}}.
+#: Resolving them at SCENARIO granularity does not work and the measurement is
+#: what says so: all eight Challenge Scenarios have both counts.manufacture > 0
+#: and counts.reuse > 0, so a scenario-level rule selects `check` -- a v1 stage --
+#: on every scenario v0 targets, and `objtext` refuses at exit 72 on all eight,
+#: taking `register` and `verify` with it.
+DISJUNCTS = {
+    "objtext": {"reuse": "reuse", "manufacture": "check"},
+    "register": {"reuse": "reuse", "manufacture": "repoint"},
+}
+
 # The subdirectories guard.data_root may contain. Seven, because the exemption is
 # named for the tier and not for one of its members: init writes scenarios/,
 # terms writes terms/, translate writes text/, mask writes layouts/, typeset
 # writes icons/, kz_langpack produces locks/, and §6 step 8 writes golden/.
 DATA_SUBDIRS = ("scenarios", "terms", "text", "layouts", "icons", "locks", "golden")
+
+#: The koreanize package's canonical WORKSPACE-RELATIVE location, which is what
+#: `guard.data_root` must name. Derived once from the live tree so a package move
+#: updates it, and compared as a string thereafter -- see check_write_paths().
+PACKAGE_REL = os.path.relpath(kc.PACKAGE_DIR,
+                              kc.WORKSPACE_ROOT).replace(os.sep, "/")
 
 ENV_FILE = os.path.expanduser("~/.config/koreanize/env")
 SCHEDULE_JSON = os.path.join(kc.WORKSPACE_ROOT, "SCED-tools", "config", "sync-schedule.json")
@@ -570,10 +628,21 @@ def check_write_paths(cfg, paths, workspace=None):
     findings = []
 
     # data_root's own three properties, asserted once per call.
-    pkg_rel = _rel_to_workspace(kc.PACKAGE_DIR, workspace)
-    if pkg_rel is None or not data_root.startswith(pkg_rel.rstrip("/") + "/"):
+    #
+    # The comparison is against the package's CANONICAL workspace-relative
+    # location, not against wherever this module happens to live relative to the
+    # `workspace` argument. §3.2 makes every path in a scenario.json
+    # workspace-relative, so "does data_root name the koreanize package
+    # directory" is a property of the declared STRING and is answerable without
+    # the filesystem. Resolving kc.PACKAGE_DIR against the caller's workspace
+    # instead made the answer depend on where the tool was installed: any
+    # workspace other than the live one -- a test sandbox, a second checkout --
+    # put the package outside it, `_rel_to_workspace` returned None, and the
+    # check then refused EVERY path in the plan with a message about data_root,
+    # including paths that have nothing to do with it.
+    if not data_root.startswith(PACKAGE_REL.rstrip("/") + "/"):
         findings.append("guard.data_root %r does not resolve inside the koreanize "
-                        "package directory (%s)" % (data_root, pkg_rel))
+                        "package directory (%s)" % (data_root, PACKAGE_REL))
 
     for path in paths:
         rel = _rel_to_workspace(path, workspace)
@@ -604,11 +673,22 @@ def check_write_paths(cfg, paths, workspace=None):
     return findings
 
 
+#: How many guard findings a refusal quotes before summarising the rest. A
+#: langpack plan is up to `guard.max_files_written` = 200 paths and a
+#: misconfigured root fails EVERY one of them, so an uncapped join emits a single
+#: 40 KB line -- which scrolls the actual first line, the one that says what is
+#: wrong, off the top of the terminal. The cause is the same for all of them.
+GUARD_FINDING_SAMPLE = 12
+
+
 def assert_write_paths(cfg, paths, workspace=None):
     findings = check_write_paths(cfg, paths, workspace=workspace)
     if findings:
+        detail = "; ".join(findings[:GUARD_FINDING_SAMPLE])
+        if len(findings) > GUARD_FINDING_SAMPLE:
+            detail += "; ... and %d more" % (len(findings) - GUARD_FINDING_SAMPLE)
         kc.refuse(kc.EXIT_GUARD, "planned write set violates the path guard",
-                  "; ".join(findings))
+                  detail)
     if len(list(paths)) > cfg["guard"]["max_files_written"]:
         # Exit 4, and "nothing was read" is still true, because the count is
         # derived from the PLAN and not from the writes.
@@ -1098,6 +1178,142 @@ def selftest(verbose=True):
     return findings
 
 
+# ---------------------------------------------------------------------------
+# 9. The DAG -- what `plan` and `--status` are computed from
+# ---------------------------------------------------------------------------
+#
+# In kz_config and not in koreanize.sh because the shell would have to parse
+# stage reports to evaluate the table above, and this way `plan`, `--status` and
+# `test_koreanize_gates.py` all read one implementation.
+
+
+def _read_json_quietly(path):
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except (OSError, ValueError):
+        return None
+
+
+def stage_state(run_dir, stage, workspace=None):
+    """What `--status` prints for one stage. Never raises: a missing or corrupt
+    report is a STATE, and a status command that refused on one would be useless
+    at exactly the moment it is needed."""
+    workspace = workspace or kc.WORKSPACE_ROOT
+    path = kc.report_path(run_dir, stage, "build")
+    state = {"stage": stage, "report": path, "present": os.path.exists(path),
+             "mode": None, "verdict": None, "exit_code": None,
+             "consumable": False, "blocked_by": None, "gate": None,
+             "stale": False, "stale_paths": [], "seeded": None,
+             "batches": None, "batch_of": None}
+    report = _read_json_quietly(path) if state["present"] else None
+    if report is None:
+        state["blocked_by"] = "no report" if not state["present"] \
+            else "report is unreadable"
+        return state
+
+    state["mode"] = report.get("mode")
+    state["verdict"] = report.get("verdict")
+    state["exit_code"] = report.get("exit_code")
+    state["consumable"] = bool(report.get("consumable"))
+    state["blocked_by"] = report.get("consumable_blocked_by")
+    gate = report.get("gate")
+    state["gate"] = gate.get("status") if gate else None
+
+    seed = report.get("seed")
+    if seed:
+        # A seeded artifact prints as `seeded (golden <id>)` rather than as a
+        # verdict: it is consumable to the stages of its OWN golden run and to
+        # nothing else, and without saying so a seeded report carrying
+        # ai.used true is indistinguishable from a real one (§5.8).
+        state["seeded"] = seed.get("golden_run_id")
+
+    ai = report.get("ai")
+    if ai:
+        state["batch_of"] = ai.get("batches")
+        state["batches"] = (report.get("counts") or {}).get("batches_complete")
+
+    # STALE is the whole resumability mechanism: a stage is stale when any
+    # binding{} sha256 no longer matches disk, which implements "a rebuild
+    # invalidates everything downstream" without anyone having to remember it.
+    for name, recorded in sorted((report.get("binding") or {}).items()):
+        candidate = name if os.path.isabs(name) else os.path.join(run_dir, name)
+        if not os.path.exists(candidate):
+            candidate = os.path.join(workspace, name)
+        if not os.path.exists(candidate) or not isinstance(recorded, str) \
+                or len(recorded) != 64:
+            continue
+        if kc.sha256_file(candidate) != recorded:
+            state["stale"] = True
+            state["stale_paths"].append(name)
+    return state
+
+
+def resolve_disjunct(run_dir, stage):
+    """§1.2's per-object disjunct, resolved from source.json over the stage's
+    WRITE SET -- the entries the stage will actually write -- and never over its
+    input.
+
+    The distinction is the whole of the fix. §1.3 requires `objtext` to COUNT the
+    manufacture and defer entries as its declared remainder, so those entries are
+    unavoidably IN ITS INPUT on all eight Challenge Scenarios; a predicate
+    reading "in its input" therefore selects `check`, a v1 stage, and lands back
+    at exit 72 on all eight -- the scenario-level failure one level down.
+    """
+    table = DISJUNCTS.get(stage)
+    if not table:
+        return ()
+    report = _read_json_quietly(kc.report_path(run_dir, "source", "build"))
+    resolution = ((report or {}).get("results") or {}).get("resolution") or []
+    # v0 writes the REUSE SUBSET, so only decisions that produce a write count.
+    decisions = {e.get("decision") for e in resolution}
+    extra = []
+    for decision, predecessor in sorted(table.items()):
+        if decision == "reuse" and "reuse" in decisions:
+            extra.append(predecessor)
+        # `manufacture` entries are SKIPPED AND COUNTED, not waited on: they are
+        # not in the write set, so they add no predecessor. That is what lets
+        # objtext be a v0 stage whose table names a v1 one without v0 becoming
+        # unreachable (§4.1).
+    return tuple(extra)
+
+
+def predecessors_of(stage, run_dir=None):
+    if stage in PREDECESSOR_EXEMPT:
+        return ()
+    base = PREDECESSORS.get(stage, ())
+    if run_dir is None:
+        return tuple(base)
+    return tuple(base) + resolve_disjunct(run_dir, stage)
+
+
+def plan(run_dir, workspace=None):
+    """The DAG with each stage's state, plus which stage runs next.
+
+    Returns {"stages": [...], "next": stage-or-None, "blocked": [...]}.
+    """
+    workspace = workspace or kc.WORKSPACE_ROOT
+    states = collections.OrderedDict()
+    for stage in STAGES:
+        states[stage] = stage_state(run_dir, stage, workspace)
+
+    rows, nxt, blocked = [], None, []
+    for stage in STAGES:
+        state = dict(states[stage])
+        preds = predecessors_of(stage, run_dir)
+        unmet = [p for p in preds
+                 if not states[p]["consumable"] or states[p]["stale"]]
+        state["predecessors"] = list(preds)
+        state["unmet"] = unmet
+        state["runnable"] = not unmet
+        rows.append(state)
+        if unmet:
+            blocked.append(stage)
+        elif nxt is None and not state["consumable"]:
+            nxt = stage
+    return {"stages": rows, "next": nxt, "blocked": blocked}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="kz_config.py",
@@ -1112,7 +1328,40 @@ def main(argv=None):
                         help="print the union schedule window and whether now is inside it")
     parser.add_argument("--lock-status", action="store_true",
                         help="read-only probe of the nightly lock")
+    parser.add_argument("--plan", metavar="RUN_DIR",
+                        help="evaluate §1.2's DAG over a run directory and print "
+                             "the per-stage table (koreanize.sh --status / plan)")
+    parser.add_argument("--plan-json", action="store_true",
+                        help="with --plan: emit JSON instead of the table")
     args = parser.parse_args(argv)
+
+    if args.plan:
+        result = plan(args.plan)
+        if args.plan_json:
+            print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+            return kc.EXIT_OK
+        print("%-11s %-9s %-5s %-11s %-6s %s"
+              % ("stage", "verdict", "exit", "consumable", "stale", "gate/blocked"))
+        for row in result["stages"]:
+            if not row["present"] and not row["unmet"]:
+                continue
+            note = row["gate"] or ""
+            if row["seeded"]:
+                note = "seeded (golden %s)" % row["seeded"]
+            elif row["unmet"]:
+                note = "waiting on %s" % ", ".join(row["unmet"])
+            elif row["blocked_by"]:
+                note = row["blocked_by"]
+            if row["batch_of"]:
+                note = "batches %s of %s; %s" % (row["batches"], row["batch_of"],
+                                                 note)
+            print("%-11s %-9s %-5s %-11s %-6s %s"
+                  % (row["stage"], row["verdict"] or "-",
+                     "-" if row["exit_code"] is None else row["exit_code"],
+                     "yes" if row["consumable"] else "no",
+                     "YES" if row["stale"] else "no", note))
+        print("next   : %s" % (result["next"] or "-- nothing runnable --"))
+        return kc.EXIT_OK
 
     if args.window:
         inside, win = in_schedule_window()

@@ -58,6 +58,13 @@ def pytest_configure(config):
         "markers",
         "needs_golden: requires the golden corpus declared by "
         "data/golden/<fixture>.manifest.json")
+    # `slow` is registered for the same reason and under the same rule: it marks
+    # the corpus SMOKE runs, which walk the live SCED-downloads tree the nightly
+    # force-pushes nightly. They are not the coverage -- the synthetic cases
+    # beside them are -- so `-m "not slow"` is a supported way to run the suite.
+    config.addinivalue_line(
+        "markers",
+        "slow: walks the live SCED-downloads tree; a smoke run, not coverage")
 
 
 def _read_env_file():
