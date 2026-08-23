@@ -180,6 +180,81 @@ def test_a_batch_budget_that_cannot_close_is_exit_4():
     assert excinfo.value.code == kc.EXIT_GUARD
 
 
+@pytest.mark.parametrize("key", ["timeout_s", "call_budget_s", "stage_wall_clock_s"])
+@pytest.mark.parametrize("bad", ["900s", "5m", 0, -1, None, "", 10.5, True])
+def test_a_seconds_knob_that_is_not_a_positive_integer_is_exit_4(key, bad):
+    """Presence was all `_REQUIRED_AI` proved. A string then reached
+    `calls * call_budget` and left a TypeError -- a defect in the tool -- where a
+    controlled exit-4 refusal belongs, and a 0 or a negative satisfied every
+    inequality silently and was forwarded to the shim as-is. Unlike an
+    environment knob, scenario.json is hash-pinned and has an author to tell.
+    """
+    cfg = make_cfg()
+    cfg["ai"][key] = bad
+    with pytest.raises(kc.KzRefusal) as excinfo:
+        kz.validate(cfg, check_pin=False)
+    assert excinfo.value.code == kc.EXIT_GUARD
+    text = str(excinfo.value)
+    assert ("ai.%s" % key) in text and "scenario.json" in text
+
+
+@pytest.mark.parametrize("key", ["max_budget_usd_per_call", "max_budget_usd_per_stage"])
+@pytest.mark.parametrize("bad", ["sixty", 0, -1, None, "", True])
+def test_a_usd_knob_that_is_not_a_positive_amount_is_exit_4(key, bad):
+    """Money rather than seconds, so a fraction is legal -- but zero, a negative
+    and an unparseable string are not an amount to bound a stage by."""
+    cfg = make_cfg()
+    cfg["ai"][key] = bad
+    with pytest.raises(kc.KzRefusal) as excinfo:
+        kz.validate(cfg, check_pin=False)
+    assert excinfo.value.code == kc.EXIT_GUARD
+    assert ("ai.%s" % key) in str(excinfo.value)
+
+
+def test_a_fractional_usd_budget_is_still_accepted():
+    """The refusal above is about shape, not about integrality: the USD knobs are
+    deliberately not forced through the integer helper."""
+    cfg = make_cfg()
+    cfg["ai"]["max_budget_usd_per_call"] = 7.5
+    cfg["ai"]["max_budget_usd_per_stage"] = 45.0
+    assert kz.validate(cfg, check_pin=False) is not None
+
+
+def test_the_config_refusal_and_the_env_knob_fallback_share_one_predicate():
+    """`_positive_int` falls back because an environment knob has no author to
+    tell; a pinned config document refuses. Both must agree on what is BAD, so
+    the two read the same predicate."""
+    for raw in ("45", "900", 780):
+        assert kz._is_positive_int(raw) is True
+        assert kz._positive_int(raw, 30, "TEST") == int(raw)
+    for raw in ("60s", "0", "-1", "", None, "10.5"):
+        assert kz._is_positive_int(raw) is False
+        assert kz._positive_int(raw, 30, "TEST") == 30
+
+
+def test_a_timeout_longer_than_the_call_budget_is_exit_4():
+    """`call_budget_s` gates a call only BEFORE it starts, so `timeout_s` is the
+    bound that actually governs an in-flight call. A scenario shortening
+    `call_budget_s` for headroom while leaving `timeout_s` at 780 can have one
+    call run the full 780 s, discovered only between batches (§3.7)."""
+    cfg = make_cfg()
+    cfg["ai"]["call_budget_s"] = 420           # timeout_s stays at 780
+    with pytest.raises(kc.KzRefusal) as excinfo:
+        kz.validate(cfg, check_pin=False)
+    assert excinfo.value.code == kc.EXIT_GUARD
+    text = str(excinfo.value)
+    assert "timeout_s" in text and "call_budget_s" in text
+    assert "780" in text and "420" in text
+
+
+def test_a_timeout_equal_to_the_call_budget_closes():
+    """The assertion is `timeout_s <= call_budget_s`; the boundary is legal."""
+    cfg = make_cfg()
+    cfg["ai"]["timeout_s"] = 420
+    cfg["ai"]["call_budget_s"] = 420
+    assert kz.validate(cfg, check_pin=False) is not None
+
+
 def test_a_missing_universe_size_cannot_pass_as_a_declared_null():
     """The carve-out is explicit so an ABSENT universe_size is a finding."""
     cfg = make_cfg()

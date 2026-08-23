@@ -279,7 +279,7 @@ _REQUIRED_TOP = ("schema_version", "slug", "scenario_name", "source_dir", "pack"
                  "arkham_prefixes", "guard", "run_dir", "ai", "gates", "fonts")
 _REQUIRED_GUARD = ("write_roots", "forbidden", "data_root", "max_files_written")
 _REQUIRED_AI = ("required_stages", "forbidden_stages", "neutral_stages", "batch",
-                "call_budget_s", "stage_wall_clock_s",
+                "timeout_s", "call_budget_s", "stage_wall_clock_s",
                 "max_budget_usd_per_call", "max_budget_usd_per_stage")
 
 
@@ -342,11 +342,49 @@ def _check_batch_budgets(cfg):
     """
     ai = cfg["ai"]
     findings = []
+    timeout = ai["timeout_s"]
     call_budget = ai["call_budget_s"]
     stage_clock = ai["stage_wall_clock_s"]
     per_call_usd = ai["max_budget_usd_per_call"]
     per_stage_usd = ai["max_budget_usd_per_stage"]
     batch = ai.get("batch") or {}
+
+    # The knobs are validated before anything is multiplied by them. Presence was
+    # all _REQUIRED_AI proved, so a string went into `calls * call_budget` as a
+    # TypeError out of a validator -- a defect in the tool -- and a 0 or a
+    # negative satisfied every inequality and was then forwarded to the shim
+    # as-is. Unlike an environment knob, scenario.json is hash-pinned and has an
+    # AUTHOR, so a bad value refuses at exit 4 naming the file rather than
+    # falling back to a default nobody wrote. The shape is _positive_int's, via
+    # the predicate that helper is built on, so the two can never disagree.
+    for key in ("timeout_s", "call_budget_s", "stage_wall_clock_s"):
+        if not _is_positive_int(ai[key]):
+            findings.append("ai.%s is %r in scenario.json, not a positive integer "
+                            "of seconds" % (key, ai[key]))
+    for key in ("max_budget_usd_per_call", "max_budget_usd_per_stage"):
+        if not _is_positive_number(ai[key]):
+            findings.append("ai.%s is %r in scenario.json, not a positive amount "
+                            "of USD" % (key, ai[key]))
+    if findings:
+        # Every inequality below reads these five; carrying on would only add
+        # findings that are consequences of the ones already named.
+        return findings
+
+    timeout = int(str(timeout).strip())
+    call_budget = int(str(call_budget).strip())
+    stage_clock = int(str(stage_clock).strip())
+
+    # The per-call clock must fit inside the pre-call gate. `call_budget_s` is
+    # checked by the shim's budget_check BEFORE an invocation and never inside
+    # one, so a `timeout_s` longer than it lets a single call run past the budget
+    # that is supposed to close `max_calls * call_budget_s <= stage_wall_clock_s`
+    # -- the overrun then surfaces only between batches, at exit 25. kz_ask.py
+    # re-asserts this at exit 13 before any invocation as defence in depth.
+    if timeout > call_budget:
+        findings.append("ai.timeout_s %d > ai.call_budget_s %d in scenario.json: "
+                        "call_budget_s gates a call only BEFORE it starts, so a "
+                        "longer per-call wall clock overruns the batch budget it "
+                        "is meant to close" % (timeout, call_budget))
 
     missing = set(AI_STAGE_MAP) - set(batch)
     if missing:
@@ -911,6 +949,38 @@ class NightlyLock(object):
         return False
 
 
+def _is_positive_int(raw):
+    """The shape `_positive_int` accepts: a plain positive integer, nothing else.
+
+    Extracted so a hash-pinned config document can REFUSE on the same predicate an
+    environment knob falls back on. '60s', '0', '-1', '10.5' and '' are not one.
+    """
+    if raw is None:
+        return False
+    text = str(raw).strip()
+    if not text:
+        return False
+    try:
+        return int(text) > 0
+    except ValueError:
+        return False
+
+
+def _is_positive_number(raw):
+    """The USD knobs are money rather than seconds, so a fraction is legal.
+
+    Same spirit as `_is_positive_int` and the same refusal: zero, negative, NaN,
+    infinity and anything unparseable are not an amount to bound a stage by.
+    """
+    if raw is None or isinstance(raw, bool):
+        return False
+    try:
+        val = float(str(raw).strip())
+    except (TypeError, ValueError):
+        return False
+    return 0 < val < float("inf")
+
+
 def _positive_int(raw, default, name):
     """Plain integer seconds only.
 
@@ -921,15 +991,11 @@ def _positive_int(raw, default, name):
     """
     if raw is None or str(raw).strip() == "":
         return default
-    try:
-        val = int(str(raw).strip())
-    except ValueError:
-        val = 0
-    if val <= 0:
+    if not _is_positive_int(raw):
         sys.stderr.write("config: %s is not a positive integer of seconds; using %d\n"
                          % (name, default))
         return default
-    return val
+    return int(str(raw).strip())
 
 
 # ---------------------------------------------------------------------------
@@ -974,6 +1040,39 @@ def selftest(verbose=True):
         findings.append("_positive_int must reject '0' and fall back to the default")
     if _positive_int("45", 30, "TEST") != 45:
         findings.append("_positive_int must accept a plain integer")
+
+    # The same shape, applied to scenario.json, where it REFUSES instead of
+    # falling back: a pinned document has an author who has to be told. A knob
+    # that is merely present used to reach `calls * call_budget` as a string and
+    # leave a TypeError -- a defect in the tool -- where an exit-4 refusal belongs.
+    def _budget_cfg(**over):
+        ai = {"timeout_s": 780, "call_budget_s": 900, "stage_wall_clock_s": 5400,
+              "max_budget_usd_per_call": 10, "max_budget_usd_per_stage": 60,
+              "batch": dict((sid, {"unit": "unit", "max_units_per_call": 8,
+                                   "max_calls": 6, "universe_size": 0})
+                            for sid in AI_STAGE_MAP)}
+        ai.update(over)
+        return {"ai": ai}
+
+    if _check_batch_budgets(_budget_cfg()):
+        findings.append("_check_batch_budgets rejected a table that closes")
+    for label, over in (("a non-integer call_budget_s", {"call_budget_s": "900s"}),
+                        ("a zero call_budget_s", {"call_budget_s": 0}),
+                        ("a negative stage_wall_clock_s", {"stage_wall_clock_s": -1}),
+                        ("a zero max_budget_usd_per_call",
+                         {"max_budget_usd_per_call": 0}),
+                        ("a non-numeric max_budget_usd_per_stage",
+                         {"max_budget_usd_per_stage": "sixty"})):
+        if not _check_batch_budgets(_budget_cfg(**over)):
+            findings.append("%s must be an exit-4 finding" % label)
+
+    # timeout_s is the bound that actually governs an in-flight call; call_budget_s
+    # only gates one BEFORE it starts, so the first must fit inside the second.
+    over_budget = _check_batch_budgets(_budget_cfg(call_budget_s=420))
+    if not any("timeout_s" in f and "call_budget_s" in f for f in over_budget):
+        findings.append("timeout_s 780 > call_budget_s 420 must be an exit-4 finding")
+    if _check_batch_budgets(_budget_cfg(timeout_s=420, call_budget_s=420)):
+        findings.append("timeout_s == call_budget_s must be allowed")
 
     # window_margin_px bound, both directions.
     ok_layout = {"col_gap": 34, "groups": {"Act/front": {"window_margin_px": 34,
