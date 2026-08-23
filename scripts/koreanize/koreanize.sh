@@ -360,7 +360,12 @@ do_selftest() {
 
   printf '\n=== module --selftest ===\n'
   local module tier name
-  for name in kz_common kz_config kz_init kz_ask kz_decide kz_triage kz_source; do
+  # Absent modules are skipped by the guard below, so a name may be added here
+  # as soon as the design names its module -- which is what keeps the completion
+  # predicate non-vacuous for the step that builds it. A step whose module is
+  # missing from this list has a `--selftest` nothing ever runs.
+  for name in kz_common kz_config kz_init kz_ask kz_decide kz_triage kz_source \
+              kz_checkers kz_terms kz_translate kz_audit; do
     [[ -f "${HERE}/${name}.py" ]] || continue
     printf -- '--- %s\n' "${name}"
     "${ART_PY}" "${HERE}/${name}.py" --selftest || failures=$((failures + 1))
