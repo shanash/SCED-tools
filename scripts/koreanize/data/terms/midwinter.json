@@ -1,0 +1,1765 @@
+{
+  "generated_at": "2026-08-23T16:50:09Z",
+  "generated_by": "koreanize step 8 backfill (design 6 step 8)",
+  "provenance": {
+    "authoritative_column": "THE TABLE COLUMN, NEVER THE PROSE BESIDE IT. terminology-ko.md section 11.4 measured this against card-text-ko.json on 2026-08-18: sections 2.3 and 8's PROSE disagrees with 2.3's own Korean COLUMN on nine terms (Relic, Terror, Hazard, Servitor, Allied, Dreamlands, Abomination, Wayfarer, Rival) and the shipped cards follow the column every time. The reviewer edited the column and left the justification standing. This import therefore takes the column and records the section it came from; the nine stale prose renderings are banned outright by guide/translate-guide.py (BANNED, exit 23).",
+    "ported_from": ".am/midwinter-gala-korean/terminology-ko.md",
+    "ported_from_sha256": "a4d5c36b0cbe58285a95010dd313abe56d6c8a26fa474442cec9aac37b0cfc54",
+    "precedence": "card-text-ko.json > this file's table column > glossary.json",
+    "verdict_mapping": "The sheet's own source vocabulary is wider than the tool's three verdicts (data/terms/README.md): glossary -> glossary; coined -> coined; and rules-ref / faq / precedent / official Korean print / shipped card all -> rules_ref, i.e. 'an external authority carries it and it is not the glossary'. The sheet's literal token is preserved verbatim in each entry's `note`, so the widening is recorded rather than lost. `precedent` rows carry confidence `medium` -- the sheet grades them 'light review' -- and every other row is `high`."
+  },
+  "schema_version": "1.1.0",
+  "slug": "midwinter",
+  "terms": {
+    "(→R1)": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "",
+      "note": "terminology-ko.md section 4; source column: verbatim — do not translate. A resolution pointer.; sheet annotation: →R1",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Abomination": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "흉물",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Monster → 괴물 is taken. 혐오체 is the established Korean rendering of Abomination in this genre.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Act": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "주요목적",
+      "note": "terminology-ko.md section 5.1; source column: official Korean print (§5.1); sheet annotation: Act Card → 주요목적 카드 | also terminology-ko.md section 6; source column: official Korean print (§5.1)",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Act 1 / Act 2": {
+      "confidence": "high",
+      "kind": "sequence_label",
+      "ko": "주요목적 1 / 주요목적 2",
+      "note": "terminology-ko.md section 6; source column: official Korean print (§5.1)",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Add": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "더하다",
+      "note": "terminology-ko.md section 5.2; source column: — plain language",
+      "occurrences": 9,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Advance": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "진행하다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 6,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Agency": {
+      "confidence": "medium",
+      "kind": "trait",
+      "ko": "연방 요원",
+      "note": "terminology-ko.md section 2.2; source column: precedent",
+      "occurrences": 4,
+      "rationale": "Agency Backup → 연방 요원 파견",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Agenda": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "주요사건",
+      "note": "terminology-ko.md section 5.1; source column: glossary; sheet annotation: Agenda Card → 주요사건 카드 | also terminology-ko.md section 6; source column: glossary",
+      "occurrences": 10,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Agenda 1 / Agenda 2 / Agenda 3": {
+      "confidence": "high",
+      "kind": "sequence_label",
+      "ko": "주요사건 1 / 주요사건 2 / 주요사건 3",
+      "note": "terminology-ko.md section 6; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Alert": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "경계",
+      "note": "terminology-ko.md section 11.1; source column: shipped card 71047 and glossary.json",
+      "occurrences": null,
+      "rationale": "### Alert, a whole rules subsection",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Allied": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "협력",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 5,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Marks a rival who has been won over. Deliberately distinct from Ally → 조력자 so the two never read as the same trait.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Ally": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "조력자",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 15,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Aloof": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "냉담한",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 7,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Asset": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "자산",
+      "note": "terminology-ko.md section 5.1; source column: glossary; sheet annotation: Asset Card → 자산 카드 | also terminology-ko.md section 6; source column: glossary",
+      "occurrences": 22,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Attach": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "부착하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Attach To → ~에 부착하다",
+      "occurrences": 6,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Basement": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "지하실",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "Pairs with the 1층/2층 floor scheme as a named location trait.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Blunder": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "실책",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "A treachery trait. 실책 carries the \"costly mistake\" sense; 실수 is too casual for a trait line.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Campaign": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "캠페인",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Cancel": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "취소하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Chaos Bag": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "혼돈 주머니",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Chaos token": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "혼돈 토큰",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Choose": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "고르다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Clue": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "단서",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Combat (the skill icon on a card)": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "힘",
+      "note": "terminology-ko.md section 1.3; source column: rules-ref",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Connecting (location)": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "이어진 장소",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Damage": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "피해",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 27,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Deck": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "덱",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 31,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Defeat": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "쓰러뜨리다 / 쓰러지다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Difficulty": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "난이도",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Discard": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "버리다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Discard Pile → 버린 카드 더미",
+      "occurrences": 22,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Discover (clues)": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "발견하다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Doom": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "파멸",
+      "note": "terminology-ko.md section 5.1; source column: glossary | also terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": 4,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Draw": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "뽑다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Drawing Cards → 카드 뽑기",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Dreamlands": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "드림랜드",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Lovecraft's Dreamlands. 몽환경 is the established rendering in Korean Lovecraft translation; 드림랜드 reads as a theme park.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Easy / Standard": {
+      "confidence": "high",
+      "kind": "sequence_label",
+      "ko": "쉬움 / 보통",
+      "note": "terminology-ko.md section 6; source column: coined",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "Elite": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "정예",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 8,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Encounter Set": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "조우 세트",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "End of game scoring:": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "게임 종료 시 점수 계산:",
+      "note": "terminology-ko.md section 4; source column: coined — Victory Points → 승점 is canonical, but the whole phrase is new. Decided 2026-08-17 by shanash: the alternate was chosen over 게임 종료 점수 계산:. 시 is a bound noun and takes a space, which is also what this corpus already does elsewhere (라운드 종료 시, translate-a3.py:325). Applied at all 5 sites in translate-a3.py and regenerated into card-text-ko.json, not edited into the JSON alone",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "Enemy": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "적",
+      "note": "terminology-ko.md section 5.1; source column: glossary; sheet annotation: Enemy Card → 적 카드 | also terminology-ko.md section 6; source column: glossary",
+      "occurrences": 7,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Enemy Phase": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "적 단계",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Engage": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "교전하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Engage Action → 교전 행동",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Evade": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "회피하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Evade Action → 회피 행동",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Exceptional": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "특별",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Exhaust": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "소진하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 25,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Experience": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "경험치",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Fast": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "신속",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 14,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Fight (the action), Enemy Fight Value": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "전투 / 적 전투값",
+      "note": "terminology-ko.md section 1.3; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Fight.": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "전투.",
+      "note": "terminology-ko.md section 4; source column: glossary (Fight Action → 전투 행동)",
+      "occurrences": 4,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Flip": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "뒤집다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Forced": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "강제",
+      "note": "terminology-ko.md section 4; source column: glossary (Forced Ability → 강제 기능)",
+      "occurrences": 31,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Ground Floor": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "1층",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 4,
+      "rationale": "Korean floor numbering starts the ground floor at 1층, so Ground Floor/Second Floor map cleanly to 1층/2층. Do not render as 지상층/2층 — mixing the schemes breaks the pair.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Guardian / Seeker / Rogue / Mystic / Survivor": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "수호자 / 탐구자 / 무법자 / 신비주의자 / 생존자",
+      "note": "terminology-ko.md section 6; source column: glossary",
+      "occurrences": 4,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Guest": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "손님",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 20,
+      "rationale": "The scenario is a party and these are its attendees. 손님 is the plain, unambiguous word; 내빈 is more formal but reads as event-programme register; 하객 is wedding-specific and wrong here. Highest-traffic trait in the set (25 [[Guest]] refs in rules text) — worth a deliberate look.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Guest deck": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "손님 덱",
+      "note": "terminology-ko.md section 11.1; source column: shipped card 71007",
+      "occurrences": null,
+      "rationale": "4 sites",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Gug": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "구그",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "Lovecraft creature → transliterate. Distinct from Ghoul → 구울 in glossary.json — check the two are never confused.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Hard / Expert": {
+      "confidence": "high",
+      "kind": "sequence_label",
+      "ko": "어려움 / 전문가",
+      "note": "terminology-ko.md section 6; source column: coined",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "Hazard": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "위험",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Collision — see §8.5. 위험 is taken by the Peril keyword. 위해 is distinct at a glance and is the standard technical rendering of hazard.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Heal": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "회복하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 8,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Health": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "체력",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Hex": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "주술",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "저주 is taken by Cursed → 저주받은. 주술 is free and pairs with Sorcerer → 주술사.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Hidden": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "숨김",
+      "note": "terminology-ko.md section 5.3; source column: glossary (deepl says 은닉 — glossary wins)",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Horror": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "공포",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 20,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Humanoid": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "인간형",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 9,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Hunter": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "사냥꾼",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Hypnotic Glow": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "최면의 불빛",
+      "note": "terminology-ko.md section 11.5; source column: coined",
+      "occurrences": null,
+      "rationale": "The Pale Lantern's flip side, named once in the guide's setup. Genuinely uncovered: the card's description_ko is the trait line 물품. 유물., not a subname, so nothing had fixed it. Beware the general lesson — description_ko is *not* uniformly a subname field, so a mechanical \"reuse the subname\" lookup must be checked per card.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "If The Bloodless Man <i>(Silent Lurker)</i> is in play:": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "see §7 for the name",
+      "note": "terminology-ko.md section 4; source column: composed by A3",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Ignore": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "무시하다",
+      "note": "terminology-ko.md section 5.2; source column: — plain language",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Interlude": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "막간",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Interlude: The Fabled Jewel": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "막간: (title per §7)",
+      "note": "terminology-ko.md section 4; source column: glossary (Interlude → 막간)",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Investigate.": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "조사.",
+      "note": "terminology-ko.md section 4; source column: glossary (Investigate Action → 조사 행동)",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Investigation (phase)": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "조사 단계",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Item": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "물품",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Jewel of Sarnath": {
+      "confidence": "medium",
+      "kind": "proper_noun",
+      "ko": "사르나스의 보석",
+      "note": "terminology-ko.md section 7; source column: precedent",
+      "occurrences": 20,
+      "rationale": "Jewel of Aureolus → 아우레올루스의 보석 gives the exact shape. Low risk.",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Kingsport": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "킹스포트",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "Invented place name → transliterate, per §1.2 and the 미스캐토닉 precedent. Low risk.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Lantern Club": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "랜턴 클럽",
+      "note": "terminology-ko.md section 2.3; source column: coined | also terminology-ko.md section 7; source column: coined",
+      "occurrences": 3,
+      "rationale": "Lantern → 랜턴 is an existing precedent. §1.2 says organisations translate semantically (은빛 황혼회), which would argue for 랜턴회 — but 랜턴 is already fixed, and the set's own English keeps \"Club\". Genuinely borderline; the 은빛 황혼회 precedent is the strongest counter-argument.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Lead Investigator": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "대표 조사자",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Leader": {
+      "confidence": "medium",
+      "kind": "trait",
+      "ko": "지도자",
+      "note": "terminology-ko.md section 2.2; source column: precedent",
+      "occurrences": 10,
+      "rationale": "Burden of Leadership → 지도자의 부담감",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Location": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "장소",
+      "note": "terminology-ko.md section 5.1; source column: glossary; sheet annotation: Location Card → 장소 카드 | also terminology-ko.md section 6; source column: glossary",
+      "occurrences": 87,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Manor": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "저택",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 8,
+      "rationale": "The venue. 저택 is the standard rendering of a manor house; 대저택 (mansion) overstates it.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Massive": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "거대한",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Misfortune": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "불운",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 2,
+      "rationale": "No collision (Cursed → 저주받은 is separate). Low risk.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Miskatonic": {
+      "confidence": "medium",
+      "kind": "trait",
+      "ko": "미스캐토닉",
+      "note": "terminology-ko.md section 2.2; source column: precedent",
+      "occurrences": 4,
+      "rationale": "Miskatonic Archaeology Funding → 미스캐토닉 고고학 기금",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Monster": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "괴물",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 4,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Move": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "이동하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Mythos": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "신화",
+      "note": "terminology-ko.md section 6; source column: glossary",
+      "occurrences": 40,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Mythos (phase)": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "신화 단계",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Neutral": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "중립",
+      "note": "terminology-ko.md section 6; source column: glossary",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Nomarch": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "수장",
+      "note": "terminology-ko.md section 11.1; source column: shipped card (Declan Pearce → 랜턴 클럽 수장)",
+      "occurrences": null,
+      "rationale": "Pearce's self-introduction",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Objective": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "목표",
+      "note": "terminology-ko.md section 4; source column: glossary",
+      "occurrences": 7,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Obstacle": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "장애물",
+      "note": "terminology-ko.md section 2.2; source column: rules-ref",
+      "occurrences": 1,
+      "rationale": "the treachery-card section lists 장애물 among what treacheries represent",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Otherwise:": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "그 외의 경우:",
+      "note": "terminology-ko.md section 4; source column: coined — standard connective, low risk",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "Parley": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "협상",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Parley.": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "협상.",
+      "note": "terminology-ko.md section 4; source column: glossary (Parley → 협상)",
+      "occurrences": 10,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Patrol": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "순찰",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Peril": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "위험",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Permanent": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "영속",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Place / put": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "놓다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 16,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Play": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "플레이하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary (Play Action → 플레이 행동)",
+      "occurrences": 41,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Police": {
+      "confidence": "medium",
+      "kind": "trait",
+      "ko": "경찰",
+      "note": "terminology-ko.md section 2.2; source column: precedent",
+      "occurrences": 1,
+      "rationale": "Police Badge → 경찰 배지",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Power": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "권능",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "Winds of Power → 권능의 바람 is an existing precedent. 힘 must not be used — §1.3 assigns it to the [combat] skill icon.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Prey": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "먹잇감",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Private": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "개인",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 4,
+      "rationale": "Marks a non-public room. Reads as \"[[개인]] 장소\" in the two rules sentences that reference it. 비공개 was rejected outright: it collides with Unrevealed Location → 미공개 장소.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Ready": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "준비 상태로 바꾸다",
+      "note": "terminology-ko.md section 5.2; source column: glossary + rules-ref",
+      "occurrences": 4,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Relic": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "유물",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Collision — see §8.1. Artifact (Trait) → 유물 is canonical in glossary.json, so Relic cannot also be 유물, even though Relic Hunter → 유물 사냥꾼 exists in card_name_mapping.json. 성물 keeps the \"object of power\" sense without taking 유물.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Remove": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "제거하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary + rules-ref; sheet annotation: Removed from Game → 게임에서 제거하다",
+      "occurrences": 15,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Resolution": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "결말",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Resource": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "자원",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 10,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Retaliate": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "보복",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Reveal": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "공개하다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Revelation": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "폭로",
+      "note": "terminology-ko.md section 4; source column: glossary",
+      "occurrences": 15,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Rival": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "라이벌",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 15,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] The four faction leaders competing for the Jewel. 경쟁자 is neutral and reads correctly on a trait line; 적수 implies hostility the trait does not carry. Also names the Rivals bag.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Sanity": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "정신력",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Scenario": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "시나리오",
+      "note": "terminology-ko.md section 6; source column: glossary | also terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Scheme": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "책략",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "Collision — see §8.3. 계략 is taken by Trick (Trait) and 음모 by Treachery Card → 음모 카드. 책략 is free and semantically correct.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Search": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "찾다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 8,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Second Floor": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "2층",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "Pairs with the above. 3 [[Second Floor]] refs in rules text.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Select Difficulty": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "난이도 선택",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": null,
+      "rationale": "Not a card trait — tile/UI text. Zero occurrences in the 62 cards' traits field, so Count carries no corpus value here; the string is printed on the difficulty-select tile image (tile/a870c1-ko.png). Coined by the korean-difficulty-tile task and recorded in tile/manifest.json (string block); composed from 난이도 (§5.1, source glossary) + 선택, the noun + 선택 order the mod's own Korean UI uses (SCED/src/Global/i18nData.ttslua, 11 occurrences). That task recorded no alternates. Filed here because §2.3 is this file's coinage review surface. Confirmed 2026-08-17 by shanash. Note the string is currently printed nowhere: the difficulty tile was dropped on 2026-08-17 (option (a) — the English tile ships, because the langpack override engine matches on GMNotes.id and base difficulty selectors have none), and the R2 object was deleted. The entry is kept because the coinage is sound and tile/ still holds the accepted PNGs, so it applies as-is if base data ever gains ids.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Servitor": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "시종",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Collision — see §8.2. 시종 is used for Acolyte in 은빛 황혼회 시종, and Summoned Servitor → 소환된 시종 uses it for Servitor too, so card_name_mapping.json collides with itself. 종복 disambiguates.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Set Aside": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "치워 두다",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Setup": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "준비",
+      "note": "terminology-ko.md section 4; source column: rules-ref",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Setup:": {
+      "confidence": "high",
+      "kind": "ability_label",
+      "ko": "준비:",
+      "note": "terminology-ko.md section 4; source column: rules-ref",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Shantak": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "샨타크",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "Lovecraft creature → transliterate. Low risk.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Shroud": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "장막값",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Shuffle": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "섞다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 16,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Silent Lurker": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "말 없는 잠복자",
+      "note": "terminology-ko.md section 11.1; source column: shipped card (The Bloodless Man's subname)",
+      "occurrences": null,
+      "rationale": "setup",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Silver Twilight": {
+      "confidence": "medium",
+      "kind": "trait",
+      "ko": "은빛 황혼회",
+      "note": "terminology-ko.md section 2.2; source column: precedent",
+      "occurrences": 4,
+      "rationale": "Silver Twilight Acolyte → 은빛 황혼회 시종",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Silver Twilight Lodge": {
+      "confidence": "medium",
+      "kind": "proper_noun",
+      "ko": "은빛 황혼회",
+      "note": "terminology-ko.md section 7; source column: precedent",
+      "occurrences": null,
+      "rationale": "Same organisation as the Silver Twilight trait — must match it exactly.",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Skill test": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "능력 테스트",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 8,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Slot": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "슬롯",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Sorcerer": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "주술사",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 2,
+      "rationale": "Pairs deliberately with Hex → 주술 below, giving the set a coherent 주술/주술사 pair. Distinct from Cultist → 광신도 and Spell → 마법.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Spell": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "마법",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Spellbound": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "홀린 (홀림)",
+      "note": "terminology-ko.md section 11.1; source column: shipped cards 71002 / 71008 / 71055 (7 occurrences)",
+      "occurrences": null,
+      "rationale": "### Spellbound, a whole rules subsection",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Spend": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "소비하다",
+      "note": "terminology-ko.md section 5.2; source column: rules-ref",
+      "occurrences": 17,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Standalone Mode": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "독립 시나리오 모드",
+      "note": "terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Story": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "이야기",
+      "note": "terminology-ko.md section 6; source column: glossary",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Story asset": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "이야기 자산 카드",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Surge": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "급증",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 7,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Syndicate": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "조직",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 4,
+      "rationale": "The crime faction. 조직 is how Korean idiomatically names a mob outfit and is short enough for a trait line; 범죄조직 collides in register with Criminal → 범죄자.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Take control": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "조종하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary; sheet annotation: Control → 조종",
+      "occurrences": 6,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Terror": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "두려움",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 3,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] Collision — see §8.4. 공포 is taken by Horror (the damage type, 20 occurrences in this set's rules text). A treachery trait rendered 공포 next to \"공포 1을 받습니다\" would be unreadable. 경악 is distinct and register-appropriate.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Test": {
+      "confidence": "high",
+      "kind": "verb",
+      "ko": "테스트하다",
+      "note": "terminology-ko.md section 5.2; source column: glossary",
+      "occurrences": 33,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "The Bloodless Man": {
+      "confidence": "high",
+      "kind": "proper_noun",
+      "ko": "피 없는 사내",
+      "note": "terminology-ko.md section 7; source column: coined",
+      "occurrences": 14,
+      "rationale": "The scenario's antagonist; also carries the subname Silent Lurker. Alternates: 창백한 사내, 무혈의 사내.",
+      "romanization": null,
+      "source": "coined"
+    },
+    "The Midwinter Gala": {
+      "confidence": "high",
+      "kind": "proper_noun",
+      "ko": "한겨울 축제",
+      "note": "terminology-ko.md section 1.1; source column: faq | also terminology-ko.md section 7; source column: faq",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Threat area": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "위협 영역",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Tome": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "고서",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Tool": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "도구",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Trauma": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "트라우마",
+      "note": "terminology-ko.md section 5.1; source column: glossary | also terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Treachery": {
+      "confidence": "high",
+      "kind": "card_type",
+      "ko": "음모",
+      "note": "terminology-ko.md section 5.1; source column: glossary; sheet annotation: Treachery Card → 음모 카드 | also terminology-ko.md section 6; source column: glossary",
+      "occurrences": 9,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Uses (X \"type\")": {
+      "confidence": "high",
+      "kind": "keyword",
+      "ko": "사용 (\"종류\" X)",
+      "note": "terminology-ko.md section 5.3; source column: glossary",
+      "occurrences": 3,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Victory (points)": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "승점",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Victory display": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "승리 표시 영역",
+      "note": "terminology-ko.md section 11.1; source column: shipped cards — overrides glossary.json, see 11.3",
+      "occurrences": null,
+      "rationale": "9 sites",
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "Wayfarer": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "여행자",
+      "note": "terminology-ko.md section 2.3; source column: coined",
+      "occurrences": 1,
+      "rationale": "[STALE PROSE -- terminology-ko.md 11.4: the Korean column shipped, this justification did not. Do not act on it.] 나그네 is the literary register the trait is reaching for; 여행자 is merely \"traveller\".",
+      "romanization": null,
+      "source": "coined"
+    },
+    "Weakness": {
+      "confidence": "high",
+      "kind": "guide_term",
+      "ko": "약점",
+      "note": "terminology-ko.md section 5.1; source column: glossary | also terminology-ko.md section 11.2; source column: glossary",
+      "occurrences": 5,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "Weapon": {
+      "confidence": "high",
+      "kind": "trait",
+      "ko": "무기",
+      "note": "terminology-ko.md section 2.1; source column: glossary",
+      "occurrences": null,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[[Trait]] (the literal word)": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "특성",
+      "note": "terminology-ko.md section 5.1; source column: rules-ref",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[action]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "행동",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 30,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[agility]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "민첩",
+      "note": "terminology-ko.md section 3; source column: rules-ref + glossary",
+      "occurrences": 10,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[auto_fail]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "자동 실패",
+      "note": "terminology-ko.md section 3; source column: glossary (Automatic Failure) — added by E2",
+      "occurrences": 0,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[combat]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "힘 — see §1.3",
+      "note": "terminology-ko.md section 3; source column: rules-ref",
+      "occurrences": 8,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[cultist]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "광신도",
+      "note": "terminology-ko.md section 3; source column: glossary (Cultist (Trait)) — glyph only",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[elder_sign]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "장로의 인장",
+      "note": "terminology-ko.md section 3; source column: glossary (Elder Sign) — added by E2",
+      "occurrences": 0,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[elder_thing]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "옛것",
+      "note": "terminology-ko.md section 3; source column: coined — glyph only, never printed as text",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "[fast]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "신속",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 14,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[guardian]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "수호자",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[intellect]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "지식",
+      "note": "terminology-ko.md section 3; source column: rules-ref + glossary",
+      "occurrences": 6,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[mystic]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "신비주의자",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[per_investigator]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "조사자당",
+      "note": "terminology-ko.md section 3; source column: rules-ref + glossary",
+      "occurrences": 18,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[reaction]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "반응 (반응 격발 기능)",
+      "note": "terminology-ko.md section 3; source column: rules-ref",
+      "occurrences": 12,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "[rogue]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "무법자",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[seeker]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "탐구자",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[skull]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "해골",
+      "note": "terminology-ko.md section 3; source column: coined — glyph only, never printed as text",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "[survivor]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "생존자",
+      "note": "terminology-ko.md section 3; source column: glossary",
+      "occurrences": 1,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    },
+    "[tablet]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "석판",
+      "note": "terminology-ko.md section 3; source column: coined — glyph only, never printed as text",
+      "occurrences": 2,
+      "rationale": null,
+      "romanization": null,
+      "source": "coined"
+    },
+    "[willpower]": {
+      "confidence": "high",
+      "kind": "icon_token",
+      "ko": "의지",
+      "note": "terminology-ko.md section 3; source column: rules-ref + glossary",
+      "occurrences": 11,
+      "rationale": null,
+      "romanization": null,
+      "source": "rules_ref"
+    },
+    "encounter deck": {
+      "confidence": "high",
+      "kind": "noun",
+      "ko": "조우 덱",
+      "note": "terminology-ko.md section 5.1; source column: glossary",
+      "occurrences": 23,
+      "rationale": null,
+      "romanization": null,
+      "source": "glossary"
+    }
+  }
+}

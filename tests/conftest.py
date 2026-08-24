@@ -108,6 +108,31 @@ def _tool_triple():
     return triple
 
 
+def _declared_inputs(manifest):
+    """Every declared golden input as {path, sha256}, flattened across groups.
+
+    §3.1's golden-inputs tier is `delivered/` plus the three decoded English
+    atlases, and §5.8's seed adds `init`'s three data files -- so the manifest
+    groups them (`inputs{atlases_en, delivered, init}`) rather than emitting one
+    flat `files[]`. Anything carrying a `path` counts, which keeps a later group
+    from being silently excluded the way an unlisted `init` once was.
+    """
+    entries = []
+    inputs = manifest.get("inputs")
+    if isinstance(inputs, dict):
+        for _group, value in sorted(inputs.items()):
+            if isinstance(value, list):
+                entries.extend(e for e in value
+                               if isinstance(e, dict) and e.get("path"))
+    elif isinstance(inputs, list):
+        entries.extend(e for e in inputs if isinstance(e, dict) and e.get("path"))
+    # The older flat spelling, still honoured so a hand-written fixture works.
+    for entry in manifest.get("files") or []:
+        if isinstance(entry, dict) and entry.get("path"):
+            entries.append(entry)
+    return entries
+
+
 def require_golden(fixture="midwinter"):
     """The THREE-WAY predicate, because two of the three outcomes are not skips.
 
@@ -130,7 +155,25 @@ def require_golden(fixture="midwinter"):
         manifest = json.load(handle)
 
     root = os.path.join(golden_root(), fixture)
-    files = manifest.get("files") or []
+    files = _declared_inputs(manifest)
+
+    # AN EMPTY DECLARED SET IS A MANIFEST DEFECT, NOT A CLEAN CORPUS.
+    #
+    # This guard exists because its absence made the whole predicate below dead
+    # code. The reader was `manifest.get("files")`, but the manifest §6 step 8
+    # actually writes declares its inputs under `inputs{atlases_en, delivered,
+    # init}` -- so `files` was absent, the list was empty, `missing` was empty,
+    # the drift loop never executed, and every one of the three outcomes this
+    # function exists to separate was unreachable. The case marked
+    # `needs_golden` then RAN, against a corpus nothing had checked.
+    #
+    # Refusing an empty set is what makes the rest of this function evidence.
+    if not files:
+        raise AssertionError(
+            "%s declares no input files -- the golden predicate cannot check "
+            "anything. Expected `inputs{}` groups of {path, sha256} entries "
+            "(design §3.1)." % manifest_path)
+
     if not os.path.isdir(root):
         pytest.skip("golden corpus not present at %s" % root)
 

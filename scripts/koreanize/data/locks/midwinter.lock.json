@@ -1,0 +1,979 @@
+{
+  "atlas_urls": {
+    "atlases": [
+      {
+        "atlas_id": "midwinter-gala-6x5-face",
+        "bytes": 33731088,
+        "grid": {
+          "num_height": 5,
+          "num_width": 6
+        },
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/65/65f69c3492cf957800a82928030d47f0896ec31092a127b915d103a8adc28c75.png",
+        "r2_key": "langpack/images/sha256/65/65f69c3492cf957800a82928030d47f0896ec31092a127b915d103a8adc28c75.png",
+        "sha256": "65f69c3492cf957800a82928030d47f0896ec31092a127b915d103a8adc28c75",
+        "sheet": "6x5-face",
+        "side": "face",
+        "skipped": false,
+        "verified": {
+          "head_object_content_length": 33731088,
+          "head_object_content_type": "image/png",
+          "png_magic": true,
+          "public_get_content_length": 33731088,
+          "public_get_sha256": "65f69c3492cf957800a82928030d47f0896ec31092a127b915d103a8adc28c75",
+          "public_get_status": 200,
+          "sha256_roundtrip_match": true,
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+          "verified_at": "2026-08-19T00:43:31Z"
+        }
+      },
+      {
+        "atlas_id": "midwinter-gala-8x5-face",
+        "bytes": 55188621,
+        "grid": {
+          "num_height": 5,
+          "num_width": 8
+        },
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/f4/f46d322fe08104acbf59cdf38843dbcdc38e651127c1ad03c94e58f9b45d7d0a.png",
+        "r2_key": "langpack/images/sha256/f4/f46d322fe08104acbf59cdf38843dbcdc38e651127c1ad03c94e58f9b45d7d0a.png",
+        "sha256": "f46d322fe08104acbf59cdf38843dbcdc38e651127c1ad03c94e58f9b45d7d0a",
+        "sheet": "8x5-face",
+        "side": "face",
+        "skipped": false,
+        "verified": {
+          "head_object_content_length": 55188621,
+          "head_object_content_type": "image/png",
+          "png_magic": true,
+          "public_get_content_length": 55188621,
+          "public_get_sha256": "f46d322fe08104acbf59cdf38843dbcdc38e651127c1ad03c94e58f9b45d7d0a",
+          "public_get_status": 200,
+          "sha256_roundtrip_match": true,
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+          "verified_at": "2026-08-19T00:43:31Z"
+        }
+      },
+      {
+        "atlas_id": "midwinter-gala-6x5-back",
+        "bytes": 37947603,
+        "grid": {
+          "num_height": 5,
+          "num_width": 6
+        },
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/cd/cd8d451a29bbc428a2e2c122514f62533ade4e274bad583df916a67be60502b0.png",
+        "r2_key": "langpack/images/sha256/cd/cd8d451a29bbc428a2e2c122514f62533ade4e274bad583df916a67be60502b0.png",
+        "sha256": "cd8d451a29bbc428a2e2c122514f62533ade4e274bad583df916a67be60502b0",
+        "sheet": "6x5-back",
+        "side": "back",
+        "skipped": false,
+        "verified": {
+          "head_object_content_length": 37947603,
+          "head_object_content_type": "image/png",
+          "png_magic": true,
+          "public_get_content_length": 37947603,
+          "public_get_sha256": "cd8d451a29bbc428a2e2c122514f62533ade4e274bad583df916a67be60502b0",
+          "public_get_status": 200,
+          "sha256_roundtrip_match": true,
+          "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+          "verified_at": "2026-08-19T00:43:31Z"
+        }
+      }
+    ],
+    "bucket": "tts-ahcg-assets",
+    "consumers": [
+      ":315",
+      ":316",
+      ":317"
+    ],
+    "counts": {
+      "arkham_ids": 62,
+      "back_rewrites": 27,
+      "backs_left_english": 36,
+      "campaigns_dir_files": 48,
+      "campaigns_target_objects": 47,
+      "face_rewrites": 63,
+      "measured_at": "2026-08-19T00:46:38Z",
+      "player_cards_dir_card_objects": 1945,
+      "player_cards_dir_cardcustom_objects": 191,
+      "player_cards_target_objects": 16,
+      "remeasure_command": "/usr/bin/python3 - <<'PY'\nimport json, os, collections\nART  = '/Volumes/PRO-G40/Projects/SCED/.am/midwinter-gala-korean/atlas-urls.json'\nROOT = '/Volumes/PRO-G40/Projects/SCED/'\nA    = json.load(open(ART, encoding='utf-8'))\nLBL  = {s['english_url']: s['id'] for s in A['substitutions']}\nLBL.update({d['english_url']: d['id'] for d in A['do_not_touch']})\nFACE = {s['english_url'] for s in A['substitutions'] if s['side'] == 'face'}\nface, back, names, total = collections.Counter(), collections.Counter(), collections.Counter(), 0\nfor ap in A['scope']['allowed_paths']:\n    for dp, dn, fn in os.walk(os.path.join(ROOT, ap)):\n        for f in fn:\n            if not f.endswith('.json'):\n                continue\n            try:\n                o = json.load(open(os.path.join(dp, f), encoding='utf-8'))\n            except Exception:\n                continue\n            if not isinstance(o, dict):\n                continue\n            for v in (o.get('CustomDeck') or {}).values():\n                if v.get('FaceURL') in FACE:\n                    total += 1\n                    names[o.get('Name')] += 1\n                    face[LBL[v['FaceURL']]] += 1\n                    back[LBL.get(v.get('BackURL'), 'UNKNOWN')] += 1\nfor k in sorted(face): print('face %-3s %d' % (k, face[k]))\nfor k in sorted(back): print('back %-3s %d' % (k, back[k]))\nprint('target_objects_total', total)\nprint('object_names', dict(names))\nPY\n",
+      "target_object_names": {
+        "Card": 63
+      },
+      "target_objects": 63
+    },
+    "do_not_touch": [
+      {
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2342503777940351785/F64D8EFB75A9E15446D24343DA0A6EEF5B3E43DB/",
+        "field": "CustomDeck.<deck_key>.BackURL",
+        "id": "F1",
+        "must_remain": "english",
+        "occurrences_in_player_cards_dir": 2,
+        "occurrences_on_target_objects": 21,
+        "occurrences_repo_wide": 14481,
+        "reason": "Shared across every encounter set. Repointing it to the Korean 6x5 back would give its Midwinter targets the wrong back and, if done by path-wide substitution, corrupt the entire mod. Only 2 of its files sit inside Korean-PlayerCards.KoreanI, which is what shows its targets live almost entirely in Campaigns.",
+        "role": "generic encounter-card back",
+        "side": "back"
+      },
+      {
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2342503777940352139/A2D42E7E5C43D045D72CE5CFC907E4F886C8C690/",
+        "field": "CustomDeck.<deck_key>.BackURL",
+        "id": "F2",
+        "must_remain": "english",
+        "occurrences_in_player_cards_dir": 814,
+        "occurrences_on_target_objects": 15,
+        "occurrences_repo_wide": 11888,
+        "reason": "Shared mod-wide; 814 of its files sit inside Korean-PlayerCards.KoreanI alone. Only 15 belong to Midwinter targets, so a directory-wide back rewrite would hit 799 unrelated cards.",
+        "role": "generic player-card back",
+        "side": "back"
+      }
+    ],
+    "generated_at": "2026-08-19T00:46:38Z",
+    "generated_by": "am:auto upload-three-korean-atlases-r2",
+    "note": "korean_url values are copied from upload-map.json, the output of an upload the tool verified with head_object + a browser-UA public GET, and re-verified independently (verify-r2.json) with a full-body sha256 round-trip. They are NOT copied from recompose-upload-manifest.json.face_url, which holds pre-upload predictions.",
+    "public_base": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/",
+    "schema_version": "1.0.0",
+    "scope": {
+      "allowed_paths": [
+        "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a",
+        "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI"
+      ],
+      "forbidden_paths": [
+        "SCED-downloads/decomposed/scenario/The Midwinter Gala",
+        "SCED-downloads/decomposed/campaign/Unofficial Return to The Scarlet Keys"
+      ],
+      "forbidden_reason": "English base data. The 8x5 face URL alone occurs in 116 files: 36 in the langpack (the targets) and 80 in these two trees (40 each). A repo-wide substitution Koreanizes the English scenario, widens the fork's changed-path set vs upstream/main, and creates a permanent overlap-gate liability for the nightly rebase.",
+      "forbidden_tool": "SCED-tools/scripts/apply-atlas-faceurls.py - it repacks cards onto new cells and rewrites CardID and the CustomDeck key in lockstep, and it consumes an atlas_manifest.json + mapping.json pair whose schema is deliberately incompatible with recompose-upload-manifest.json. :315 and :316 are hand-edits.",
+      "invariants": [
+        "GUID unchanged",
+        "CardID unchanged",
+        "CustomDeck deck_key unchanged",
+        "NumWidth / NumHeight unchanged",
+        "only the FaceURL and BackURL string values change",
+        "SCED/ and SCED-tools/ untouched"
+      ],
+      "object_filter": "NONE. The selector is the URL predicate alone, over EVERY object under allowed_paths regardless of its Name. Korean-PlayerCards.KoreanI holds 1945 Card and 191 CardCustom objects and CardCustom carries CustomDeck.<k>.FaceURL identically, so filtering by Name would hide a future target from both the edit and the count meant to catch it. observed_object_names records what was actually seen and is asserted, not used to filter. The Custom_PDF guide object is excluded automatically because it has no CustomDeck; no Deck container object exists under either allowed path. Container Deck objects carrying a target URL exist only in the English base trees, which forbidden_paths already excludes (measured: 8 per tree, 16 in total, alongside 72 Card per tree).",
+      "selector": "objects under allowed_paths whose CustomDeck.<k>.FaceURL equals an english_url in substitutions[] where side == face",
+      "target_objects_total": 63
+    },
+    "source_of_truth": {
+      "card_index": ".am/midwinter-gala-korean/card-text-en.json",
+      "independent_verification": ".am/upload-three-korean-atlases-r2/verify-r2.json",
+      "input_manifest": ".am/midwinter-gala-korean/atlases/recompose-upload-manifest.json",
+      "recompose_consumable": true,
+      "recompose_report": ".am/midwinter-gala-korean/recompose-atlases.json",
+      "typeset_review_status": "accepted",
+      "upload_map": ".am/upload-three-korean-atlases-r2/upload-map.json",
+      "upload_map_sha256": "0da2d9c75624618601bc4e1c1c39eb86e2729e1c768a8848510507460473635f",
+      "uploader": "SCED-tools/scripts/upload-atlases-to-r2.py",
+      "uploader_sha256": "09187b14afb554d32ae3e9539ebeacf79051464000ca2089e35dab5f8a7fd6f5"
+    },
+    "substitutions": [
+      {
+        "atlas_id": "midwinter-gala-6x5-face",
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609465604/B9B9A2324C01DCCFFCD6D3755CF6164CC590A88E/",
+        "expect_by_path": [
+          {
+            "objects": 27,
+            "observed_deck_keys": [
+              "9180",
+              "9181"
+            ],
+            "observed_object_names": [
+              "Card"
+            ],
+            "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a"
+          }
+        ],
+        "expect_objects": 27,
+        "field": "CustomDeck.<deck_key>.FaceURL",
+        "id": "S1",
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/65/65f69c3492cf957800a82928030d47f0896ec31092a127b915d103a8adc28c75.png",
+        "note": "27 objects for 26 arkham_ids: 71033 Silver Twilight Lodge has two independent TTS objects (4a2568 Factions, ccce29 Rivals). Matching on URL covers both; matching on card-text-en.json's 46 Campaigns cards would miss ccce29. observed_deck_keys is EVIDENCE, never an input - deck_key is never rewritten.",
+        "occurrences_repo_wide": 107,
+        "sheet": "6x5-face",
+        "side": "face"
+      },
+      {
+        "atlas_id": "midwinter-gala-8x5-face",
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609449730/C570E67837928FB374DF50F4AA7FA2039DA9633B/",
+        "expect_by_path": [
+          {
+            "objects": 20,
+            "observed_deck_keys": [
+              "9176"
+            ],
+            "observed_object_names": [
+              "Card"
+            ],
+            "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a"
+          },
+          {
+            "objects": 16,
+            "observed_deck_keys": [
+              "9175",
+              "9176"
+            ],
+            "observed_object_names": [
+              "Card"
+            ],
+            "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI"
+          }
+        ],
+        "expect_objects": 36,
+        "field": "CustomDeck.<deck_key>.FaceURL",
+        "id": "S2",
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/f4/f46d322fe08104acbf59cdf38843dbcdc38e651127c1ad03c94e58f9b45d7d0a.png",
+        "note": "Consumed by BOTH :315 (20 Campaigns objects) and :316 (16 Player Cards objects). :317 asserts this URL is byte-identical across the two packs.",
+        "occurrences_repo_wide": 116,
+        "sheet": "8x5-face",
+        "side": "face"
+      },
+      {
+        "atlas_id": "midwinter-gala-6x5-back",
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609468051/54FCA6E6919660AB3DC7BDEE32192EE66CF3C697/",
+        "expect_by_path": [
+          {
+            "objects": 27,
+            "observed_deck_keys": [
+              "9180",
+              "9181"
+            ],
+            "observed_object_names": [
+              "Card"
+            ],
+            "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a"
+          }
+        ],
+        "expect_objects": 27,
+        "field": "CustomDeck.<deck_key>.BackURL",
+        "id": "S3",
+        "korean_url": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/langpack/images/sha256/cd/cd8d451a29bbc428a2e2c122514f62533ade4e274bad583df916a67be60502b0.png",
+        "note": "The ONLY back that moves. Midwinter-specific. Its english_url lives at card-text-en.json's top-level shared_back_6x5 key, NOT under sheets - a loop over sheets drops this entry entirely. Its objects are exactly the S1 objects.",
+        "occurrences_repo_wide": 107,
+        "sheet": "6x5-back",
+        "side": "back"
+      }
+    ],
+    "task": ":314",
+    "track": "midwinter-gala-korean"
+  },
+  "generated_at": "2026-08-23T16:54:29Z",
+  "generated_by": "koreanize step 8 backfill (design 6 step 8)",
+  "mask": {
+    "residual_baseline": [
+      {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-18",
+        "check": "W1",
+        "extent": [
+          1,
+          504,
+          215,
+          249
+        ],
+        "extent_note": "Re-measured 2026-08-24 after kz_checkers.measure_bands() was fixed to fork typeset-cards.py's measure_en_lines() rather than build-masks.py's line_groups(); the previous y-extent was a merged-band artifact. trailing_clearance_px and the x-extent were always correct. Recorded for diffing, never matched on (design 3.1).",
+        "face": "71006",
+        "group": "Act/front",
+        "note": "mask-coverage-finding.md. The band leaves 531 - 504 = 27 px of right clearance inside a 532 px window, under window_margin_px 34, so the window does not bound its content and the padded rect (504 + PAD_X = 516, i.e. 542 in the working frame) stops 16 px inside the window edge at 558. The tail lands in KEEP.",
+        "trailing_clearance_px": 27,
+        "window_name": "body"
+      },
+      {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-18",
+        "check": "W1",
+        "extent": [
+          4,
+          516,
+          234,
+          263
+        ],
+        "extent_note": "Re-measured 2026-08-24 after kz_checkers.measure_bands() was fixed to fork typeset-cards.py's measure_en_lines() rather than build-masks.py's line_groups(); the previous y-extent was a merged-band artifact. trailing_clearance_px and the x-extent were always correct. Recorded for diffing, never matched on (design 3.1).",
+        "face": "71005",
+        "group": "Act/front",
+        "note": "mask-coverage-finding.md. 531 - 516 = 15 px of right clearance, under window_margin_px 34.",
+        "trailing_clearance_px": 15,
+        "window_name": "body"
+      }
+    ],
+    "residual_note": "ACCEPTED AS SHIPPING -- the user reconfirmed on 2026-08-18. Widening a mask invalidates cleared/ and typeset/ by construction, so the check refuses at exit 23 only on a hit whose (check, group, window_name, face) tuple is NOT here. CONTAINMENT, NOT EQUALITY: mask-coverage-finding.md:26 records 'Two confirmed instances out of the 26 faces actually looked at, which is a rate, not a bound -- the corpus was never swept' -- of 88 faces. Step 16's first full sweep will plausibly surface hits among the 62 never examined; that is the detector working, and each one goes through the S6 triage path.",
+    "sweep_2026_08_24": {
+      "faces": 88,
+      "groups_with_zero_clearance": 11,
+      "non_defect_faces_firing_at_34": 86,
+      "note": "The first post-suppression sweep of the whole corpus, run for design 6 step 8's calibration. Recorded here because it is the negative evidence data/layouts/midwinter.json's calibrated_from is derived from, and because 86 of 86 non-defect faces firing at a flat 34 is the measurement that made a per-group threshold necessary rather than merely preferable. See data/layouts/README.md.",
+      "resweep_note": "Re-swept 2026-08-24 after the measure_bands() fix. The zero groups are NOT a plate artifact: only 10 of 88 faces changed clearance at all, and in every remaining zero group the floor is set by a band that genuinely reaches the window's trailing edge. Per design 5.5 those are findings for step 16's adjudication, not threshold problems.",
+      "text_bands": 971
+    }
+  },
+  "provenance": {
+    "atlas_urls_from": ".am/midwinter-gala-korean/atlas-urls.json",
+    "atlas_urls_sha256": "79682ab5014cb69379160d58028a65687fab565df8a6acb881a77216aef50c55",
+    "commits": [
+      "6f638ab35f816f3fd65d2e065b313114e48d0a4f",
+      "c215929bb3da6b307845bc1382f2a8b5b34f7ac3",
+      "120bea9bef72b99aaeb74ef73a5a9929a4ecb460"
+    ],
+    "note": "THE REFERENCE RECEIPT, backfilled. Midwinter shipped before koreanize existed, so no stage wrote this file at the time; it is reconstructed from the artifacts that DO survive -- the three git commits that made the repository writes, and the corpus' own atlas-urls.json -- so that the receipt tier has a worked example and step 15's `golden` has something to compare against.",
+    "residual_baseline_from": ".am/midwinter-gala-korean/mask-coverage-finding.md",
+    "write_set_from": "git log over SCED-downloads; one row per path, pre_sha256 taken at the FIRST commit's parent and post_sha256 at the LAST commit that touched it, so a path written twice is one row spanning both."
+  },
+  "schema_version": "1.1.0",
+  "slug": "midwinter",
+  "stages": {
+    "mask": {
+      "binding": {
+        "layouts/midwinter.json": "8b3fb1275b8c681c343f025164e8e03422fa842279072b0cde2a3bfc88238a74"
+      },
+      "consumable": true,
+      "exit_code": 0,
+      "gate": {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-18",
+        "status": "accepted"
+      },
+      "verdict": "accepted"
+    }
+  },
+  "write_set": [
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a.json",
+      "post_sha256": "6edd61a512b298e17afd816fcafb4780520befdeb243fe1ce56926e0912157db",
+      "pre_sha256": "62688f3313b5c615e861efaee987062fd6a3b2b0dd28420be8ac0e5242a0e7e5"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/AKillerParty.f02004.json",
+      "post_sha256": "b75206978a9cbbff849ef06db2f8155cf93b6432deb1083d1d96a642e0507221",
+      "pre_sha256": "a5cd2b67c9e69c2aa739278c95844863a45ae9b5775ceb1eb3e892aac668f125"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/AbhorrentMoon-Beast.4a9f92.json",
+      "post_sha256": "fae8c1c9f87f828fd14a553943e0439d771b446d1d96c02ec806ff87a6b06a39",
+      "pre_sha256": "8ae85298bed8d5de519ddf6a8a8745963abeb43bcf26b191a020f2dc24d3d8f1"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ArchibaldHudson.6cd7ec.json",
+      "post_sha256": "23d3108085986af9c22ab150dcd1adfdf4719326e46e1fbca554026574ea6ae4",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ArsèneRenard.2d493a.json",
+      "post_sha256": "562e1a44af0461ef7352563950eb84c31c1fa3349f8f2450a311b9060fc942cd",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/BleedingWalls.e73f2b.json",
+      "post_sha256": "9d2adae7a36347bc137ce2325972aa653928da7e835dc6029384dffe89c4baec",
+      "pre_sha256": "0974644dc2ba692c4531e7a1b98f6484b27a6ca07f9c4befbb90559f8cb7364a"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/CaldwellPhillips.cc9ed8.json",
+      "post_sha256": "d932f35435a79f4d81faa2db0690622aa5b39b7afbf281c6d669570de06de583",
+      "pre_sha256": "bd44c45461a6b5a9cf771db29edc2130a5cb3fd4767134c0922b124b856ffe46"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/CarlSanford.4ca95a.json",
+      "post_sha256": "fa825aa940f457f2e42ce805f0cfa3e495573a843ebdb01e58463965b386d92c",
+      "pre_sha256": "c6d7067581bd23a95bb545635d25ddebe0439d5bf5aea2859e6f7d8f2cd73401"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ClaireWilson.f96f2a.json",
+      "post_sha256": "c4eb2eaef8dd91b97cfc5e3612506c20b97d4a0263aa1cb54c6ef2aab8b70954",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ColdStreak.a90a1a.json",
+      "post_sha256": "92af2c4e84c5f342403f0ab546423e0b1b4b412d78423db0ac64d0b396997a5b",
+      "pre_sha256": "68e84008d0e9d400aeeca83748298b4b4db09aaee6d26acbf3ed1c2b85f2af2e"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Confusion.c82240.json",
+      "post_sha256": "4f57feb70ebc11ea882f633520b02083266a0bd12d4e687ccb3cdf70974cded5",
+      "pre_sha256": "9eb2de8e5391df100ea0046b3570e2b9f5fdbeb8864186f57754f9182ff53dbe"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/DeclanPearce.3e07f6.json",
+      "post_sha256": "5e3d4da14b06a90772fdd91c8a007e93911825a8200bdaf99e2af25ef9c05997",
+      "pre_sha256": "3abf0b64c8c3ddf964a6a0f8e27258fb0ee97737c1598416773601dc7aef7e31"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/DeloresGadling.a6d899.json",
+      "post_sha256": "4568dd261955199a955d3e3728cc03bbfbc75faf29c4274b8c266c4aaba61167",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/DrMyaBadry.27e870.json",
+      "post_sha256": "414f9063dfffb7ae5bd2d58d16dd0f1c36de290c27d455684ea9a985ae975a3a",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ElizabethConrad.3397ee.json",
+      "post_sha256": "0734aa19f2a3603a1e330df62fe4ac93003f8a6b5d6f7af39262f68443a88939",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/EnragedGug.50bc85.json",
+      "post_sha256": "848bb78d77f83f409e867e9eafc80b28cf403f27fdb28c3dcb68b23b1e2ebd65",
+      "pre_sha256": "4a4ad1467356b2c39360e4d3d566c0fabdbfd539ab27c70a8671e6bc7288e816"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Entrap.a0b2a9.json",
+      "post_sha256": "27624aad8579b24b3f72cc6fcb044cbe56bac0cf5e15f7d5920e70c7c79787e9",
+      "pre_sha256": "52ffb395f4492f638d3f551c79cc5f6f349f75a23b7d224ba58edc730e067bac"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/FindingtheJewel.a26b6b.json",
+      "post_sha256": "70583fcaa27f79e011225b7a9c364a4067602ee2477aebf4ba361a0977a780f3",
+      "pre_sha256": "8febff938e4059d2e6fc1439b75ea5096364829c4750460e0dc56e6bcb6f4362"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Ground-FloorRoom.908444.json",
+      "post_sha256": "cba9bbc17dfcdff5a64ec5bc5833bd047586909f0150e0c61b766cb3314f73e7",
+      "pre_sha256": "3db0a70c88adbedd5fed86a7698122c441dc664f3726e1bbb62588a86e3554ce"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Ground-FloorRoom.e18291.json",
+      "post_sha256": "eb072aaf8fd8c1c0daa6d253fc14bd5c1ffab73af8eaf9b4435bf17fb995885a",
+      "pre_sha256": "281a565fda0c7f25a9b8cd29243b5c7b0985edc8d75d5775bc394c3b011cb5fe"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Ground-FloorRoom.fee5ee.json",
+      "post_sha256": "c80d80fe4656e176c9f3b2325a6a8a5632fd69734f05069c43783d3862a1ee9f",
+      "pre_sha256": "e3986e758781fc8e736f9b437de4408363c72cdd1016f649460861ca8bab557e"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/HoracioMartinez.688f2d.json",
+      "post_sha256": "a72e7f291cfa2bb175ef46e370846576e04ecfb7bb56b0c13a3a17c2c5e6dd95",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/InexplicableCold.7e47c8.json",
+      "post_sha256": "fe10bb1d459d44a8a0586e0ef3de29803a6d10552131607d6b5883afdc68a9ad",
+      "pre_sha256": "e32193cda6e7c31f35c983b953bc25c3e145bd6d54aea0f09ff3fa078e979e9a"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/JewelofSarnath.4258d6.json",
+      "post_sha256": "16f298f40f05a8fe1dcb0ff32277c7530cc0e00b4f26e01b196b5aee0bb3530c",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/JohnnyValone.02dbfd.json",
+      "post_sha256": "f82d467c86166cc69dc9ca8c3acb0af776356066960835ea96b515a0408a15d4",
+      "pre_sha256": "57baf980bdfff60d0c7605d394f069e8a483ea411f4cf3e4eb5cbe172198700a"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/LanternChamber.398ded.json",
+      "post_sha256": "860b78396d70f5f40e3c608b436f11b9e94168674b9b7c4a0d4ea54389456c24",
+      "pre_sha256": "61e591e2c925c6715bdbd99475b74051e84248e16c77f532507c013662fa9522"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/LanternClubMember.9b4c74.json",
+      "post_sha256": "b2b8401e3abbe5f1f8331c8bafd387913cda51a71a77a637a15bda710dccd426",
+      "pre_sha256": "6abbb9c7ba87d7013da5d4c61d20abb529f4dd15b7209a418d19e661a4ff76fe"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Lobby.bc3d27.json",
+      "post_sha256": "2a6e915a303ef8ccc757c9e5a901fe029f2b94ec83c1e84f03488c310c9cbff1",
+      "pre_sha256": "aafd10499c0ca8b9b16e0920097c5393c3af77228aa5afe4c9dbb94e397ccbf9"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/LocalsofKingsport.b41269.json",
+      "post_sha256": "bb40434baed6493cfdaff8f1cb07e7aadd0007fc4d0c019d75111d5db408033e",
+      "pre_sha256": "b3f761f40a2813fc7c4471b35736b786e967044a208190ae207852b7e92b9763"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/LucasTetlow.041fd0.json",
+      "post_sha256": "c35a39d639543988f148313eb14b62f32fa87164d39da409c15c0887596c56dd",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/MaskedRevelers.dfdd26.json",
+      "post_sha256": "54192ea5be2dc111e0a6c61ee06f1410054c4c1917be66f8e80b5be8fe6e8d88",
+      "pre_sha256": "84f0d9e25829b25e4611b64582fa7ed7d9276de43b05aa242e32a9b87b9b6626"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/MeetandGreet.764060.json",
+      "post_sha256": "60741aac81586ec8c3f23b655293b95067ad24efdd117779d23bd2d245522485",
+      "pre_sha256": "a82899ea27743c1fffe1e81e52e22741d975cf8288f1af3725ede96b4d49dd40"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/MindExtraction.14775e.json",
+      "post_sha256": "77e5068f40f637016a30e525c8cfb94cddcd961c4c8742368d15f780ac9e2fcc",
+      "pre_sha256": "95be1d8c5a7d51df17da7da3a51adffbb70fb0648b9d99e46528dc3354e5f8ed"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/MirandaKeeper.9fdc8c.json",
+      "post_sha256": "e9e37e20370217bdff7adb736faa7247618a495baaeb7ebf5220d0d5b016f9ec",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/MiskatonicUniversity.cda77b.json",
+      "post_sha256": "5205fb859ee5edb91a6a0e050020016e63489638fe546bec353dc5d8b9c58c5d",
+      "pre_sha256": "e84faab5c7c3df79f3034beb449126854bc44f09e4af879429b51b3d11c6ee30"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/NovaMalone.e8f1e5.json",
+      "post_sha256": "55ec5253c2870f05687ae1826d383860e2b2bd225ad9abf9619049b15dee2602",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/NoxiousFumes.76de45.json",
+      "post_sha256": "187a8ebf8a25c96cadc034ccfd1d78fc1450c8678003372373e62a7484fdfeaa",
+      "pre_sha256": "3f7545a17539c6e1ea72237847578b97d291e8107b4aeccb256998b8a57e7582"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/PrudenceDouglas.f32fa7.json",
+      "post_sha256": "1ec9b7c069c7f812972b69e03d4b3a26c12b9b7461d9ce93c652ee4f550530d9",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/PushedintotheBeyond.6e7772.json",
+      "post_sha256": "8c187777fc41b4ab78974f7afe54a84a35b4576f9324ee83b0d803ccb1326324",
+      "pre_sha256": "d0f3aa5482a9043186a858119c81a0986a9c72ea85c39dda4183d5da6d704fbc"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/RaymondLoggins.1fca2a.json",
+      "post_sha256": "40ed1aea070d661fc2cbbab5f380ee9ffda27465ac1dd49875731b0a7fc1f4b6",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/RookieCop.4297f8.json",
+      "post_sha256": "96d5eb2f8ef4b526bac38168daa67d1fd13a59f0d7c05260c0f048e0188a0c11",
+      "pre_sha256": "9b751f3ef840e95906d6b29bf46a7ece42a1660e1408e14926fab82aa8066330"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SarahVanShaw.61df1c.json",
+      "post_sha256": "6c1f318c49766d7f509be28241412d973c599e436cd0401a18a8dc556345b43e",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SavageShantak.3b1b28.json",
+      "post_sha256": "dbe68d923396fc2a654d6a60d2b67cfd5b2adbdf320541cb6b31312cabcbb662",
+      "pre_sha256": "99c7c7e716a2a9e532cc1192d703e7f0091fa1ec65ffa9f9034d42276432c4e3"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Scenario.5d96e5.json",
+      "post_sha256": "cc513e4e34e172035c0e56c2f293a050ce7f7b75290bedcb253302708f7548ca",
+      "pre_sha256": "4f923f9dbad0bfb5996bc08d2d1f9d65e5a6d911693e6289fcc582022a6e542f"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Second-FloorRoom.022421.json",
+      "post_sha256": "ef6c298693a0fba0a612e1b096a90533f6baac90a98eca3b237216bbee5a7eb1",
+      "pre_sha256": "adcab6e19d5ac466c85eed45394c7ea7345ff89d8aa533342dbb5fe6fc7abafb"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Second-FloorRoom.a18897.json",
+      "post_sha256": "f4d1b8e7a5b535c4ad80afe40fcfe4a9dd5d148c840265ec1376722f62fbd2d6",
+      "pre_sha256": "2964b47445ecf833d73781c9da80afbb73bd9c605aa727b2d69d738d29bf8682"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Second-FloorRoom.b82044.json",
+      "post_sha256": "b9fdcb9b59504b301b706ab291ddb0cdc56db6045a71ee5ce78be601aba6da62",
+      "pre_sha256": "497110c9a1b38fb190ed9311dfb5a9526eca8a51dfd1269635663c515eb0b2ce"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SecretDoor.f11d31.json",
+      "post_sha256": "9b97cc08552394730d159210d647a3bb5140bec27fb198e18eca26d0fd0f30e7",
+      "pre_sha256": "3ba9c9e4b5d823aea33f6ea2257d0195da2b9d269154e9d93eb72ee43ef689ce"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SilverTwilightLodge.4a2568.json",
+      "post_sha256": "e06172ea5298b50bbe3a4337af5a9c586877e992d91aeaa4ac916b18892c4a60",
+      "pre_sha256": "ce785d3f6a5c05532b88b5b898f7fa08a4c7c266365dc561659808296b94be59"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SilverTwilightLodge.ccce29.json",
+      "post_sha256": "dfead63aae921bd7c1bc9d0cfe0f593941a54b45ea012e1d6e0250341a1abb4b",
+      "pre_sha256": "d79226bc81bfa6dee29c2e1a4c7aa2d76eedb05ad354ad6664c2e92151ce2909"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/SpecialAgentCallahan.d97c01.json",
+      "post_sha256": "9421c2635b8a225059fbad6202b8b9cf167766828eaa1b86ef4eba6a03b39f85",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/TerrorGate.56ce36.json",
+      "post_sha256": "3c4d1aa08b48a4bbc115ced50f070e06a04604f56000f37db10c1b96aa5a121f",
+      "pre_sha256": "a40e825aaa00c0b833e4f22ef88e07290daabd761b03e247dc13e7e54e0cfeee"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/TheBloodlessMan.02f067.json",
+      "post_sha256": "dd10bbca90caf577eea342e04cc56e5b0fb1e748ecb3280c6850b34221765bd8",
+      "pre_sha256": "ff2a8775cc2756c2dfc52b71af7770d6d06dbdd5f88baece20ef664327921e6f"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/TheFoundation.51a099.json",
+      "post_sha256": "28cc3c15d31060c5eeff887ce85c3f2cbc5f02a41f7d11dfab5c6da52cefa4e3",
+      "pre_sha256": "9bab1882f9324a20b92ba2dd29dc97fb91dd7b9a60e3a2eeafc50f5fcbb4d5f0"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ThePaleLantern.6adc01.json",
+      "post_sha256": "61c4c0e27daff8490acfa5b411cca341fa84ad54d6945d9cf65d5c084eb58587",
+      "pre_sha256": "bc592b337020eba87c1bef59c8804d8452773458f4c48852e458e10a74b70de3"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/TheSyndicate.57261f.json",
+      "post_sha256": "fdd22f9077c99cbf876d4191b67a30b1bc7a092b892251770119936b275bb67f",
+      "pre_sha256": "430581a5b16a3671da254fa523c93b45af1f3d36f558b6d7ae6cb518648d371e"
+    },
+    {
+      "commit_first": "120bea9bef",
+      "commit_last": "120bea9bef",
+      "created": true,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ThomasOlney.762460.json",
+      "post_sha256": "4bdd0e3ceffed307861eb8b421ec62302d83fdee78c50523cac2f55291472774",
+      "pre_sha256": null
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/UnexpectedGuests.b3f497.json",
+      "post_sha256": "472dbab94e3d580aaa80f87ed15bcb4abcbe18250cf4502ab749e350eaf5279e",
+      "pre_sha256": "95e99a42923873988bf614dcef61fd6623d4018dd564504202a79e19806a00ea"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/Unlucky.306b6d.json",
+      "post_sha256": "e23fc6d9854c404cf132111020583d04429e06e6cf76c798a4e565e190c9d16c",
+      "pre_sha256": "8835b3464c04d92d44cf03f00a165c56b8274af7048067d86b4dbddeb3df95f6"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ValeriyaAntonova.ba17de.json",
+      "post_sha256": "066da43ccd41c4766c4804e66ec775b6ceec0062b7222f890b02ef923aea051c",
+      "pre_sha256": "2d7e68c66648de99ee3c7846c9bfba4d69e9154deab2206d38ae7e554422d68c"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ViciousAmbush.f3c4c3.json",
+      "post_sha256": "5dcece4caf68a08ed1a09ebbcc1702b3cf5285f8985139cc1be64fbe7ba42724",
+      "pre_sha256": "3a263d486ba1462e5dc7d499f2bf90eab64222aeb97f9a97a1177b3eeb140988"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/ViolentCommands.7b1b22.json",
+      "post_sha256": "8dce24abb6f78688b45b9b8a91e521e3cd86db0855e4faa0d1d5e9bef461767e",
+      "pre_sha256": "73ef0f7e57e21c4b307ead4a19e9196488a70337f5b58f48a5daf784e1a87fee"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/WardofPreservation.01a793.json",
+      "post_sha256": "71e36c662bafe7d019d867ebba13b9faa5265fe13632ae06efccf1634a4cbfb0",
+      "pre_sha256": "87f1b94cbb5bbd31f07b38e598b5f04281bb3aa01740819d6fad863ea078cbcb"
+    },
+    {
+      "commit_first": "6f638ab35f",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/WilliamBain.4c24f5.json",
+      "post_sha256": "5d761d17f5252a27cb4a2d160a859337df974999a05fd99dc88f7fede2d867fe",
+      "pre_sha256": "58f878171f304db013953a9feca028f2b2b26e7752650d98d22583332ee05fc9"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/ArchibaldHudson.6cd7ec.json",
+      "post_sha256": "23d3108085986af9c22ab150dcd1adfdf4719326e46e1fbca554026574ea6ae4",
+      "pre_sha256": "37d557f18a667ed4a0877efe2b4854048aae32eda08541eeb7eca0fbf5c83393"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/ArsèneRenard.2d493a.json",
+      "post_sha256": "562e1a44af0461ef7352563950eb84c31c1fa3349f8f2450a311b9060fc942cd",
+      "pre_sha256": "56ab242d78505d4eb6ee32cb84fdb7fb10d5e886096ac0756abcba0b801ae464"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/ClaireWilson.f96f2a.json",
+      "post_sha256": "c4eb2eaef8dd91b97cfc5e3612506c20b97d4a0263aa1cb54c6ef2aab8b70954",
+      "pre_sha256": "37bead96b88528a0de623ab78bcc39ff608525563070238a22618b5ec96cee54"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/DeloresGadling.a6d899.json",
+      "post_sha256": "4568dd261955199a955d3e3728cc03bbfbc75faf29c4274b8c266c4aaba61167",
+      "pre_sha256": "1db30ed3acd323303953f932b56e1aea507d513cd608689f0c60265cd1d28353"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/DrMyaBadry.27e870.json",
+      "post_sha256": "414f9063dfffb7ae5bd2d58d16dd0f1c36de290c27d455684ea9a985ae975a3a",
+      "pre_sha256": "b0cc33c5a7fdf7e4cb9a6b79f6ff082f0921382f10fbcc3a70925d1aa461ae03"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/ElizabethConrad.3397ee.json",
+      "post_sha256": "0734aa19f2a3603a1e330df62fe4ac93003f8a6b5d6f7af39262f68443a88939",
+      "pre_sha256": "c3afd3aff7d52b31e18423ccf606d5a35646bf328900d7cab5a9714e65ef30c9"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/HoracioMartinez.688f2d.json",
+      "post_sha256": "a72e7f291cfa2bb175ef46e370846576e04ecfb7bb56b0c13a3a17c2c5e6dd95",
+      "pre_sha256": "cebbf1a5c89a8a1c926e02df355028566eda05d0ddcc8b3f6ccb9c34e305f4da"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/JewelofSarnath.4258d6.json",
+      "post_sha256": "16f298f40f05a8fe1dcb0ff32277c7530cc0e00b4f26e01b196b5aee0bb3530c",
+      "pre_sha256": "59a1ad2700210c97c4122e131d69a22b9872c65da147a7bbe2b2495e91719a26"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/LucasTetlow.041fd0.json",
+      "post_sha256": "c35a39d639543988f148313eb14b62f32fa87164d39da409c15c0887596c56dd",
+      "pre_sha256": "a82ece70e65f0f3080b597a79fdfda4c51883019937a1f1bcc81c29003e45132"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/MirandaKeeper.9fdc8c.json",
+      "post_sha256": "e9e37e20370217bdff7adb736faa7247618a495baaeb7ebf5220d0d5b016f9ec",
+      "pre_sha256": "e6af0203cde31bc2bf41bf9f824d910cda90624687cfbe07238219cd05eb076a"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/NovaMalone.e8f1e5.json",
+      "post_sha256": "55ec5253c2870f05687ae1826d383860e2b2bd225ad9abf9619049b15dee2602",
+      "pre_sha256": "9983a1efddb1f81d5e526a75e6bb8252ad2fbb55fb62eb98d2e0180fee739f26"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/PrudenceDouglas.f32fa7.json",
+      "post_sha256": "1ec9b7c069c7f812972b69e03d4b3a26c12b9b7461d9ce93c652ee4f550530d9",
+      "pre_sha256": "fa09c1fbb50037c0a237d1277e674f13ef915dd8468b5da201fcbec52efe622a"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/RaymondLoggins.1fca2a.json",
+      "post_sha256": "40ed1aea070d661fc2cbbab5f380ee9ffda27465ac1dd49875731b0a7fc1f4b6",
+      "pre_sha256": "0f453afa2e9a1ce22f1b85d2cc32a89ee3b46fa9e015d90f78ba59e5b47dd257"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/SarahVanShaw.61df1c.json",
+      "post_sha256": "6c1f318c49766d7f509be28241412d973c599e436cd0401a18a8dc556345b43e",
+      "pre_sha256": "336936818713da4029ff3016d419c6aa4ed2844e79c2186c24c4ab64fa10e3cd"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/SpecialAgentCallahan.d97c01.json",
+      "post_sha256": "9421c2635b8a225059fbad6202b8b9cf167766828eaa1b86ef4eba6a03b39f85",
+      "pre_sha256": "14cf0e2b36a3802f95d48a7344bbe42c3b25c917211f642de6815d23efdfcc2c"
+    },
+    {
+      "commit_first": "c215929bb3",
+      "commit_last": "c215929bb3",
+      "created": false,
+      "path": "SCED-downloads/decomposed/language-pack/Korean - Player Cards/Korean-PlayerCards.KoreanI/ThomasOlney.762460.json",
+      "post_sha256": "4bdd0e3ceffed307861eb8b421ec62302d83fdee78c50523cac2f55291472774",
+      "pre_sha256": "a2f8a4c9e17fd69e4b22af8ed889477e544ca11ccb549223298c9719b213c099"
+    }
+  ]
+}

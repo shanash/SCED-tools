@@ -1,0 +1,219 @@
+{
+  "schema_version": "1.1.0",
+  "generated_by": "koreanize init",
+  "generated_at": "2026-08-23T17:02:26Z",
+  "slug": "midwinter",
+  "scenario_name": "The Midwinter Gala",
+  "source_dir": "SCED-downloads/decomposed/scenario/The Midwinter Gala",
+  "source_tree_sha256": "f3d220148878414490ff079689417bb5c097f460bf2b41e01cbaedb27dba061e",
+  "pack": "Korean - Campaigns",
+  "pack_container": "Korean-Campaigns.KoreanC",
+  "container_guid": "074d4a",
+  "container_stem": "TheMidwinterGala.074d4a",
+  "arkham_prefixes": [
+    "71"
+  ],
+  "guard": {
+    "write_roots": [
+      "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a/",
+      "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC/TheMidwinterGala.074d4a.json",
+      "SCED-downloads/decomposed/language-pack/Korean - Campaigns/Korean-Campaigns.KoreanC.json"
+    ],
+    "forbidden": [
+      "SCED/",
+      ".git/",
+      "decomposed/scenario/",
+      "decomposed/campaign/",
+      "library.json",
+      "SCED-tools/"
+    ],
+    "data_root": "SCED-tools/scripts/koreanize/data/",
+    "playercards_predicate": "url_substring_only",
+    "max_files_written": 200
+  },
+  "run_dir": ".am/koreanize/midwinter",
+  "atlases": [
+    {
+      "atlas_id": "db38de0360b385d1",
+      "side": "face",
+      "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609465604/B9B9A2324C01DCCFFCD6D3755CF6164CC590A88E/",
+      "local": "<run_dir>/assets/db38de0360b385d170f4abec24d47881d68e34b9880055635fdbe5be7f33bf05.png",
+      "grid": {
+        "num_width": 6,
+        "num_height": 5
+      },
+      "pixels": [
+        4500,
+        5250
+      ],
+      "cell_pixels": [
+        750,
+        1050
+      ],
+      "bytes": 48978892,
+      "sha256": "db38de0360b385d170f4abec24d47881d68e34b9880055635fdbe5be7f33bf05",
+      "cells_used": 26,
+      "packs": [
+        "Korean - Campaigns"
+      ],
+      "single_card": false
+    },
+    {
+      "atlas_id": "9ce619c063be12af",
+      "side": "face",
+      "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609449730/C570E67837928FB374DF50F4AA7FA2039DA9633B/",
+      "local": "<run_dir>/assets/9ce619c063be12af97aff0bc50a8218314482cb0e12865420d7bffe3c920ef43.png",
+      "grid": {
+        "num_width": 8,
+        "num_height": 5
+      },
+      "pixels": [
+        6000,
+        5250
+      ],
+      "cell_pixels": [
+        750,
+        1050
+      ],
+      "bytes": 78874276,
+      "sha256": "9ce619c063be12af97aff0bc50a8218314482cb0e12865420d7bffe3c920ef43",
+      "cells_used": 36,
+      "packs": [
+        "Korean - Campaigns",
+        "Korean - Player Cards"
+      ],
+      "single_card": false
+    }
+  ],
+  "shared_backs": [
+    {
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609468051/54FCA6E6919660AB3DC7BDEE32192EE66CF3C697/",
+      "occurrences_pack_wide": 27,
+      "policy": "never_rewrite"
+    },
+    {
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2342503777940351785/F64D8EFB75A9E15446D24343DA0A6EEF5B3E43DB/",
+      "occurrences_pack_wide": 21,
+      "policy": "never_rewrite"
+    },
+    {
+      "url": "https://steamusercontent-a.akamaihd.net/ugc/2342503777940352139/A2D42E7E5C43D045D72CE5CFC907E4F886C8C690/",
+      "occurrences_pack_wide": 15,
+      "policy": "never_rewrite"
+    }
+  ],
+  "ai": {
+    "model": "claude-opus-5",
+    "fallback_model": "claude-opus-4-8",
+    "effort": "high",
+    "timeout_s": 780,
+    "call_budget_s": 900,
+    "stage_wall_clock_s": 5400,
+    "max_budget_usd_per_call": 10,
+    "max_budget_usd_per_stage": 60,
+    "required_stages": [
+      "terms",
+      "translate",
+      "mask",
+      "typeset",
+      "ocr",
+      "triage",
+      "audit"
+    ],
+    "forbidden_stages": [
+      "scaffold",
+      "reuse",
+      "register",
+      "revert",
+      "verify",
+      "slice",
+      "composite",
+      "recompose",
+      "upload",
+      "repoint",
+      "objtext"
+    ],
+    "neutral_stages": [
+      "init",
+      "source",
+      "check",
+      "erase"
+    ],
+    "batch": {
+      "S1": {
+        "unit": "term",
+        "max_units_per_call": 120,
+        "max_calls": 4,
+        "universe_size": null
+      },
+      "S2": {
+        "unit": "card",
+        "max_units_per_call": 16,
+        "max_calls": 6,
+        "universe_size": 62
+      },
+      "S3": {
+        "unit": "group",
+        "max_units_per_call": 4,
+        "max_calls": 6,
+        "universe_size": null
+      },
+      "S4": {
+        "unit": "token",
+        "max_units_per_call": 64,
+        "max_calls": 2,
+        "universe_size": null
+      },
+      "S5": {
+        "unit": "object",
+        "max_units_per_call": 16,
+        "max_calls": 6,
+        "universe_size": 0
+      },
+      "S6": {
+        "unit": "finding",
+        "max_units_per_call": 40,
+        "max_calls": 3,
+        "universe_size": null
+      },
+      "S7": {
+        "unit": "seed_defect",
+        "max_units_per_call": 1,
+        "max_calls": 1,
+        "universe_size": null
+      }
+    }
+  },
+  "gates": {
+    "init": "required",
+    "terms": "required",
+    "mask": "required",
+    "typeset": "required"
+  },
+  "fonts": {
+    "search_roots": [
+      "images-ko/fonts/"
+    ],
+    "title": {
+      "postscript_name": null,
+      "sha256": null,
+      "redistributable": false,
+      "env_var": "KOREANIZE_FONT_TITLE"
+    },
+    "body": {
+      "postscript_name": "HakgyoansimBareondotumB",
+      "sha256": "28ef828b5b7591a19c0a4bb485e846e5f8837c69846af168e7b6f33b528acb6b",
+      "redistributable": true,
+      "env_var": "KOREANIZE_FONT_BODY"
+    },
+    "icons": {
+      "postscript_name": "ArkhamIcons",
+      "sha256": null,
+      "redistributable": false,
+      "env_var": "KOREANIZE_FONT_ICONS"
+    }
+  },
+  "layout_set": "midwinter",
+  "icon_set": "core",
+  "config_sha256": "9dc4b90bc4c3e90322378d8ff9d037962d08c6ca2a964621f7dbff7f6cb9b8a3"
+}

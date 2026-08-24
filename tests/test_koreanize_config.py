@@ -487,17 +487,52 @@ def test_tolerance_and_consent_tables_are_total_and_disjoint():
     assert not (set(kc.tolerance_flags()) & set(kc.consent_flags()))
 
 
-def test_every_pending_row_is_counted_rather_than_skipped():
+def test_every_pending_row_is_counted_rather_than_skipped(monkeypatch):
     """A row that quietly dropped out because its module was missing is precisely
-    the coverage nobody would notice was gone."""
+    the coverage nobody would notice was gone.
+
+    THE ASSERTION IS THE MECHANISM, NOT THE PROJECT'S CURRENT STATE, and the
+    difference is why this test changed in part 4. It previously ended on
+    `assert any("pending" in line for line in kc.pending_summary())` -- which
+    reads as "something is always pending", i.e. it encoded the build being
+    UNFINISHED as an invariant. Part 4 landed `kz_mask.py`, `kz_typeset.py`,
+    `kz_erase.py` and `kz_recompose.py`, every owning module now exists, both
+    tables are legitimately empty, and the old line became unsatisfiable at
+    exactly the moment the phase axis it belongs to was completed.
+
+    An empty pending set is the DESIGNED END STATE of §4.1's phase axis, so the
+    property worth holding is the biconditional: a line is printed if and only if
+    a row is pending. That is checked in both directions below -- the live tables
+    for the empty direction, and a synthetic row naming an absent module for the
+    non-empty one, so the counting mechanism keeps its coverage after the last
+    real row stops being pending.
+    """
     pending = kc.pending_rows()
     assert set(pending) == {"TOLERANCES", "CONSENTS"}
     for _table, rows in pending.items():
         for row in rows:
             assert row.phase in kc.PHASES
             assert row.module
-    # Counted and PRINTED -- the count is the whole point.
-    assert any("pending" in line for line in kc.pending_summary())
+
+    # Direction 1 -- the live tables. Whatever the current phase, the summary
+    # names a pending row exactly when one exists.
+    live_pending = any(rows for rows in pending.values())
+    assert live_pending == any("pending" in line for line in kc.pending_summary())
+
+    # Direction 2 -- the mechanism itself, proven on a row whose owning module
+    # cannot exist. This is what the old formulation was really reaching for, and
+    # it does not decay as modules land.
+    ghost = kc.Tolerance(
+        "ghost", "a row whose owning module was never built",
+        "typeset", "v1.x", "kz_module_that_does_not_exist.py",
+        "--accept-ghost", kc.EXIT_TOLERANCE,
+        "a synthetic row proving pending_rows() still counts an absent module")
+    monkeypatch.setattr(kc, "TOLERANCES", kc.TOLERANCES + (ghost,))
+    ghosted = kc.pending_rows()
+    assert [r.name for r in ghosted["TOLERANCES"]] == ["ghost"]
+    summary = kc.pending_summary()
+    assert any("pending" in line for line in summary), summary
+    assert any("typeset" in line for line in summary), summary
 
 
 def test_the_two_v0_tolerance_rows_are_the_ones_selftest_must_exercise():

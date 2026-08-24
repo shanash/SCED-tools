@@ -1,0 +1,2548 @@
+{
+  "cell_pixels": [
+    750,
+    1050
+  ],
+  "col_gap": 34,
+  "generated_at": "2026-08-24T00:00:00Z",
+  "generated_by": "koreanize step 8 re-sweep (kz_checkers.measure_bands ported to typeset-cards.py:721's segmentation)",
+  "groups": {
+    "Act/back": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 2,
+        "faces": 2,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 2,
+            "driver": {
+              "band": [
+                3,
+                52,
+                0,
+                787
+              ],
+              "band_height": 50,
+              "bottom": 567,
+              "en_ink_h": 34,
+              "face": "71005",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "stage_label": {
+            "clean_faces": 2,
+            "driver": {
+              "band": [
+                1,
+                30,
+                3,
+                87
+              ],
+              "band_height": 30,
+              "bottom": 4,
+              "en_ink_h": 30,
+              "face": "71005",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 4,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 2,
+            "driver": {
+              "band": [
+                424,
+                450,
+                0,
+                28
+              ],
+              "band_height": 27,
+              "bottom": 19,
+              "en_ink_h": 43,
+              "face": "71006",
+              "right": 55
+            },
+            "tightest": 19,
+            "tightest_bottom": 19,
+            "tightest_right": 24
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 33
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "stage_label": [
+          40,
+          45,
+          128,
+          80
+        ]
+      },
+      "measured_from": [
+        "71005-back.png",
+        "71006-back.png"
+      ],
+      "measured_notes_key": "Act",
+      "protect": [
+        [
+          0,
+          0,
+          1050,
+          46
+        ],
+        [
+          0,
+          666,
+          1050,
+          750
+        ],
+        [
+          0,
+          0,
+          48,
+          750
+        ],
+        [
+          988,
+          0,
+          1050,
+          750
+        ],
+        [
+          26,
+          26,
+          148,
+          190
+        ]
+      ],
+      "rot": 90,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          198,
+          48,
+          986,
+          668
+        ],
+        "title": [
+          48,
+          200,
+          132,
+          670
+        ]
+      },
+      "working_size": [
+        1050,
+        750
+      ]
+    },
+    "Act/front": {
+      "calibrated_from": "COL_GAP",
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 0,
+        "faces": 2,
+        "note": "Both faces in this group (71006, 71005) are the known mask-coverage defects, so the group carries no negative example and cannot calibrate itself. window_margin_px is inherited from build-masks.py's COL_GAP = 34 by the argument in design 5.5. Measured trailing clearance on the two DEFECT faces, body window: 27 px (71006, band y[215,249] x[1,504]) and 15 px (71005, band y[234,263] x[4,516]) -- both right margins, both fire at 34. These are design 5.5's own figures and they are reproduced exactly only under typeset-cards.py:721's segmentation; under build-masks.py:116's the same two faces read 5 and 6 merged bands and the tightest KEPT clearance was 0, taken off the full-width plate rather than off the text.",
+        "per_window": {
+          "body": {
+            "clean_faces": 0,
+            "defect_only_tightest": 15,
+            "tightest": null
+          },
+          "stage_label": {
+            "clean_faces": 0,
+            "defect_only_tightest": 7,
+            "tightest": null
+          },
+          "title": {
+            "clean_faces": 0,
+            "defect_only_tightest": 13,
+            "tightest": null
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 23
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "stage_label": [
+          232,
+          18,
+          326,
+          51
+        ]
+      },
+      "measured_from": [
+        "71005.png",
+        "71006.png"
+      ],
+      "measured_notes_key": "Act",
+      "protect": [
+        [
+          196,
+          10,
+          366,
+          116
+        ],
+        [
+          396,
+          586,
+          604,
+          716
+        ],
+        [
+          612,
+          0,
+          1050,
+          750
+        ],
+        [
+          0,
+          0,
+          1050,
+          14
+        ],
+        [
+          0,
+          712,
+          1050,
+          750
+        ],
+        [
+          0,
+          0,
+          14,
+          750
+        ]
+      ],
+      "rot": 90,
+      "window_margin_px": 34,
+      "windows": {
+        "body": [
+          26,
+          192,
+          558,
+          666
+        ],
+        "title": [
+          104,
+          124,
+          448,
+          190
+        ]
+      },
+      "working_size": [
+        1050,
+        750
+      ]
+    },
+    "Agenda/back": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 3,
+        "faces": 3,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                0,
+                126,
+                0,
+                787
+              ],
+              "band_height": 127,
+              "bottom": 493,
+              "en_ink_h": 71,
+              "face": "71002",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "stage_label": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                17,
+                34,
+                0,
+                54
+              ],
+              "band_height": 18,
+              "bottom": 0,
+              "en_ink_h": 17,
+              "face": "71003",
+              "right": 33
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                413,
+                446,
+                19,
+                49
+              ],
+              "band_height": 34,
+              "bottom": 23,
+              "en_ink_h": 18,
+              "face": "71002",
+              "right": 34
+            },
+            "tightest": 23,
+            "tightest_bottom": 23,
+            "tightest_right": 27
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 64
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "stage_label": [
+          40,
+          45,
+          128,
+          80
+        ]
+      },
+      "measured_from": [
+        "71002-back.png",
+        "71003-back.png",
+        "71004-back.png"
+      ],
+      "measured_notes_key": "Agenda",
+      "protect": [
+        [
+          0,
+          0,
+          1050,
+          46
+        ],
+        [
+          0,
+          666,
+          1050,
+          750
+        ],
+        [
+          0,
+          0,
+          48,
+          750
+        ],
+        [
+          988,
+          0,
+          1050,
+          750
+        ],
+        [
+          26,
+          26,
+          148,
+          190
+        ]
+      ],
+      "rot": 90,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          198,
+          48,
+          986,
+          668
+        ],
+        "title": [
+          48,
+          200,
+          132,
+          670
+        ]
+      },
+      "working_size": [
+        1050,
+        750
+      ]
+    },
+    "Agenda/front": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 3,
+        "faces": 3,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                367,
+                396,
+                8,
+                522
+              ],
+              "band_height": 30,
+              "bottom": 77,
+              "en_ink_h": 30,
+              "face": "71002",
+              "right": 3
+            },
+            "tightest": 3,
+            "tightest_bottom": 77,
+            "tightest_right": 3
+          },
+          "stage_label": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                0,
+                29,
+                0,
+                137
+              ],
+              "band_height": 30,
+              "bottom": 1,
+              "en_ink_h": 30,
+              "face": "71002",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 1,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 3,
+            "driver": {
+              "band": [
+                14,
+                52,
+                15,
+                324
+              ],
+              "band_height": 39,
+              "bottom": 13,
+              "en_ink_h": 39,
+              "face": "71003",
+              "right": 19
+            },
+            "tightest": 13,
+            "tightest_bottom": 13,
+            "tightest_right": 19
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 38
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "stage_label": [
+          698,
+          20,
+          836,
+          51
+        ]
+      },
+      "measured_from": [
+        "71002.png",
+        "71003.png",
+        "71004.png"
+      ],
+      "measured_notes_key": "Agenda",
+      "protect": [
+        [
+          684,
+          10,
+          854,
+          118
+        ],
+        [
+          450,
+          586,
+          604,
+          716
+        ],
+        [
+          0,
+          0,
+          484,
+          750
+        ],
+        [
+          0,
+          0,
+          1050,
+          14
+        ],
+        [
+          0,
+          712,
+          1050,
+          750
+        ],
+        [
+          1046,
+          0,
+          1050,
+          750
+        ]
+      ],
+      "rot": 90,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          508,
+          192,
+          1034,
+          666
+        ],
+        "title": [
+          594,
+          124,
+          938,
+          190
+        ]
+      },
+      "working_size": [
+        1050,
+        750
+      ]
+    },
+    "Asset/bside": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 1,
+        "faces": 1,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                208,
+                228,
+                12,
+                510
+              ],
+              "band_height": 21,
+              "bottom": 5,
+              "en_ink_h": 29,
+              "face": "71046",
+              "right": 191
+            },
+            "tightest": 5,
+            "tightest_bottom": 5,
+            "tightest_right": 14
+          },
+          "subtitle": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                5,
+                28,
+                0,
+                398
+              ],
+              "band_height": 24,
+              "bottom": 7,
+              "en_ink_h": 24,
+              "face": "71046",
+              "right": 3
+            },
+            "tightest": 3,
+            "tightest_bottom": 7,
+            "tightest_right": 3
+          },
+          "title": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                11,
+                47,
+                96,
+                377
+              ],
+              "band_height": 37,
+              "bottom": 10,
+              "en_ink_h": 37,
+              "face": "71046",
+              "right": 78
+            },
+            "tightest": 10,
+            "tightest_bottom": 10,
+            "tightest_right": 78
+          },
+          "traits": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                8,
+                28,
+                191,
+                327
+              ],
+              "band_height": 21,
+              "bottom": 13,
+              "en_ink_h": 21,
+              "face": "71046",
+              "right": 182
+            },
+            "tightest": 13,
+            "tightest_bottom": 13,
+            "tightest_right": 182
+          },
+          "type_banner": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                5,
+                17,
+                9,
+                60
+              ],
+              "band_height": 13,
+              "bottom": 1,
+              "en_ink_h": 13,
+              "face": "71046",
+              "right": 11
+            },
+            "tightest": 1,
+            "tightest_bottom": 1,
+            "tightest_right": 11
+          },
+          "victory": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                31,
+                43,
+                0,
+                178
+              ],
+              "band_height": 13,
+              "bottom": 0,
+              "en_ink_h": 19,
+              "face": "71046",
+              "right": 9
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 6
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 13
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          32,
+          118,
+          104,
+          137
+        ]
+      },
+      "measured_from": [
+        "71046-back.png"
+      ],
+      "measured_notes_key": "Asset",
+      "protect": [
+        [
+          0,
+          0,
+          108,
+          112
+        ],
+        [
+          0,
+          100,
+          142,
+          168
+        ],
+        [
+          0,
+          150,
+          92,
+          520
+        ],
+        [
+          586,
+          0,
+          750,
+          94
+        ],
+        [
+          0,
+          1010,
+          750,
+          1050
+        ]
+      ],
+      "protect_no_victory": [
+        [
+          0,
+          903,
+          750,
+          1012
+        ]
+      ],
+      "protect_with_victory": [
+        [
+          0,
+          940,
+          750,
+          1012
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          24,
+          668,
+          726,
+          902
+        ],
+        "subtitle": [
+          190,
+          76,
+          592,
+          112
+        ],
+        "title": [
+          140,
+          16,
+          596,
+          74
+        ],
+        "traits": [
+          120,
+          630,
+          630,
+          672
+        ],
+        "victory": [
+          556,
+          894,
+          744,
+          938
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Asset/front": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 22,
+        "faces": 22,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                206,
+                233,
+                6,
+                391
+              ],
+              "band_height": 28,
+              "bottom": 0,
+              "en_ink_h": 33,
+              "face": "71022",
+              "right": 310
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 8
+          },
+          "subtitle": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                2,
+                32,
+                0,
+                401
+              ],
+              "band_height": 31,
+              "bottom": 3,
+              "en_ink_h": 31,
+              "face": "71016",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                10,
+                40,
+                97,
+                455
+              ],
+              "band_height": 31,
+              "bottom": 17,
+              "en_ink_h": 31,
+              "face": "71022",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "traits": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                10,
+                37,
+                116,
+                391
+              ],
+              "band_height": 28,
+              "bottom": 4,
+              "en_ink_h": 28,
+              "face": "71030",
+              "right": 118
+            },
+            "tightest": 4,
+            "tightest_bottom": 4,
+            "tightest_right": 33
+          },
+          "type_banner": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                7,
+                18,
+                5,
+                58
+              ],
+              "band_height": 12,
+              "bottom": 0,
+              "en_ink_h": 12,
+              "face": "71024",
+              "right": 13
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 7
+          },
+          "victory": {
+            "clean_faces": 22,
+            "driver": {
+              "band": [
+                35,
+                43,
+                0,
+                29
+              ],
+              "band_height": 9,
+              "bottom": 0,
+              "en_ink_h": 9,
+              "face": "71016",
+              "right": 158
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 17
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 233
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          32,
+          118,
+          104,
+          137
+        ]
+      },
+      "measured_from": [
+        "71016.png",
+        "71017.png",
+        "71018.png",
+        "71019.png",
+        "71022.png",
+        "71023.png",
+        "71024.png",
+        "71025.png",
+        "71028.png",
+        "71029.png",
+        "71030.png",
+        "71031.png",
+        "71034.png",
+        "71035.png",
+        "71036.png",
+        "71037.png",
+        "71040.png",
+        "71041.png",
+        "71042.png",
+        "71043.png",
+        "71046.png",
+        "71052.png"
+      ],
+      "measured_notes_key": "Asset",
+      "protect": [
+        [
+          0,
+          0,
+          108,
+          112
+        ],
+        [
+          0,
+          100,
+          142,
+          168
+        ],
+        [
+          0,
+          150,
+          92,
+          520
+        ],
+        [
+          586,
+          0,
+          750,
+          94
+        ],
+        [
+          0,
+          1010,
+          750,
+          1050
+        ]
+      ],
+      "protect_no_victory": [
+        [
+          0,
+          903,
+          750,
+          1012
+        ]
+      ],
+      "protect_with_victory": [
+        [
+          0,
+          940,
+          750,
+          1012
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          24,
+          668,
+          726,
+          902
+        ],
+        "subtitle": [
+          190,
+          76,
+          592,
+          112
+        ],
+        "title": [
+          140,
+          16,
+          596,
+          74
+        ],
+        "traits": [
+          120,
+          630,
+          630,
+          672
+        ],
+        "victory": [
+          556,
+          894,
+          744,
+          938
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Enemy/bside": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 6,
+        "faces": 6,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                207,
+                227,
+                0,
+                705
+              ],
+              "band_height": 21,
+              "bottom": 73,
+              "en_ink_h": 25,
+              "face": "71016",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "subtitle": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                12,
+                35,
+                32,
+                271
+              ],
+              "band_height": 24,
+              "bottom": 4,
+              "en_ink_h": 24,
+              "face": "71034",
+              "right": 24
+            },
+            "tightest": 4,
+            "tightest_bottom": 4,
+            "tightest_right": 17
+          },
+          "title": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                3,
+                41,
+                50,
+                353
+              ],
+              "band_height": 39,
+              "bottom": 8,
+              "en_ink_h": 39,
+              "face": "71016",
+              "right": 40
+            },
+            "tightest": 8,
+            "tightest_bottom": 8,
+            "tightest_right": 39
+          },
+          "traits": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                6,
+                27,
+                42,
+                397
+              ],
+              "band_height": 22,
+              "bottom": 9,
+              "en_ink_h": 22,
+              "face": "71045",
+              "right": 40
+            },
+            "tightest": 9,
+            "tightest_bottom": 9,
+            "tightest_right": 18
+          },
+          "type_banner": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                6,
+                22,
+                13,
+                98
+              ],
+              "band_height": 17,
+              "bottom": 1,
+              "en_ink_h": 17,
+              "face": "71034",
+              "right": 13
+            },
+            "tightest": 1,
+            "tightest_bottom": 1,
+            "tightest_right": 11
+          },
+          "victory": {
+            "clean_faces": 6,
+            "driver": {
+              "band": [
+                11,
+                40,
+                28,
+                171
+              ],
+              "band_height": 30,
+              "bottom": 5,
+              "en_ink_h": 30,
+              "face": "71034",
+              "right": 28
+            },
+            "tightest": 5,
+            "tightest_bottom": 5,
+            "tightest_right": 26
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 66
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          322,
+          606,
+          434,
+          630
+        ]
+      },
+      "measured_from": [
+        "71016-back.png",
+        "71022-back.png",
+        "71028-back.png",
+        "71034-back.png",
+        "71040-back.png",
+        "71045-back.png"
+      ],
+      "measured_notes_key": "Enemy",
+      "protect": [
+        [
+          0,
+          88,
+          750,
+          198
+        ],
+        [
+          0,
+          536,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          22,
+          233,
+          728,
+          534
+        ],
+        "subtitle": [
+          228,
+          52,
+          524,
+          92
+        ],
+        "title": [
+          180,
+          2,
+          574,
+          52
+        ],
+        "traits": [
+          158,
+          196,
+          596,
+          233
+        ],
+        "victory": [
+          278,
+          478,
+          478,
+          524
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Enemy/front": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 7,
+        "faces": 7,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 7,
+            "driver": {
+              "band": [
+                208,
+                229,
+                0,
+                705
+              ],
+              "band_height": 22,
+              "bottom": 71,
+              "en_ink_h": 35,
+              "face": "71020",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "subtitle": {
+            "clean_faces": 7,
+            "driver": {
+              "band": [
+                2,
+                39,
+                0,
+                295
+              ],
+              "band_height": 38,
+              "bottom": 0,
+              "en_ink_h": 38,
+              "face": "71020",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 7,
+            "driver": {
+              "band": [
+                5,
+                43,
+                43,
+                356
+              ],
+              "band_height": 39,
+              "bottom": 6,
+              "en_ink_h": 39,
+              "face": "71045",
+              "right": 37
+            },
+            "tightest": 6,
+            "tightest_bottom": 6,
+            "tightest_right": 20
+          },
+          "traits": {
+            "clean_faces": 7,
+            "driver": {
+              "band": [
+                6,
+                34,
+                47,
+                385
+              ],
+              "band_height": 29,
+              "bottom": 2,
+              "en_ink_h": 29,
+              "face": "71047",
+              "right": 52
+            },
+            "tightest": 2,
+            "tightest_bottom": 2,
+            "tightest_right": 21
+          },
+          "type_banner": {
+            "clean_faces": 7,
+            "driver": {
+              "band": [
+                7,
+                23,
+                8,
+                93
+              ],
+              "band_height": 17,
+              "bottom": 0,
+              "en_ink_h": 17,
+              "face": "71047",
+              "right": 18
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 14
+          },
+          "victory": {
+            "clean_faces": 2,
+            "driver": {
+              "band": [
+                0,
+                25,
+                1,
+                199
+              ],
+              "band_height": 26,
+              "bottom": 20,
+              "en_ink_h": 26,
+              "face": "71045",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 6,
+            "tightest_right": 0
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 64
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          322,
+          606,
+          434,
+          630
+        ]
+      },
+      "measured_from": [
+        "71020.png",
+        "71045.png",
+        "71047.png",
+        "71048.png",
+        "71049.png",
+        "71051.png",
+        "71053.png"
+      ],
+      "measured_notes_key": "Enemy",
+      "protect": [
+        [
+          0,
+          88,
+          750,
+          198
+        ],
+        [
+          0,
+          536,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          22,
+          233,
+          728,
+          534
+        ],
+        "subtitle": [
+          228,
+          52,
+          524,
+          92
+        ],
+        "title": [
+          180,
+          2,
+          574,
+          52
+        ],
+        "traits": [
+          158,
+          196,
+          596,
+          233
+        ],
+        "victory": [
+          278,
+          478,
+          478,
+          524
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Location/back": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 8,
+        "faces": 8,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                0,
+                41,
+                0,
+                715
+              ],
+              "band_height": 42,
+              "bottom": 204,
+              "en_ink_h": 42,
+              "face": "71007",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 15,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                14,
+                48,
+                168,
+                329
+              ],
+              "band_height": 35,
+              "bottom": 5,
+              "en_ink_h": 35,
+              "face": "71011",
+              "right": 170
+            },
+            "tightest": 5,
+            "tightest_bottom": 5,
+            "tightest_right": 95
+          },
+          "traits": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                18,
+                38,
+                105,
+                375
+              ],
+              "band_height": 21,
+              "bottom": 5,
+              "en_ink_h": 21,
+              "face": "71011",
+              "right": 104
+            },
+            "tightest": 5,
+            "tightest_bottom": 5,
+            "tightest_right": 59
+          },
+          "type_banner": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                7,
+                21,
+                12,
+                146
+              ],
+              "band_height": 15,
+              "bottom": 3,
+              "en_ink_h": 15,
+              "face": "71011",
+              "right": 11
+            },
+            "tightest": 3,
+            "tightest_bottom": 3,
+            "tightest_right": 10
+          },
+          "victory": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                35,
+                43,
+                0,
+                37
+              ],
+              "band_height": 9,
+              "bottom": 0,
+              "en_ink_h": 9,
+              "face": "71007",
+              "right": 152
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 66
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          300,
+          550,
+          458,
+          575
+        ]
+      },
+      "measured_from": [
+        "71007-back.png",
+        "71008-back.png",
+        "71009-back.png",
+        "71010-back.png",
+        "71011-back.png",
+        "71012-back.png",
+        "71013-back.png",
+        "71014-back.png"
+      ],
+      "measured_notes_key": "Location",
+      "protect": [
+        [
+          0,
+          0,
+          122,
+          72
+        ],
+        [
+          628,
+          0,
+          750,
+          72
+        ],
+        [
+          0,
+          492,
+          132,
+          618
+        ],
+        [
+          618,
+          492,
+          750,
+          618
+        ],
+        [
+          268,
+          542,
+          492,
+          592
+        ],
+        [
+          0,
+          916,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          18,
+          628,
+          734,
+          874
+        ],
+        "title": [
+          128,
+          2,
+          628,
+          56
+        ],
+        "traits": [
+          138,
+          582,
+          618,
+          626
+        ],
+        "victory": [
+          556,
+          872,
+          746,
+          916
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Location/front": {
+      "calibrated_from": 1,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 8,
+        "faces": 8,
+        "note": "window_margin_px is min(COL_GAP, calibrated_from); the group's own negative evidence caps it below 34.",
+        "per_window": {
+          "body": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                89,
+                118,
+                18,
+                697
+              ],
+              "band_height": 30,
+              "bottom": 131,
+              "en_ink_h": 30,
+              "face": "71007",
+              "right": 18
+            },
+            "tightest": 18,
+            "tightest_bottom": 61,
+            "tightest_right": 18
+          },
+          "title": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                9,
+                50,
+                77,
+                421
+              ],
+              "band_height": 42,
+              "bottom": 3,
+              "en_ink_h": 42,
+              "face": "71012",
+              "right": 78
+            },
+            "tightest": 3,
+            "tightest_bottom": 3,
+            "tightest_right": 77
+          },
+          "traits": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                20,
+                40,
+                52,
+                417
+              ],
+              "band_height": 21,
+              "bottom": 3,
+              "en_ink_h": 21,
+              "face": "71012",
+              "right": 62
+            },
+            "tightest": 3,
+            "tightest_bottom": 3,
+            "tightest_right": 62
+          },
+          "type_banner": {
+            "clean_faces": 8,
+            "driver": {
+              "band": [
+                8,
+                23,
+                9,
+                144
+              ],
+              "band_height": 16,
+              "bottom": 1,
+              "en_ink_h": 16,
+              "face": "71012",
+              "right": 13
+            },
+            "tightest": 1,
+            "tightest_bottom": 1,
+            "tightest_right": 13
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 40
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          300,
+          550,
+          458,
+          575
+        ]
+      },
+      "measured_from": [
+        "71007.png",
+        "71008.png",
+        "71009.png",
+        "71010.png",
+        "71011.png",
+        "71012.png",
+        "71013.png",
+        "71014.png"
+      ],
+      "measured_notes_key": "Location",
+      "protect": [
+        [
+          0,
+          0,
+          122,
+          72
+        ],
+        [
+          628,
+          0,
+          750,
+          72
+        ],
+        [
+          0,
+          492,
+          132,
+          618
+        ],
+        [
+          618,
+          492,
+          750,
+          618
+        ],
+        [
+          268,
+          542,
+          492,
+          592
+        ],
+        [
+          0,
+          916,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "window_margin_px": 1,
+      "windows": {
+        "body": [
+          18,
+          628,
+          734,
+          878
+        ],
+        "title": [
+          128,
+          2,
+          628,
+          56
+        ],
+        "traits": [
+          138,
+          582,
+          618,
+          626
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Scenario/back": {
+      "calibrated_from": 11,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 1,
+        "faces": 1,
+        "note": "window_margin_px is min(COL_GAP, calibrated_from); the group's own negative evidence caps it below 34.",
+        "per_window": {
+          "body": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                609,
+                632,
+                16,
+                127
+              ],
+              "band_height": 24,
+              "bottom": 17,
+              "en_ink_h": 32,
+              "face": "71001",
+              "right": 366
+            },
+            "tightest": 17,
+            "tightest_bottom": 17,
+            "tightest_right": 23
+          },
+          "title": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                7,
+                52,
+                9,
+                431
+              ],
+              "band_height": 46,
+              "bottom": 11,
+              "en_ink_h": 46,
+              "face": "71001",
+              "right": 28
+            },
+            "tightest": 11,
+            "tightest_bottom": 11,
+            "tightest_right": 28
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 11
+      },
+      "flavor_before_text": false,
+      "frame_windows": {},
+      "measured_from": [
+        "71001-back.png"
+      ],
+      "measured_notes_key": "Scenario",
+      "protect": [
+        [
+          88,
+          296,
+          184,
+          892
+        ],
+        [
+          296,
+          96,
+          456,
+          180
+        ],
+        [
+          0,
+          0,
+          60,
+          1050
+        ],
+        [
+          690,
+          0,
+          750,
+          1050
+        ],
+        [
+          0,
+          0,
+          750,
+          96
+        ],
+        [
+          0,
+          892,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "window_margin_px": 11,
+      "windows": {
+        "body": [
+          180,
+          240,
+          674,
+          890
+        ],
+        "title": [
+          148,
+          176,
+          608,
+          240
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Scenario/front": {
+      "calibrated_from": 10,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 1,
+        "faces": 1,
+        "note": "window_margin_px is min(COL_GAP, calibrated_from); the group's own negative evidence caps it below 34.",
+        "per_window": {
+          "body": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                610,
+                633,
+                16,
+                126
+              ],
+              "band_height": 24,
+              "bottom": 16,
+              "en_ink_h": 32,
+              "face": "71001",
+              "right": 367
+            },
+            "tightest": 16,
+            "tightest_bottom": 16,
+            "tightest_right": 54
+          },
+          "title": {
+            "clean_faces": 1,
+            "driver": {
+              "band": [
+                8,
+                53,
+                12,
+                433
+              ],
+              "band_height": 46,
+              "bottom": 10,
+              "en_ink_h": 46,
+              "face": "71001",
+              "right": 26
+            },
+            "tightest": 10,
+            "tightest_bottom": 10,
+            "tightest_right": 26
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 12
+      },
+      "flavor_before_text": false,
+      "frame_windows": {},
+      "measured_from": [
+        "71001.png"
+      ],
+      "measured_notes_key": "Scenario",
+      "protect": [
+        [
+          88,
+          296,
+          184,
+          892
+        ],
+        [
+          296,
+          96,
+          456,
+          180
+        ],
+        [
+          0,
+          0,
+          60,
+          1050
+        ],
+        [
+          690,
+          0,
+          750,
+          1050
+        ],
+        [
+          0,
+          0,
+          750,
+          96
+        ],
+        [
+          0,
+          892,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "window_margin_px": 10,
+      "windows": {
+        "body": [
+          180,
+          240,
+          674,
+          890
+        ],
+        "title": [
+          148,
+          176,
+          608,
+          240
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Story/bside": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 5,
+        "faces": 5,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                342,
+                376,
+                15,
+                628
+              ],
+              "band_height": 35,
+              "bottom": 363,
+              "en_ink_h": 33,
+              "face": "71015",
+              "right": 11
+            },
+            "tightest": 11,
+            "tightest_bottom": 69,
+            "tightest_right": 11
+          },
+          "title": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                9,
+                55,
+                0,
+                503
+              ],
+              "band_height": 47,
+              "bottom": 6,
+              "en_ink_h": 47,
+              "face": "71015",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 5,
+            "tightest_right": 0
+          },
+          "traits": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                13,
+                33,
+                126,
+                197
+              ],
+              "band_height": 21,
+              "bottom": 8,
+              "en_ink_h": 21,
+              "face": "71021",
+              "right": 116
+            },
+            "tightest": 8,
+            "tightest_bottom": 8,
+            "tightest_right": 116
+          },
+          "type_banner": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                4,
+                27,
+                0,
+                87
+              ],
+              "band_height": 24,
+              "bottom": 0,
+              "en_ink_h": 24,
+              "face": "71015",
+              "right": 6
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 2
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 100
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "type_banner": [
+          330,
+          1004,
+          424,
+          1032
+        ]
+      },
+      "measured_from": [
+        "71015-back.png",
+        "71021-back.png",
+        "71027-back.png",
+        "71033-back.png",
+        "71039-back.png"
+      ],
+      "measured_notes_key": "Story",
+      "protect": [
+        [
+          0,
+          50,
+          100,
+          126
+        ],
+        [
+          592,
+          46,
+          750,
+          128
+        ],
+        [
+          0,
+          126,
+          58,
+          966
+        ],
+        [
+          696,
+          126,
+          750,
+          966
+        ],
+        [
+          0,
+          964,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          58,
+          222,
+          698,
+          962
+        ],
+        "title": [
+          94,
+          56,
+          598,
+          118
+        ],
+        "traits": [
+          218,
+          180,
+          532,
+          222
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Story/front": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 5,
+        "faces": 5,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                276,
+                308,
+                10,
+                622
+              ],
+              "band_height": 33,
+              "bottom": 431,
+              "en_ink_h": 33,
+              "face": "71021",
+              "right": 17
+            },
+            "tightest": 17,
+            "tightest_bottom": 46,
+            "tightest_right": 17
+          },
+          "title": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                0,
+                56,
+                0,
+                503
+              ],
+              "band_height": 57,
+              "bottom": 5,
+              "en_ink_h": 57,
+              "face": "71015",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 3,
+            "tightest_right": 0
+          },
+          "traits": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                14,
+                35,
+                116,
+                196
+              ],
+              "band_height": 22,
+              "bottom": 6,
+              "en_ink_h": 22,
+              "face": "71021",
+              "right": 117
+            },
+            "tightest": 6,
+            "tightest_bottom": 6,
+            "tightest_right": 114
+          },
+          "type_banner": {
+            "clean_faces": 5,
+            "driver": {
+              "band": [
+                3,
+                27,
+                0,
+                88
+              ],
+              "band_height": 25,
+              "bottom": 0,
+              "en_ink_h": 25,
+              "face": "71015",
+              "right": 5
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 1
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 89
+      },
+      "flavor_before_text": true,
+      "frame_windows": {
+        "type_banner": [
+          330,
+          1004,
+          424,
+          1032
+        ]
+      },
+      "measured_from": [
+        "71015.png",
+        "71021.png",
+        "71027.png",
+        "71033.png",
+        "71039.png"
+      ],
+      "measured_notes_key": "Story",
+      "protect": [
+        [
+          0,
+          50,
+          100,
+          126
+        ],
+        [
+          592,
+          46,
+          750,
+          128
+        ],
+        [
+          0,
+          126,
+          58,
+          966
+        ],
+        [
+          696,
+          126,
+          750,
+          966
+        ],
+        [
+          0,
+          964,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          58,
+          222,
+          698,
+          962
+        ],
+        "title": [
+          94,
+          56,
+          598,
+          118
+        ],
+        "traits": [
+          218,
+          180,
+          532,
+          222
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    },
+    "Treachery/front": {
+      "calibrated_from": 0,
+      "calibration": {
+        "checker": "kz_checkers.w1_window_margin (post rule_stroke_mask(), measure_en_optics() ink-weighted band-height filter)",
+        "defect_free_faces": 14,
+        "faces": 14,
+        "note": "A finding, not a threshold problem (design 5.5): the windows in this group hug their content. Adjudicate through step 16's S6 triage path.",
+        "per_window": {
+          "body": {
+            "clean_faces": 14,
+            "driver": {
+              "band": [
+                6,
+                38,
+                5,
+                643
+              ],
+              "band_height": 33,
+              "bottom": 229,
+              "en_ink_h": 32,
+              "face": "71038",
+              "right": 0
+            },
+            "tightest": 0,
+            "tightest_bottom": 0,
+            "tightest_right": 0
+          },
+          "title": {
+            "clean_faces": 14,
+            "driver": {
+              "band": [
+                10,
+                49,
+                143,
+                381
+              ],
+              "band_height": 40,
+              "bottom": 12,
+              "en_ink_h": 40,
+              "face": "71050",
+              "right": 148
+            },
+            "tightest": 12,
+            "tightest_bottom": 12,
+            "tightest_right": 81
+          },
+          "traits": {
+            "clean_faces": 14,
+            "driver": {
+              "band": [
+                7,
+                34,
+                47,
+                269
+              ],
+              "band_height": 28,
+              "bottom": 5,
+              "en_ink_h": 28,
+              "face": "71032",
+              "right": 44
+            },
+            "tightest": 5,
+            "tightest_bottom": 5,
+            "tightest_right": 44
+          },
+          "type_banner": {
+            "clean_faces": 14,
+            "driver": {
+              "band": [
+                8,
+                23,
+                3,
+                157
+              ],
+              "band_height": 16,
+              "bottom": 1,
+              "en_ink_h": 16,
+              "face": "71050",
+              "right": 18
+            },
+            "tightest": 1,
+            "tightest_bottom": 1,
+            "tightest_right": 12
+          }
+        },
+        "swept_on": "2026-08-24",
+        "text_bands_measured": 119
+      },
+      "flavor_before_text": false,
+      "frame_windows": {
+        "type_banner": [
+          292,
+          566,
+          468,
+          591
+        ]
+      },
+      "measured_from": [
+        "71026.png",
+        "71032.png",
+        "71038.png",
+        "71044.png",
+        "71050.png",
+        "71054.png",
+        "71055.png",
+        "71056.png",
+        "71057.png",
+        "71058.png",
+        "71059.png",
+        "71060.png",
+        "71061.png",
+        "71062.png"
+      ],
+      "measured_notes_key": "Treachery",
+      "protect": [
+        [
+          0,
+          0,
+          750,
+          612
+        ],
+        [
+          0,
+          612,
+          46,
+          1000
+        ],
+        [
+          694,
+          612,
+          750,
+          1000
+        ],
+        [
+          0,
+          1000,
+          750,
+          1050
+        ]
+      ],
+      "rot": 0,
+      "uncalibrated": true,
+      "uncalibrated_reason": "The tightest post-suppression trailing clearance over this group's defect-free faces is 0 px, so NO positive threshold survives its own negative evidence and kz_config's 1 <= window_margin_px <= calibrated_from cannot be satisfied. window_margin_px is therefore deliberately ABSENT rather than written at a value the validator would refuse at exit 4. See data/layouts/README.md, 'The zero finding'.",
+      "windows": {
+        "body": [
+          48,
+          708,
+          692,
+          976
+        ],
+        "title": [
+          110,
+          610,
+          640,
+          672
+        ],
+        "traits": [
+          218,
+          672,
+          532,
+          712
+        ]
+      },
+      "working_size": [
+        750,
+        1050
+      ]
+    }
+  },
+  "ink_detector": {
+    "edge_guard": 4,
+    "frame_pad_x": 5,
+    "frame_pad_y": 3,
+    "ink_dark": 120,
+    "ink_light": 165,
+    "ink_radius": 11,
+    "line_gap": 4,
+    "line_min_ink": 2,
+    "pad_x": 12,
+    "pad_y": 7,
+    "source": "build-masks.py:76-88"
+  },
+  "measured_notes": {
+    "Act": "Stored rotated 90 CW; measured upright at 1050x750. FRONT: stage label 'Act Na' y 25-48 (not masked), title ink y 138-178 x 128-420, flavour y 205-270, rules text y 280-660 x 25-555; the clue-cost disc and its magnifier handle occupy x 400-600 y 590-712 and are protected. BACK: title is set VERTICALLY on the left spine, x 62-112 y 245-640; flavour y 60-320 and rules text y 250-610 both span x 220-960.",
+    "Agenda": "Stored rotated 90 CW; measured upright at 1050x750. FRONT: artwork occupies x<470, stage label y 24-42 (masked since A6b), title ink y 132-178 x 622-905, flavour y 203-380, rules text to y 622 spanning x 505-1035; the doom disc x 455-600 y 590-712 is protected. BACK: vertical spine title x 62-112 y 245-640, flavour y 60-320, rules text y 250-610, both x 220-990.",
+    "Asset": "Title/subtitle plates measured across all 22 asset faces: title plate x 82-670 y 9-76 (narrowest, Mystic, x 134-595), subtitle plate x 191-590 y 74-111. Traits ink y 638-667 x 149-596. Rules text ink y 673-897 spanning x 30-722 on the widest lines (71046b, 71034). The navy stat arc's top edge is y 906 at the card centre, so the body window stops at 902. Victory (only 71046-back) measured y 906-933, x 610-737.",
+    "Enemy": "Measured across 7 enemy faces and 6 enemy b-sides. Title ink y 5-45 x 200-560 (widest: 'Abhorrent Moon-Beast'); subtitle y 58-85 x 255-508. Chevron stat row y 90-196 is protected. Traits ink y 200-231 x 179-577. Rules text ink y 235-503, widest lines reach x 30-712. Victory line measured y 487-517 x 303-451 on all six b-sides plus 71051. The ENEMY banner and the damage/horror icons start at y 536.",
+    "Location": "Front slice is the UNREVEALED side (prints back_name/back_text/back_flavor), back slice is the REVEALED side (name/text/flavor/victory); both print traits. Title ink y 6-51 x 203-591. Traits ink y 586-622 x 160-599. Body ink y 633-858 with lines reaching x 25-730. Victory measured y 886-911 x ~600-735 on 71008/71013/71014 backs. Shroud/clue discs y 495-615, token row y >= 916 are protected.",
+    "Scenario": "Chaos-token reference card, upright. Title ink y 185-232 x 165-590; the difficulty line and the four token entries are one contiguous text block y 244-880 x 190-660. The four chaos-token discs at x 100-180 and the elder sign at y 100-178 are protected.",
+    "Story": "Measured across 5 story fronts and 5 b-sides. Title ink y 68-108 x 105-545. Traits ('Allied.' / 'Rival.') y 190-215 x 334-416. Flavour precedes the rules text: flavour ink y 226-358, rules text y 341-952, both spanning x 65-690. Side ornament columns x<58 and x>695, footer + STORY banner from y 965.",
+    "Treachery": "Measured across all 14 treacheries. Title ink y 619-669 x 193-570; traits y 679-706 x 264-488; rules text y 714-978 (71060 is the longest) with lines reaching x 50-680; flavour, where printed, is the trailing centred block y 897-945. Panel side ornaments sit at x<46 and x>692; the footer band starts at y 1005.",
+    "_frame_text_A6b": "Frame text, added 2026-08-17. TYPE BANNER, measured across every face of each type: Asset 'ASSET' on the tab under the cost disc, glyph rows 121-134, tab outline y 137-145, disc rings end y 115. Treachery 'TREACHERY' glyph rows 566-587, plate top rule y 560-565, beaded band from y 592. Location 'LOCATION' glyph rows 555-572 on BOTH the unrevealed and the revealed side, plate rules y 541-547 and y 576-580. Enemy 'ENEMY' glyph rows 612-628, plate rules y 599-603 and y 631. Story 'STORY' glyph rows 1010-1026 between the two blue footer ribbons. STAGE LABEL, upright frame: Act front 'Act Na' rows 24-42 cols 238-311, top rule y 10-13, ornament from y 54. Agenda front 'Agenda Na' rows 24-43 cols 706-825. Act/Agenda back share one cartouche: 'ACT Nb' is one line (rows 57-70), 'AGENDA Nb' is two (rows 48-61 and 66-78); cartouche top rule ends y 43, elder-sign disc first ink y 81, side borders x<38 and x>132. The Scenario reference card is the only type with no frame text at all, on either side."
+  },
+  "provenance": {
+    "group_spec_from": ".am/midwinter-gala-korean/build-masks.py:491-507 (GROUP_SPEC)",
+    "measured_notes_from": ".am/midwinter-gala-korean/build-masks.py:220 (MEASURED_NOTES)",
+    "ported_from": ".am/midwinter-gala-korean/build-masks.py:207-507",
+    "ported_from_sha256": "8604eb43fe050f22ba4d60cb1dbb70f676d886822cfff986e49c317c4b11b2dd",
+    "resweep": {
+      "effect": "Text bands measured across the 88 faces rose from 564 to 971. Ten faces changed their tightest trailing clearance: seven rose off a false 0 read from a merged band (including both Act/front defect faces, 0 -> 8 and 0 -> 7 over all their windows), and Location/front's three tightest faces fell 2 -> 1 as a merged band resolved into a tighter one. Only one group's calibrated_from moved: Location/front 2 -> 1. Eleven groups still measure 0 -- the floor is set by frame_windows and by title/subtitle/victory windows that hug their content, not by the plate the fix removed.",
+      "groups_at_zero": 11,
+      "on": "2026-08-24",
+      "reason": "measure_bands() had forked build-masks.py:116's line_groups() (LINE_MIN_INK 2 / LINE_GAP 4) instead of typeset-cards.py:721's measure_en_lines() (profile > 0, no gap tolerance). Ornament ink in the inter-line gaps kept every row above LINE_MIN_INK, so no gap was ever found and printed lines merged; the merged bands dragged the ink-weighted median band height up and inverted the 0.5..2.0 * en_ink_h filter, keeping plates and dropping text.",
+      "text_bands_measured": 971
+    },
+    "slice_manifest": ".am/midwinter-gala-korean/masks/manifest.json",
+    "slice_manifest_sha256": "df801c4349145ef8af1a7f04ed0a378d6e4162145ab4792c42daeb84bc9008b2",
+    "sweep_interpreter": {
+      "numpy": "2.4.2",
+      "pil": "12.0.0",
+      "python": "3.14.7"
+    }
+  },
+  "schema_version": "1.1.0",
+  "set": "midwinter"
+}

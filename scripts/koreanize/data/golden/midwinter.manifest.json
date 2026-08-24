@@ -1,0 +1,739 @@
+{
+  "atlas_urls_assertion": {
+    "from": "data/locks/midwinter.lock.json -> atlas_urls",
+    "note": "Step (5) of `golden`: the three PRODUCED atlas sha256s are compared byte-for-byte against atlas-urls.json, which is in the receipt tier precisely so it survives the run dir."
+  },
+  "driven_stages": [
+    "slice",
+    "mask",
+    "composite",
+    "typeset",
+    "recompose"
+  ],
+  "fixture": "midwinter",
+  "generated_at": "2026-08-23T17:39:18Z",
+  "generated_by": "koreanize step 8 backfill (design 6 step 8)",
+  "inputs": {
+    "atlases_en": [
+      {
+        "bytes": 78874276,
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609449730/C570E67837928FB374DF50F4AA7FA2039DA9633B/",
+        "grid": [
+          8,
+          5
+        ],
+        "path": "atlases-en/httpssteamusercontentaakamaihdnetugc2407823725609449730C570E67837928FB374DF50F4AA7FA2039DA9633B.png",
+        "pixels": [
+          6000,
+          5250
+        ],
+        "sha256": "9ce619c063be12af97aff0bc50a8218314482cb0e12865420d7bffe3c920ef43",
+        "sheet": "8x5-face"
+      },
+      {
+        "bytes": 48978892,
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609465604/B9B9A2324C01DCCFFCD6D3755CF6164CC590A88E/",
+        "grid": [
+          6,
+          5
+        ],
+        "path": "atlases-en/httpssteamusercontentaakamaihdnetugc2407823725609465604B9B9A2324C01DCCFFCD6D3755CF6164CC590A88E.png",
+        "pixels": [
+          4500,
+          5250
+        ],
+        "sha256": "db38de0360b385d170f4abec24d47881d68e34b9880055635fdbe5be7f33bf05",
+        "sheet": "6x5-face"
+      },
+      {
+        "bytes": 54776307,
+        "english_url": "https://steamusercontent-a.akamaihd.net/ugc/2407823725609468051/54FCA6E6919660AB3DC7BDEE32192EE66CF3C697/",
+        "grid": [
+          6,
+          5
+        ],
+        "path": "atlases-en/httpssteamusercontentaakamaihdnetugc240782372560946805154FCA6E6919660AB3DC7BDEE32192EE66CF3C697.png",
+        "pixels": [
+          4500,
+          5250
+        ],
+        "sha256": "f0f9c54ffac4ed5864ec73ffca5d5635fb22c384c8d077177300203b054cdbf0",
+        "sheet": "6x5-back"
+      }
+    ],
+    "delivered": [
+      {
+        "bytes": 1219335,
+        "path": "delivered/71001-back.png",
+        "sha256": "a2d0d64fe72c8771d62a8f84dd8f4e406db4397c55ae97328df7821cf42946fc"
+      },
+      {
+        "bytes": 1256501,
+        "path": "delivered/71001.png",
+        "sha256": "ae83d5142bb26316dfe5e6d48f2e5133f82b2c6b635d822856ac5f8096cbf5c0"
+      },
+      {
+        "bytes": 1212533,
+        "path": "delivered/71002-back.png",
+        "sha256": "b765065b87248cc37812f0b936f3cf94dac1cf79d9f9eddac58d951ca422bf48"
+      },
+      {
+        "bytes": 1510021,
+        "path": "delivered/71002.png",
+        "sha256": "26edc0d3c7c80352cfd7e95fd996d0bca1ca8a64f9a9812088999412a4db8e20"
+      },
+      {
+        "bytes": 1329865,
+        "path": "delivered/71003-back.png",
+        "sha256": "83450b1a4d71fc2444b65931056909312ba6cda878e9e176c459f483d4d06834"
+      },
+      {
+        "bytes": 1542417,
+        "path": "delivered/71003.png",
+        "sha256": "f83fe162becc0e7349990cc500bb7d8b432d4203f9b3bd50ee23cb3166498d56"
+      },
+      {
+        "bytes": 1248334,
+        "path": "delivered/71004-back.png",
+        "sha256": "29fb8165239104e5f24777485ec2d2d7b06c4fbb1d584dc3ac7aff9b591730a9"
+      },
+      {
+        "bytes": 1510012,
+        "path": "delivered/71004.png",
+        "sha256": "af59a695f238cd5d2231194a870ca881d8a74473b2d2e2714c611dde48b0f7d7"
+      },
+      {
+        "bytes": 1341505,
+        "path": "delivered/71005-back.png",
+        "sha256": "2b3cf19c705e37f44048396d4654d78ece1bc7f14c1b470c40e89428942f0a14"
+      },
+      {
+        "bytes": 1571179,
+        "path": "delivered/71005.png",
+        "sha256": "440110b29d0b93e9f0d41627963183ecd46419286cf5a0e9aeb9f91d259f1c3d"
+      },
+      {
+        "bytes": 1238948,
+        "path": "delivered/71006-back.png",
+        "sha256": "10530d3bd84b2f247c96eef93e1cde3481c2e3b723cb689e5482b9d8c61dd8f8"
+      },
+      {
+        "bytes": 1544411,
+        "path": "delivered/71006.png",
+        "sha256": "a83f295290bf391f5c50f187a9da9f10b00dfb133cdf37ee69b4f237fac57354"
+      },
+      {
+        "bytes": 1479716,
+        "path": "delivered/71007-back.png",
+        "sha256": "2609a9948023039466c12497345cdb09cea2f5f34dc4bf1fac997897166415c8"
+      },
+      {
+        "bytes": 1460574,
+        "path": "delivered/71007.png",
+        "sha256": "9262b63c78aff2d4cc46c27558e25b5fda94884dd30c2d38fa032cba7d779c78"
+      },
+      {
+        "bytes": 1460894,
+        "path": "delivered/71008-back.png",
+        "sha256": "866539a1b5d15c0338037716b95b4efc5f4c1f3ee63d558c0018990d8a08dda5"
+      },
+      {
+        "bytes": 1439816,
+        "path": "delivered/71008.png",
+        "sha256": "3830d13c9a93cefb5ef8bdf8894587b0c4a3c30b4d0fea95c04609253f0ce6c8"
+      },
+      {
+        "bytes": 1543851,
+        "path": "delivered/71009-back.png",
+        "sha256": "9aaf77751f3b9fd943a1ab45636a0dd35d97a77fd087e1d9a1d3795f0cb063a0"
+      },
+      {
+        "bytes": 1318649,
+        "path": "delivered/71009.png",
+        "sha256": "ac3f48bdfaa706c71cde186294286be78733578502b54b40dbd32ee4bd7a0ae6"
+      },
+      {
+        "bytes": 1499624,
+        "path": "delivered/71010-back.png",
+        "sha256": "f4cfdd37df3d0f5c0015d48a10e6db8b0d5487271be3f917006e2c9f3243b95d"
+      },
+      {
+        "bytes": 1318649,
+        "path": "delivered/71010.png",
+        "sha256": "ac3f48bdfaa706c71cde186294286be78733578502b54b40dbd32ee4bd7a0ae6"
+      },
+      {
+        "bytes": 1499594,
+        "path": "delivered/71011-back.png",
+        "sha256": "5be49edf29e8351d6cc1dde83c1839f621113435a6da783e3e48b264bf735277"
+      },
+      {
+        "bytes": 1318649,
+        "path": "delivered/71011.png",
+        "sha256": "ac3f48bdfaa706c71cde186294286be78733578502b54b40dbd32ee4bd7a0ae6"
+      },
+      {
+        "bytes": 1413366,
+        "path": "delivered/71012-back.png",
+        "sha256": "f34f49885b1c4e1eba57bbb3f6610f51c2985626e3852b93cca278a8aa6dfaf4"
+      },
+      {
+        "bytes": 1325962,
+        "path": "delivered/71012.png",
+        "sha256": "8a4cb7e0a51e6bd9c519769dabd3025fd64bf75266fc3efa2e22a3c5c915374a"
+      },
+      {
+        "bytes": 1483124,
+        "path": "delivered/71013-back.png",
+        "sha256": "45a93b88f5def9be9b4fec6fe166f7b7df2dba9972b0ec41c09a2cf2f0c65def"
+      },
+      {
+        "bytes": 1325962,
+        "path": "delivered/71013.png",
+        "sha256": "8a4cb7e0a51e6bd9c519769dabd3025fd64bf75266fc3efa2e22a3c5c915374a"
+      },
+      {
+        "bytes": 1491374,
+        "path": "delivered/71014-back.png",
+        "sha256": "c20a7a5fbe3fd7def934a902a000367b5243c6144dea608d6eaecd5bb89c5c14"
+      },
+      {
+        "bytes": 1325962,
+        "path": "delivered/71014.png",
+        "sha256": "8a4cb7e0a51e6bd9c519769dabd3025fd64bf75266fc3efa2e22a3c5c915374a"
+      },
+      {
+        "bytes": 1426828,
+        "path": "delivered/71015-back.png",
+        "sha256": "529ce384948804d5e19861e5edf10e4bcf0e274ea2e52667cd5a007a4a426ca9"
+      },
+      {
+        "bytes": 1371647,
+        "path": "delivered/71015.png",
+        "sha256": "e121dd24552d8fb0c7742733de935a386169a4a40967d4cf2977704dd598d468"
+      },
+      {
+        "bytes": 1446234,
+        "path": "delivered/71016-back.png",
+        "sha256": "c4c81bae239195cef1a193d09029987182a7b731c8c3c9a822811e54a5800efc"
+      },
+      {
+        "bytes": 1295164,
+        "path": "delivered/71016.png",
+        "sha256": "b8618e57cb723cd90b8e4583211ef10c380b1132218b70e18af6095988d2d49b"
+      },
+      {
+        "bytes": 1301818,
+        "path": "delivered/71017.png",
+        "sha256": "29300c53236d16f1e0c1cf2493f9c1c2cd3e075f69fd588e8de9e7bed7bb5c7d"
+      },
+      {
+        "bytes": 1291708,
+        "path": "delivered/71018.png",
+        "sha256": "ebb07db395eb7f3f13f126193240ae620d7471993f1bd47734e607935b473df1"
+      },
+      {
+        "bytes": 1312504,
+        "path": "delivered/71019.png",
+        "sha256": "3942efbefaaedacefda9acfa16a5163a3d69eb0a80f3b434b2d6d437eff26c7b"
+      },
+      {
+        "bytes": 1480592,
+        "path": "delivered/71020.png",
+        "sha256": "0f1bb5105e4eb608f74f46a514c893964849c1889fd949f19705339926aaef54"
+      },
+      {
+        "bytes": 1377670,
+        "path": "delivered/71021-back.png",
+        "sha256": "2bb82986948012acf27e97d73fa6778bd099dbd40f884708a7f2c4c712c2ca32"
+      },
+      {
+        "bytes": 1374971,
+        "path": "delivered/71021.png",
+        "sha256": "9c582f515119b05ae162b50aa3e18302b3b829807725ebbb2d3ed443ca9452ad"
+      },
+      {
+        "bytes": 1406573,
+        "path": "delivered/71022-back.png",
+        "sha256": "1742d73d67c2e3c0b57453d29d5363915038f68ba28ffcddd587f358a588c529"
+      },
+      {
+        "bytes": 1375567,
+        "path": "delivered/71022.png",
+        "sha256": "626832621e9302eebbd97e1899ad2272dca41fc0590945b7b0150e9f2841eaf9"
+      },
+      {
+        "bytes": 1381644,
+        "path": "delivered/71023.png",
+        "sha256": "eb32be45d7a24980c2e1cfe1514a4b2822b2cafda6f8ad4f72284d5c06a59c28"
+      },
+      {
+        "bytes": 1405424,
+        "path": "delivered/71024.png",
+        "sha256": "477372e4b52d6aafa82f779e88750bbe3843528a16d244ace520750fbdd3fdc5"
+      },
+      {
+        "bytes": 1405788,
+        "path": "delivered/71025.png",
+        "sha256": "60266b0b4445e6ea0e14305e59e3fa790b0322ec900244d68ea74479e52914ba"
+      },
+      {
+        "bytes": 1417342,
+        "path": "delivered/71026.png",
+        "sha256": "0f034c3fc72efdb63cafd940b1e6bc5c7b44dc2250e536f882b670127f27f37a"
+      },
+      {
+        "bytes": 1414636,
+        "path": "delivered/71027-back.png",
+        "sha256": "e7c3b5c6a1d3882ddb307702967bcc3a3892aa6fc1775a75ec534a848f32fcf2"
+      },
+      {
+        "bytes": 1351606,
+        "path": "delivered/71027.png",
+        "sha256": "da61c6c339f178c5a6b4527988684beaa20952fab976ccc3322774dfbbe97a2b"
+      },
+      {
+        "bytes": 1355325,
+        "path": "delivered/71028-back.png",
+        "sha256": "27b147d1bc93651e15f749e10b66103ad4a165ca97fd7c88f2dbe2e961cfd38b"
+      },
+      {
+        "bytes": 1191884,
+        "path": "delivered/71028.png",
+        "sha256": "613c4a6ac71c983ddcb37494c95af49cf682dca728fe79edb98e7436c4c8f8be"
+      },
+      {
+        "bytes": 1285727,
+        "path": "delivered/71029.png",
+        "sha256": "3c9b4a9f9f8d139065a93af94a694ed5c27816e2190e7e0ef11b764ef2992601"
+      },
+      {
+        "bytes": 1281774,
+        "path": "delivered/71030.png",
+        "sha256": "280c48862c3892033afe56d4fd0c4f643a9cd7aadd2f9f76c71e4dc771f0b6aa"
+      },
+      {
+        "bytes": 1318988,
+        "path": "delivered/71031.png",
+        "sha256": "ec60b80bc8ff9f24715a6a1df6bcb271166da17025454cb6c8a97c9735a4296c"
+      },
+      {
+        "bytes": 1413636,
+        "path": "delivered/71032.png",
+        "sha256": "10fda2bafaadd1cd94f309dbd83ae6de75576bef6567c6796e7f4a3d1bb9fc25"
+      },
+      {
+        "bytes": 1372255,
+        "path": "delivered/71033-back.png",
+        "sha256": "2b5a8c84fc014684c19146a58f07f10f51156dcbae990ae93bde423e8b9dec8d"
+      },
+      {
+        "bytes": 1349416,
+        "path": "delivered/71033.png",
+        "sha256": "3d33e8dc0533d03f7c594343c79188d5e76b6bdee4a8f91374299016ef1ba0f1"
+      },
+      {
+        "bytes": 1369125,
+        "path": "delivered/71034-back.png",
+        "sha256": "c1027b9922572d33786e8033e731174e53f4352b7a11e6510de7347a9c2d6d30"
+      },
+      {
+        "bytes": 1423908,
+        "path": "delivered/71034.png",
+        "sha256": "084e71c249c39ef30327f42edc874e159a3d805f769451c0c54f420deb2b4972"
+      },
+      {
+        "bytes": 1471622,
+        "path": "delivered/71035.png",
+        "sha256": "446ed5bf27e408934eea9cbc1e70865fec4d33494a054bd8e21010e98f3e774f"
+      },
+      {
+        "bytes": 1485844,
+        "path": "delivered/71036.png",
+        "sha256": "fe0b06bb3a5b216bcbd0aee4c7f16a06ac2c5cf44a8ae30d762c9811452bd207"
+      },
+      {
+        "bytes": 1446731,
+        "path": "delivered/71037.png",
+        "sha256": "bf3409f6be3d71805bca40921354d454d967c1e67e1ed8192175c94843fde005"
+      },
+      {
+        "bytes": 1494298,
+        "path": "delivered/71038.png",
+        "sha256": "3cf8c50ebd94e0853771995838530681d87cdc42873eea6ff7a6b72d84761cf7"
+      },
+      {
+        "bytes": 1387806,
+        "path": "delivered/71039-back.png",
+        "sha256": "ab20e19b03d045ab980e9ad638324918378c92084fd021be2d58b0079cb111ab"
+      },
+      {
+        "bytes": 1395301,
+        "path": "delivered/71039.png",
+        "sha256": "e284d392787590632500b0cc65cd398c27dbaa077f2694ffd7c29e8aee421dd4"
+      },
+      {
+        "bytes": 1493604,
+        "path": "delivered/71040-back.png",
+        "sha256": "7774c24c0243e1a592ccf0068007ac7611c60553b51b0a0e57847951133817be"
+      },
+      {
+        "bytes": 1417144,
+        "path": "delivered/71040.png",
+        "sha256": "6e3ede1a08be672842981019cef2e7f67b67fdcbe60802feacbd7833f0f90bb7"
+      },
+      {
+        "bytes": 1452182,
+        "path": "delivered/71041.png",
+        "sha256": "baa1527acbf3a583b50092b8c86e6f6e20521f1c5e3014b50931a906aab0f7a1"
+      },
+      {
+        "bytes": 1333395,
+        "path": "delivered/71042.png",
+        "sha256": "93c7ba4e0ed4e11e56b74bba48df4fd94511661cafa96e6508a69cd838a7326a"
+      },
+      {
+        "bytes": 1304059,
+        "path": "delivered/71043.png",
+        "sha256": "3f5e80d16cd4b1e2d099fbdf8bc498237e9cd8074aa0d1466cb00a5fea74ee1e"
+      },
+      {
+        "bytes": 1521691,
+        "path": "delivered/71044.png",
+        "sha256": "7b99310cfb98cecf42991cef767491d695bd2e7c1a7bbfc937ee0a08d613f478"
+      },
+      {
+        "bytes": 1542630,
+        "path": "delivered/71045-back.png",
+        "sha256": "b9a53206ad4baa6ab31bc052eb8a8f8c09a8394170d85789911517a8285ec933"
+      },
+      {
+        "bytes": 1441321,
+        "path": "delivered/71045.png",
+        "sha256": "6eb1f4a94ea9c201ccdab0666805f32b9c1b4419bb630ae802bd609ddb19e2ce"
+      },
+      {
+        "bytes": 1384944,
+        "path": "delivered/71046-back.png",
+        "sha256": "83a8f3db1f4255290d7183a5bea6d7af5069007d640bc32be88ee3ad27fe59b9"
+      },
+      {
+        "bytes": 1364457,
+        "path": "delivered/71046.png",
+        "sha256": "51bed926fbf2fd1818d87944bd3d9e17476694f7ca9c4d56ee9be069b212e53b"
+      },
+      {
+        "bytes": 1661025,
+        "path": "delivered/71047.png",
+        "sha256": "0822d5534e1fe351c29b907f5eed3260d10b57238bccadcecb6e377ea8d85b30"
+      },
+      {
+        "bytes": 1631323,
+        "path": "delivered/71048.png",
+        "sha256": "bbc932cacd44e2d799f12e39799ebfa1dc31283b10a29a695347d5c5f8b0f91a"
+      },
+      {
+        "bytes": 1659933,
+        "path": "delivered/71049.png",
+        "sha256": "730efff60daa4016cf930199fdaa61a2998bbf6cfe825c75937cbd170e7ac3b1"
+      },
+      {
+        "bytes": 1682407,
+        "path": "delivered/71050.png",
+        "sha256": "bf475d247686ce52426e76db2ab3a59394b52e5f54ef6166b23f6abc7fbaea43"
+      },
+      {
+        "bytes": 1584158,
+        "path": "delivered/71051.png",
+        "sha256": "48af8b6aba829a96b2079006d90e4eb2927eee6cbaed53577f92550c91ae52a6"
+      },
+      {
+        "bytes": 1534511,
+        "path": "delivered/71052.png",
+        "sha256": "2e190a00aafecea5ad63568ffd565e6b6f68314a41c3e96749846b83e9c5f31a"
+      },
+      {
+        "bytes": 1567332,
+        "path": "delivered/71053.png",
+        "sha256": "ec6facffaeefacb864b667758c956f52484145d92aac8d367e16606d0fe71de9"
+      },
+      {
+        "bytes": 1533007,
+        "path": "delivered/71054.png",
+        "sha256": "f8e19157ce7f9255e238efa08ea3de4a66cfd5cd117b2e3b5e66ddca8f3e16fa"
+      },
+      {
+        "bytes": 1546894,
+        "path": "delivered/71055.png",
+        "sha256": "1f7638cf196db7a05484920e19a06bae2f164e83763a17ef3220ed2dcb8a34fc"
+      },
+      {
+        "bytes": 1570018,
+        "path": "delivered/71056.png",
+        "sha256": "90b5fe0720ed8a31e3dd7992277b1a2af88612c7512eef3b7cf18e87678aea1f"
+      },
+      {
+        "bytes": 1617943,
+        "path": "delivered/71057.png",
+        "sha256": "b4b402cad13865f72734c5927b4f3177a773eb6ff927ea953fa265f34cc1130f"
+      },
+      {
+        "bytes": 1620896,
+        "path": "delivered/71058.png",
+        "sha256": "4893a02629913477ad1d025bed591c1102e23111b07da076341f777b1f7bc5c9"
+      },
+      {
+        "bytes": 1521399,
+        "path": "delivered/71059.png",
+        "sha256": "42c6d924e73d88ed597af5d4917b968c31ca25c38633fa97106982bf42c07d8d"
+      },
+      {
+        "bytes": 1514605,
+        "path": "delivered/71060.png",
+        "sha256": "2ddcaead123d7fb70590dee98dacf424947e7d94df14241de1496005d040e6fa"
+      },
+      {
+        "bytes": 1601538,
+        "path": "delivered/71061.png",
+        "sha256": "69a3e54d201b202d9d182765f9a2a3bb70c7609f26eeb2b45a1a77c959c22876"
+      },
+      {
+        "bytes": 1583184,
+        "path": "delivered/71062.png",
+        "sha256": "d6882a01da31135f17ce029083bae93c34df1b0bfb8aa48d060ff5dbae966f6e"
+      }
+    ],
+    "init": [
+      {
+        "bytes": 2384,
+        "path": "init/atlas-inventory.json",
+        "sha256": "3ea3b3d61f27fd7b9acd31ce4ac254db2054f46ce6c5f3f05576e2a761ba0994"
+      },
+      {
+        "bytes": 31260,
+        "path": "init/card-source-en.json",
+        "sha256": "fb6b4207d445b14b4f0f8d59d310d7562cd4f3029d5bffe77a585dbd46ccab89"
+      },
+      {
+        "bytes": 92704,
+        "path": "init/card-text-en.json",
+        "sha256": "b4c8593afb76da88128a911c41a95474e8a87c90cca342d88b38ffc424f8f541"
+      }
+    ],
+    "masks_reference": [
+      {
+        "bytes": 396720,
+        "path": "masks/manifest.json",
+        "sha256": "07938a3dca72ff9678f02f01a43367215dc2abdef65bc16529ceb8209c388c30"
+      }
+    ],
+    "note": "Two tiers of pixels, and the asymmetry is the point. The three English atlases are here because their Steam URLs are third-party and can move -- but they are re-fetchable in principle. `delivered/` is LaMa inpainting output and has NO SECOND COPY ANYWHERE: not in git, not on R2, not in a release asset. If it is lost, this fixture cannot be reconstituted and v1's only end-to-end regression instrument is gone. `slices/` is deliberately NOT in the tier: it is a crop of these atlases and is therefore regenerable. `golden` binds to this manifest and refuses at EXIT 13 -- 'golden inputs missing or drifted', naming the first offending path -- rather than skipping, because a missing corpus is a restore job, not an environment difference.",
+    "text": [
+      {
+        "bytes": 68203,
+        "path": "text/card-text-ko.json",
+        "sha256": "4a77df3c413fe779eadfa6bc46f0527a6fbfac59a4682e5c7848e766a10c339a"
+      }
+    ]
+  },
+  "inputs_root": "~/SCED-golden/midwinter/",
+  "inputs_root_env": "KOREANIZE_GOLDEN_ROOT",
+  "masks_reference": {
+    "claim_note": "This is the reference side of 6 step 12's 're-derives Midwinter's masks from step 8's data and compares'. It asserts nothing about whether kz_mask SHOULD reproduce these bytes -- it only makes the comparison possible. A re-derivation that differs is a finding to adjudicate, not automatically a defect, because the legacy masks were built by build-masks.py and the catalogue has moved since.",
+    "consumed_by": "kz_mask.compare_manifests(reference, current) via `mask --compare-to`",
+    "path": "masks/manifest.json",
+    "resolves_to": "<golden_root>/masks/manifest.json",
+    "shape_note": "kz_mask.compare_manifests() reads reference[\"entries\"] (kz_mask.py:1360) and keys on per-face `file` + `sha256`. The legacy document keys its array `masks[]`, so passing it directly leaves `ref` empty and reports all 88 derived faces as 'derived but absent from the reference'. Measured both ways on 2026-08-24 against a byte-identical mask set: the legacy file yields 88 findings, this one yields []. A single drifted digest yields exactly one finding."
+  },
+  "provenance": {
+    "copied_from": {
+      "atlases_en": "images-ko/assets/ (the three decoded English sheets)",
+      "delivered": ".am/midwinter-gala-korean/delivered/",
+      "init": ".am/koreanize/midwinter/ (init's three data files)",
+      "masks_reference": ".am/midwinter-gala-korean/masks/manifest.json, RESHAPED -- see masks/manifest.json's own provenance{} block. The 88 PNGs it describes are the legacy build-masks.py masks as shipped on 2026-08-19, so it is a receipt for those bytes and not for anything kz_mask produced.",
+      "text": ".am/midwinter-gala-korean/card-text-ko.json -- the SHIPPED bytes, never a fresh render of data/text/midwinter-ko.py. The two differ on 71001 (see that file's KNOWN DIVERGENCE) and this is a byte-exact regression instrument, so rendering the generator would silently change the fixture. Its digest was checked against the value already recorded in `translate`'s and `check`'s binding{} and agrees with both."
+    },
+    "copy_verified": "sha256 compared source-vs-destination on all 91 files on 2026-08-24; every digest below is taken AT THE DESTINATION, so this manifest describes the tier rather than the run dir. The sources were COPIED, not moved: the Midwinter run dir is still referenced by the record and by atlas-urls.json."
+  },
+  "schema_version": "1.1.0",
+  "seed": {
+    "closure_note": "THE SEEDED SET IS A CLOSURE, NOT A LIST, because a list is exactly what left `init` out. `golden` seeds the TRANSITIVE PREDECESSOR CLOSURE OF THE DRIVEN SET, MINUS THE DRIVEN SET. composite requires slice, mask AND erase; typeset requires composite AND check (<- translate <- terms); slice requires init. Independently, 3.2's gates{} marks init, mask and typeset required, and 3.6 makes gate.status == 'accepted' a `consumable` conjunct, so a fresh scratch run -- which writes `pending` gate stubs -- would stop at the first gate even with its predecessors satisfied. Stated as a closure the set is total by construction: adding a stage to the driven set recomputes it. `golden` refuses at EXIT 13 if this manifest does not cover every member of the closure, naming the missing stage.",
+    "confinement_note": "The seed is confined to the scratch run dir and is written by `golden` alone. No stage gains a seeding path, data/locks/midwinter.lock.json is never written by `golden`, the scratch dir is reached through `--run-dir` (argv, never scenario.json, so config_sha256 is untouched) and it is removed in a finally.",
+    "gates": {
+      "init": {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-16",
+        "bound_sha256": "e23acc38347cb00c6f580aff966f064cdad2eae31ec3ef8dccf87ce6815a10f5",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "status": "accepted"
+      },
+      "mask": {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-18",
+        "bound_sha256": "8b3fb1275b8c681c343f025164e8e03422fa842279072b0cde2a3bfc88238a74",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "status": "accepted"
+      },
+      "typeset": {
+        "accepted_by": "shanash",
+        "accepted_on": "2026-08-19",
+        "bound_sha256": "f637c0b447d960c680e1fea2c45edd7295ba5ca5f6b7dc1b04dfa3deefba64b8",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "status": "accepted"
+      }
+    },
+    "labelling_note": "Every seeded artifact is LABELLED as seeded, and the label is what stops it laundering the AI conjunct. A seeded `terms` or `translate` report must carry ai.used == true and ai.decide_outcome == 'proceed' or 3.6's last conjunct makes it non-consumable -- which means a seeded report is shaped exactly like one that really invoked claude, and nothing on disk could tell them apart. Hence seed{}. `--status` prints a seeded artifact as 'seeded (golden <id>)' rather than as a verdict.",
+    "reports": {
+      "check": {
+        "ai": null,
+        "binding": {
+          "card-text-en.json": "b4c8593afb76da88128a911c41a95474e8a87c90cca342d88b38ffc424f8f541",
+          "card-text-ko.json": "4a77df3c413fe779eadfa6bc46f0527a6fbfac59a4682e5c7848e766a10c339a"
+        },
+        "consumable": true,
+        "exit_code": 0,
+        "files": [],
+        "files_note": "Deliberately empty. `check` READS card-text-ko.json and binds its digest, but `translate` is what PRODUCES it, so it is materialised there. Listing it in both would have the seeder write one file twice, and a second writer is a second chance for the two copies to disagree.",
+        "mode": "build",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "verdict": "pass",
+        "why_seeded": "predecessor of `typeset` (typeset requires composite AND check)."
+      },
+      "erase": {
+        "ai": null,
+        "binding": {
+          "delivered/": "see inputs.delivered[] -- 88 files, hashed individually"
+        },
+        "consumable": true,
+        "exit_code": 0,
+        "mode": "build",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "verdict": "pass",
+        "why_seeded": "predecessor of `composite`. `erase` is the one seeded stage that is also REPLAYABLE: its output IS the fixture's delivered/, which this manifest already hashes. Driving the full nine-stage chain instead was the alternative and is rejected for v1 -- it puts two claude invocations (S1, S2) inside the regression instrument, which makes the instrument's result depend on a model version and makes it unrunnable offline. The coverage claim is narrower and is stated as such: `golden` proves the ARITHMETIC chain is byte-stable, not that the text chain is."
+      },
+      "init": {
+        "ai": null,
+        "binding": {
+          "atlas-inventory.json": "3ea3b3d61f27fd7b9acd31ce4ac254db2054f46ce6c5f3f05576e2a761ba0994",
+          "card-source-en.json": "fb6b4207d445b14b4f0f8d59d310d7562cd4f3029d5bffe77a585dbd46ccab89",
+          "card-text-en.json": "b4c8593afb76da88128a911c41a95474e8a87c90cca342d88b38ffc424f8f541",
+          "scenario.json": "e23acc38347cb00c6f580aff966f064cdad2eae31ec3ef8dccf87ce6815a10f5"
+        },
+        "consumable": true,
+        "exit_code": 0,
+        "files": [
+          {
+            "bytes": 92704,
+            "from": "init/card-text-en.json",
+            "name": "card-text-en.json",
+            "sha256": "b4c8593afb76da88128a911c41a95474e8a87c90cca342d88b38ffc424f8f541"
+          },
+          {
+            "bytes": 31260,
+            "from": "init/card-source-en.json",
+            "name": "card-source-en.json",
+            "sha256": "fb6b4207d445b14b4f0f8d59d310d7562cd4f3029d5bffe77a585dbd46ccab89"
+          },
+          {
+            "bytes": 2384,
+            "from": "init/atlas-inventory.json",
+            "name": "atlas-inventory.json",
+            "sha256": "3ea3b3d61f27fd7b9acd31ce4ac254db2054f46ce6c5f3f05576e2a761ba0994"
+          }
+        ],
+        "mode": "build",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "verdict": "pass",
+        "why_seeded": "`init` is the deepest member of the closure and the one an earlier draft left out: every one of the five driven stages reads its three data FILES, not merely its verdict, so an unlisted `init` surfaced as a `slice` refusal at 72 rather than as a named refusal at 13."
+      },
+      "terms": {
+        "ai": {
+          "decide_outcome": "proceed",
+          "used": true
+        },
+        "binding": {
+          "terms/midwinter-terminology-ko.md": "3e8c1f39966197a24776820e46015db05a34e8234957be9dcff483315d1e03ca",
+          "terms/midwinter.json": "603ae3c566f750ab2af214a700504b0545284274a365ebceb5f438779929789a"
+        },
+        "consumable": true,
+        "exit_code": 0,
+        "mode": "build",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "verdict": "pass",
+        "why_seeded": "predecessor of `translate`, which is a predecessor of `check`."
+      },
+      "translate": {
+        "ai": {
+          "decide_outcome": "proceed",
+          "used": true
+        },
+        "binding": {
+          "card-text-ko.json": "4a77df3c413fe779eadfa6bc46f0527a6fbfac59a4682e5c7848e766a10c339a",
+          "text/midwinter-ko.py": "5571211358568739846787fd6064b3eeeb91ce0e799aef810c75dc1a7ecf4337"
+        },
+        "consumable": true,
+        "exit_code": 0,
+        "files": [
+          {
+            "bytes": 68203,
+            "from": "text/card-text-ko.json",
+            "name": "card-text-ko.json",
+            "sha256": "4a77df3c413fe779eadfa6bc46f0527a6fbfac59a4682e5c7848e766a10c339a"
+          }
+        ],
+        "files_note": "`kz_typeset` reads <run_dir>/card-text-ko.json, so the seeder has to MATERIALISE it, not merely bind its digest. This is the same argument 5.8 makes for `init` -- 'init's seed carries its three data files as well as its report, because the driven stages read the FILES and not only the verdict' -- and it applies to every seeded stage whose consumer is a driven one. Without it a run that got past `mask` would refuse at `typeset` on a missing input.",
+        "mode": "build",
+        "seed": {
+          "fixture": "midwinter",
+          "golden_run_id": null,
+          "manifest_sha256": null,
+          "note": "`seed.manifest_sha256` and `seed.golden_run_id` are MINTED BY `golden` AT RUN TIME and are null here on purpose: the digest of this manifest cannot be a field inside the manifest it digests, and the run id does not exist until a run does. `golden` writes both into every report and gate it seeds, and `compute_consumable` carries the conjunct `seed is None or seed.golden_run_id == ctx.golden_run_id` -- so a seeded artifact is consumable to the stages of ITS OWN golden run and to nothing else: not to a real run in the same directory, not to a later golden, not to `plan`."
+        },
+        "verdict": "pass",
+        "why_seeded": "predecessor of `check`, which is a predecessor of `typeset`. NOTE the binding pins the SHIPPED card-text-ko.json, not a fresh render of the generator: the two differ on 71001 (see data/text/midwinter-ko.py's KNOWN DIVERGENCE) and it is the shipped bytes the atlases were typeset from."
+      }
+    }
+  },
+  "slug": "midwinter",
+  "tool": {
+    "numpy": "2.4.2",
+    "pil": "12.0.0",
+    "python": "3.14.7"
+  },
+  "tool_note": "The REFERENCE interpreter triple, and it lives here because it is FIXTURE METADATA, not environment config. `golden` reads each driven stage's own tool{} block FROM ITS REPORT -- never by import -- and treats a null pil/numpy as 'this tier declares no opinion' rather than as a mismatch, since a stdlib-tier report cannot fill those fields without importing what it is forbidden to import. A mismatch is a SKIP at exit 75 with a named reason, never a pass: .am/fix-korean-grammar-defects/analyze.md records that running typeset-cards.py under 3.9.6 / Pillow 10.4.0 'would re-encode every PNG differently', and a golden fixture that quietly passed under a different Pillow would be worse than none. SCED-tools/scripts/requirements.txt pins Pillow==12.0.0 / numpy==2.4.2 with this fixture named as the reason."
+}

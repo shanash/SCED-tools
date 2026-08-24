@@ -3,10 +3,29 @@
 # These are the non-stdlib runtime dependencies used by the image/download
 # scripts: Pillow + requests (build-korean-card-crops.py and the other
 # PIL-using scripts) and PyMuPDF (the PDF card extractor extract-pdf-cards.py,
-# imported as `fitz`).
+# imported as `fitz`). numpy and boto3 are the koreanize art chain's and the R2
+# uploader's; see the two notes below.
 #
 # pytest / playwright are DEV-only (the test suite) and are intentionally NOT
 # listed here — they are not imported by any tool at runtime.
-Pillow
+#
+# WHY TWO OF THESE ARE PINNED AND THE REST ARE NOT.
+# Pillow and numpy are pinned to the exact versions the Midwinter golden fixture
+# was measured on — `SCED-tools/scripts/koreanize/data/golden/midwinter.manifest.json`
+# declares `tool{python: "3.14.7", pil: "12.0.0", numpy: "2.4.2"}` as its
+# reference triple. `koreanize.sh golden --fixture midwinter` compares each
+# driven stage's reported triple against it and SKIPS at exit 75 on a mismatch,
+# never passes — because `.am/fix-korean-grammar-defects/analyze.md` records that
+# running `typeset-cards.py` under 3.9.6 / Pillow 10.4.0 "would re-encode every
+# PNG differently", and a golden fixture that quietly passed under a different
+# Pillow would be worse than none. A skip removes the art chain's only
+# end-to-end coverage, so an unpinned upgrade here costs that coverage silently.
+# Move these two only together with the fixture manifest's `tool{}` block.
+#
+# boto3 is listed because `upload-atlases-to-r2.py:103` imports it and this file
+# did not say so.
+Pillow==12.0.0
+numpy==2.4.2
 requests
 PyMuPDF
+boto3

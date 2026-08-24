@@ -13,3 +13,6 @@ scripts/pdf/output/
 
 # AlMandu workflow artifacts
 .am/
+
+# Local Claude Code agent memory (per-machine, never shared)
+.claude/

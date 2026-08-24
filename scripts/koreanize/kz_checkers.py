@@ -702,6 +702,13 @@ RULE_DILATE = 2         # typeset-cards.py:200
 BAND_H_LO = 0.5
 BAND_H_HI = 2.0
 
+#: The row segmentation's two constants, both cited to the function this module
+#: forks. `measure_en_lines` takes `has = profile > 0` (typeset-cards.py:747) --
+#: NOT `>= LINE_MIN_INK` -- and cuts a merged run at the profile minimum between
+#: consecutive "cores", rows carrying at least ROW_CORE_FRAC of the peak.
+ROW_MIN_INK = 1         # typeset-cards.py:747 -- `has = profile > 0`
+ROW_CORE_FRAC = 0.12    # typeset-cards.py:202
+
 
 def _run_lengths(flags, vertical):
     """For every True pixel, the length of its contiguous run along one axis.
@@ -784,18 +791,117 @@ def _row_runs(flags):
     return runs
 
 
-def measure_bands(ink, window, min_ink=LINE_MIN_INK):
+def _ink_runs(flags):
+    """Maximal contiguous True runs as inclusive (a, b) pairs -- NO gap tolerance.
+
+    typeset-cards.py:706-718's `_runs`, and the difference from `_row_runs`
+    above is the whole of this module's segmentation defect. `_row_runs` is
+    build-masks.py:116's: it forgives LINE_GAP blank rows inside one band and it
+    only counts a row as ink at LINE_MIN_INK. On the Midwinter body windows the
+    flavour ornament lays 5-10 px of ink across every inter-line gap, so every
+    row clears LINE_MIN_INK, NO gap is ever detected, and consecutive printed
+    lines merge into one band -- measured on `Act/front` `body`, 5 bands on
+    71006 where there are 10 and 6 on 71005 where there are 11. This one counts
+    a row as ink at ROW_MIN_INK and forgives nothing, which is what
+    `measure_en_lines` does and why its docstring is an explicit warning against
+    the substitution: "rects are padded 7px and sometimes merge two printed
+    lines, so rect heights are unusable as a ruler".
+    """
+    out, start = [], None
+    for i, value in enumerate(flags):
+        if value and start is None:
+            start = i
+        elif not value and start is not None:
+            out.append((start, i - 1))
+            start = None
+    if start is not None:
+        out.append((start, len(flags) - 1))
+    return out
+
+
+def _core_split(profile, has, core_frac=ROW_CORE_FRAC):
+    """typeset-cards.py:750-781 -- cut a merged run at the profile minima.
+
+    `peak = profile.max()`, `core = profile >= core_frac * peak`, and where there
+    is MORE THAN ONE core the span is cut between consecutive cores at the argmin
+    of the profile between them; each segment is then RE-EXPANDED to the full ink
+    extent inside it, so `en_ink_h` stays the ascender-to-descender band it has
+    always meant rather than the x-height (typeset-cards.py:775-777).
+
+    Returns None when there is nothing to split (0 or 1 core), which is the
+    source's own `if len(cores) <= 1: bands = raw`.
+    """
+    import numpy as np
+    peak = int(profile.max())
+    cores = _ink_runs(profile >= max(1.0, core_frac * peak))
+    if len(cores) <= 1:
+        return None
+    cuts = []
+    for i in range(len(cores) - 1):
+        a, b = cores[i][1], cores[i + 1][0]
+        if b > a + 1:
+            cuts.append(a + 1 + int(np.argmin(profile[a + 1:b])))
+        else:
+            cuts.append(b)
+    lo = int(np.argmax(has))
+    hi = len(has) - 1 - int(np.argmax(has[::-1]))
+    bounds = [lo] + cuts + [hi + 1]
+    bands = []
+    for i in range(len(bounds) - 1):
+        s, e = bounds[i], bounds[i + 1]
+        if e <= s:
+            continue
+        rows = np.nonzero(has[s:e])[0]
+        if rows.size:
+            bands.append((s + int(rows[0]), s + int(rows[-1])))
+    return bands
+
+
+def measure_bands(ink, window, min_ink=ROW_MIN_INK):
     """Per-band (y0, y1, x0, x1) inside `window`, WINDOW-RELATIVE, rules removed.
 
-    THE KOREANIZE FORK, and the fork is the point (§5.5 property 2).
-    `measure_en_lines()` as shipped returns row bands plus ONE ink_x0/ink_x1 pair
-    for the whole selection and one line_x0/line_x1 for the DOMINANT band only --
-    deliberately, because its caller wants a single alignment reference. But
-    71006/71005 are a HORIZONTAL tail on ONE band among ten and eleven
-    respectively, and the dominant band is not that band. The per-band margins
-    the design measures (27 px and 15 px) are invisible to a single
-    whole-selection extent, which reports 0 on both faces for a reason unrelated
-    to the defect.
+    THE KOREANIZE FORK OF `measure_en_lines` (typeset-cards.py:721), and the fork
+    is the point (§5.5 property 2). `measure_en_lines` as shipped returns row
+    bands plus ONE ink_x0/ink_x1 pair for the whole selection and one
+    line_x0/line_x1 for the DOMINANT band only -- deliberately, because its
+    caller wants a single alignment reference. But 71006/71005 are a HORIZONTAL
+    tail on ONE band among ten and eleven respectively, and the dominant band is
+    not that band. The per-band margins the design measures (27 px and 15 px) are
+    invisible to a single whole-selection extent, which reports 0 on both faces
+    for a reason unrelated to the defect.
+
+    IT IS `measure_en_lines`' SEGMENTATION AND NOT `line_groups`', AND THAT IS
+    NOT A DETAIL. This function forked build-masks.py:116 until 2026-08-24. Its
+    LINE_MIN_INK = 2 / LINE_GAP = 4 pair is calibrated for a MASK -- it wants a
+    rect that swallows the ornament -- while W1 needs a RULER, and the two are
+    not interchangeable. Measured on `Act/front` `body`, rot 90:
+
+        face    line_groups()            measure_en_lines()
+        71006   5 bands, en_ink_h 98     10 bands, en_ink_h 33
+        71005   6 bands, en_ink_h 63     11 bands, en_ink_h 30
+
+    and because `en_ink_h` is an INK-WEIGHTED median over a band set that still
+    contained the ornament plate, the plate dragged the median up and
+    `text_bands`' filter INVERTED: on 71006 the real text bands y[97,129] (right
+    margin 41) and y[143,172] (57) were dropped while the full-width plate
+    y[301,473] (0) was kept, so W1's tightest clearance was 0 -- from the plate,
+    not the 27 from the text. Both known hits fired for the wrong reason and
+    twelve of fifteen groups calibrated to 0. §5.5: "Without that filter W1 fires
+    on every Act face on a band that is not text, and the check is noise."
+
+    BLANK ROWS SEPARATE FIRST; THE CORE-SPLIT IS THE FALLBACK. `measure_en_lines`
+    applies its core-split to the whole selection unconditionally, because its
+    selection is ONE FIELD'S padded rects -- a few lines of one paragraph. W1's
+    selection is a whole 532x474 body window, and applied at that scale the
+    unconditional cut fragments the flourish under the last two printed lines
+    into text-height full-width pieces: measured on 71006 it returns 14 bands and
+    puts y[409,446] x[2,531] back INSIDE the height filter, so the tightest kept
+    clearance is 0 again and the fix undoes itself. So the run structure is used
+    where it exists -- a blank row is an unambiguous separator that no threshold
+    has to be chosen for -- and the core-split is applied where it does not, i.e.
+    to a selection whose ink is ONE contiguous run. That is precisely the case
+    the ornament creates and the case `line_groups` could not see; it is what
+    `test_w1_ornament_bridged_gaps_do_not_merge_the_lines` exercises.
 
     Returns (bands, en_ink_h) with bands window-relative and en_ink_h the
     ink-weighted median band height over ALL bands, before any filtering.
@@ -815,7 +921,10 @@ def measure_bands(ink, window, min_ink=LINE_MIN_INK):
         return [], None
 
     profile = text_ink.sum(axis=1).astype(np.int64)
-    runs = _row_runs(profile >= min_ink)
+    has = profile >= min_ink
+    runs = _ink_runs(has)
+    if len(runs) == 1:
+        runs = _core_split(profile, has) or runs
     bands = []
     for top, bottom in runs:
         cols = np.nonzero(text_ink[top:bottom + 1].any(axis=0))[0]
@@ -1287,9 +1396,16 @@ def synth_slice(size, bands, ground=DEFAULT_GROUND, ink=DEFAULT_INK):
       * `rule_stroke_mask()` suppresses long-thin strokes. A band drawn as
         full-height vertical strips is a RULE by that definition (run >= 40 at
         aspect >= 12) and is suppressed entirely.
-      * the row segmentation tolerates only LINE_GAP blank rows inside one band,
-        so a lattice whose vertical gap exceeds 4 fragments into many short bands
-        instead of the one tall band the plate case needs.
+      * the row segmentation counts a row as ink at ROW_MIN_INK and forgives
+        NO blank row (typeset-cards.py:747), so a lattice with ANY vertical gap
+        fragments into as many short bands as it has ink runs, instead of the
+        one tall band the plate case needs. Until 2026-08-24 this read "gaps
+        wider than LINE_GAP"; the plate lattice was `(3, 4)/(15, 6)` and survived
+        only on that 4-row tolerance, so fixing `measure_bands` shattered it into
+        fifteen 4 px bands. A band meant to be read as ONE must now be drawn
+        vertically SOLID (`bh == py`) and wide enough that `rule_stroke_mask`
+        does not claim it: at height h the block must be wider than h / 12.
+
 
     `density` therefore has to be controllable independently of height, which is
     what the two-band case turns on: see `w1_cases()`.
@@ -1342,33 +1458,54 @@ SYNTH_FACE = "synthetic"
 
 
 def w1_cases():
-    """W1's FOUR synthetic cases (§5.5), as {name: case}. No corpus, no golden.
+    """W1's FIVE synthetic cases (§5.5 plus the one §5.5 did not think to ask for).
 
-    Case 4 is the one that earns its place. The first three each declare ONE
-    band -- and on a one-band selection the ink-weighted median band height IS
-    that band's height, so `BAND_H_LO <= h <= BAND_H_HI` is satisfied trivially
-    and the filter that makes W1 signal rather than noise is VACUOUS in all
-    three. Delete the filter and all three stay green; only the corpus case would
-    notice, and the corpus case is the one that can be absent.
+    Case 4 is the one §5.5 enumerates and it earns its place. The first three
+    each declare ONE band -- and on a one-band selection the ink-weighted median
+    band height IS that band's height, so `BAND_H_LO <= h <= BAND_H_HI` is
+    satisfied trivially and the filter that makes W1 signal rather than noise is
+    VACUOUS in all three. Delete the filter and all three stay green; only the
+    corpus case would notice, and the corpus case is the one that can be absent.
 
     Case 4 therefore declares TWO bands: a text-height band leaving 40 px of
     trailing clearance, and a full-width band at 3x that height leaving 0 -- the
-    synthetic form of the dark plate the Act faces actually carry. Its densities
-    are chosen, not arbitrary: the plate must carry LESS ink than the text so the
-    ink-weighted median lands on the text band's height, which is exactly the
-    relation that holds on the real corpus, where nine text bands outweigh one
-    plate. With the filter it must not fire; without it, it fires on the plate.
+    synthetic form of the plate the Act faces actually carry. With the filter it
+    must not fire; without it, it fires on the plate.
+
+    CASE 5 IS THE ONE THAT WAS MISSING, AND ITS ABSENCE IS WHY THE DEFECT SHIPPED.
+    Cases 1-4 all declare bands separated by GENUINELY BLANK rows, which is the
+    one thing the Midwinter body windows never are: the flavour ornament lays a
+    few pixels of ink across every inter-line gap, so `line_groups`' LINE_MIN_INK
+    /LINE_GAP pair never finds a gap and merges ten printed lines into five. Case
+    4 could not see that, because a segmenter that merges nothing on blank rows
+    merges nothing on case 4 either -- both segmenters agree on it, so it stayed
+    green through the whole defect. Case 5 declares four text bands whose gaps
+    are BRIDGED by a low-ink ornament, plus a plate that carries MORE ink than
+    any single text band, which is the relation that actually holds on the
+    corpus. Under `line_groups` it is one 234 px band whose x extent is the
+    plate's, so it fires at right margin 0; under `measure_en_lines`' cut it is
+    four text bands plus a plate, the plate is dropped by the height filter, and
+    the text bands leave their declared 40 px. It fires before the fix and is
+    silent after it, which is what makes it a check rather than a decoration.
     """
     width = SYNTH_WINDOW[2] - SYNTH_WINDOW[0]
     left = SYNTH_WINDOW[0]
     dense = {"block": (6, 30), "period": (8, 30)}       # density 0.75
-    sparse = {"block": (3, 4), "period": (15, 6)}       # density 0.133
+    # The plate must read as ONE band, so it is vertically SOLID (bh == py) --
+    # a lattice with vertical gaps now fragments (see `synth_slice`). 9 px wide
+    # keeps `rule_stroke_mask` off it (90 < RULE_ASPECT * 9) while the 45 px
+    # period holds its density at 0.2: 0.2 * 540 * 90 = 9,720 ink px against the
+    # text band's 0.75 * 500 * 30 = 11,250, which is what puts the ink-weighted
+    # median on the TEXT height in this case. That relation is deliberately the
+    # OPPOSITE of `ornament-bridge`'s, and having both is the point -- see
+    # `test_w1_band_height_filter_selects_the_text_band`.
+    plate_lattice = {"block": (9, 6), "period": (45, 6)}    # density 0.2
     text_short = dict(top=60, height=30, left=left,
                       right=left + width - 1 - 27, **dense)
     text_clear = dict(top=60, height=30, left=left,
                       right=left + width - 1 - 40, **dense)
     plate = dict(top=240, height=90, left=left,
-                 right=left + width - 1, **sparse)
+                 right=left + width - 1, **plate_lattice)
     return {
         # The 27 px is 71006's own measured trailing clearance (§5.5).
         "positive": {"bands": [text_short], "window": SYNTH_WINDOW,
@@ -1393,7 +1530,84 @@ def w1_cases():
                                "discarded by the band-height filter; without the "
                                "filter W1 fires on it",
                         "unfiltered_fires": True},
+        "ornament-bridge": {"bands": ornament_bridge_bands(),
+                            "window": SYNTH_WINDOW,
+                            "margin": COL_GAP, "fires": False,
+                            "why": "four text lines whose gaps are bridged by "
+                                   "ornament ink, plus a plate carrying more ink "
+                                   "than any one of them: build-masks.py:116's "
+                                   "segmenter merges all five into one full-width "
+                                   "band and fires at 0, typeset-cards.py:721's "
+                                   "cut separates them and the plate is dropped",
+                            "merged_by_line_groups": True},
     }
+
+
+def ornament_bridge_bands():
+    """Case 5's geometry: bridged gaps and a plate heavier than any text band.
+
+    THE BRIDGE IS TWO INTERLEAVED LATTICES AND HAS TO BE. It must put ink in
+    EVERY row between the first text line and the plate's foot -- that is the
+    whole point, since a single blank row hands `_ink_runs` a separator and the
+    case stops testing the cut. But a column that is vertically continuous over
+    234 rows is a RULE by `rule_stroke_mask`'s definition unless it is ~20 px
+    wide, and a 20 px solid column has no light pixel within INK_RADIUS of its
+    interior so `ink_mask` keeps only its 5 px rims -- which are rules again. Two
+    6 px lattices in ANTIPHASE (4 rows on, 4 off, offset by 4) and at disjoint x
+    solve all three at once: 4 px vertical runs are under RULE_MIN_LEN, the 2 px
+    horizontal gaps keep the dark-on-light detector satisfied, and their union
+    leaves no blank row.
+
+    The plate is the same vertically-solid 1/3-density lattice `w1_cases()` uses,
+    at 90 rows and full window width. It carries ~16.7k ink px against ~10.7k for
+    any single text band -- the corpus relation, and the one the earlier
+    `band-height` case had backwards.
+    """
+    left = SYNTH_WINDOW[0]
+    right = SYNTH_WINDOW[2] - 1
+    text_right = right - 40                      # the declared 40 px clearance
+    tops = (40, 76, 112, 148)                    # 30 px lines, 6 px gaps
+    bands = [dict(top=t, height=30, left=left + 30, right=text_right,
+                  block=(6, 30), period=(8, 30)) for t in tops]
+    bands.append(dict(top=184, height=90, left=left, right=right,
+                      block=(10, 6), period=(30, 6)))
+    bands.append(dict(top=40, height=234, left=left, right=left + 5,
+                      block=(6, 4), period=(16, 8)))
+    bands.append(dict(top=44, height=230, left=left + 12, right=left + 17,
+                      block=(6, 4), period=(16, 8)))
+    return bands
+
+
+def legacy_line_group_bands(ink, window, min_ink=LINE_MIN_INK):
+    """build-masks.py:116's row segmentation -- THE NEGATIVE CONTROL, nothing else.
+
+    `measure_bands` forked this until 2026-08-24 and it is kept here for one
+    reason: a fixture that reproduces the defect is worthless unless something
+    asserts that it still reproduces it. `w1_cases()["ornament-bridge"]` is
+    checked BOTH ways, so the day this returns the same answer as `measure_bands`
+    on that case is the day the case has stopped discriminating and says so.
+    It is not called by W1, by W2 or by `kz_mask`.
+    """
+    import numpy as np
+    x0, y0, x1, y1 = window
+    height, width = ink.shape
+    x0, y0 = max(0, int(x0)), max(0, int(y0))
+    x1, y1 = min(width, int(x1)), min(height, int(y1))
+    sub = ink[y0:y1, x0:x1]
+    if not sub.any():
+        return [], None
+    text_ink = sub & ~rule_stroke_mask(sub)
+    if not text_ink.any():
+        return [], None
+    profile = text_ink.sum(axis=1).astype(np.int64)
+    bands = []
+    for top, bottom in _row_runs(profile >= min_ink):
+        cols = np.nonzero(text_ink[top:bottom + 1].any(axis=0))[0]
+        if cols.size:
+            bands.append((int(top), int(bottom), int(cols[0]), int(cols[-1])))
+    if not bands:
+        return [], None
+    return bands, _ink_weighted_median_height(bands, profile)
 
 
 def w2_cases():
@@ -1431,6 +1645,23 @@ def run_w1_case(case, filtered=True):
     width, height = x1 - x0, y1 - _y0
     return [b for b in bands
             if min((width - 1) - b[3], (height - 1) - b[1]) < case["margin"]]
+
+
+def legacy_case_fires(case):
+    """Would `case` fire if `measure_bands` relapsed to `line_groups`' segmentation?
+
+    The negative control for the SEGMENTATION, exactly as `filtered=False` is the
+    negative control for the band-height filter. `ornament-bridge` must answer
+    True here and False through `run_w1_case`, and a fixture that answers the
+    same both ways is a fixture that has stopped testing the fix.
+    """
+    image = synth_slice(SYNTH_SIZE, case["bands"])
+    ink = ink_mask(image)
+    x0, y0, x1, y1 = case["window"]
+    width, height = x1 - x0, y1 - y0
+    bands, en_ink_h = legacy_line_group_bands(ink, case["window"])
+    return any(min((width - 1) - b[3], (height - 1) - b[1]) < case["margin"]
+               for b in text_bands(bands, en_ink_h))
 
 
 def run_w2_case(case):
@@ -1578,6 +1809,16 @@ def selftest(fault=None, verbose=True):
                     findings.append("w1/%s: the case does not fire WITHOUT the "
                                     "band-height filter, so it cannot catch the "
                                     "filter's omission" % name)
+            if case.get("merged_by_line_groups"):
+                # The SEGMENTATION's own negative, and the one whose absence let
+                # the defect ship: the case must still be one merged, firing band
+                # under build-masks.py:116's segmenter. The day it is not, the
+                # fixture has stopped discriminating between the two and the
+                # green light it gives is worth nothing.
+                if not legacy_case_fires(case):
+                    findings.append("w1/%s: the case does NOT fire under "
+                                    "build-masks.py:116's segmentation, so it "
+                                    "cannot catch a relapse to it" % name)
 
     if "w2" in wanted:
         for name, case in sorted(w2_cases().items()):
@@ -1610,8 +1851,10 @@ _SUMMARY = {
     "icons": "a tablet/elder_thing swap produces four findings at once, and an "
              "indistinguishable pair is refused at map-authoring time",
     "w1": "27 px fires, 40 px does not, narrowing the window turns the negative "
-          "into a positive, and the full-width plate is discarded by the "
-          "band-height filter (and fires without it)",
+          "into a positive, the full-width plate is discarded by the "
+          "band-height filter (and fires without it), and four lines whose gaps "
+          "are bridged by ornament ink stay four lines (and merge into one "
+          "firing band under build-masks.py:116's segmentation)",
     "w2": "a line box overhanging CLEAR by 12 px fires and names the overhang; "
           "the same box inside CLEAR does not",
 }

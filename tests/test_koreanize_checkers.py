@@ -20,6 +20,19 @@ THE FOURTH W1 CASE IS THE ONE THAT EARNS ITS PLACE
     filter is satisfied trivially and is VACUOUS in all three. Delete the filter
     and all three stay green. Only `band-height`, which declares two, notices.
 
+THE FIFTH IS THE ONE WHOSE ABSENCE LET A DEFECT SHIP
+    Cases 1-4 separate their bands with GENUINELY BLANK rows, which is the one
+    thing the Midwinter body windows never are. `measure_bands` forked
+    `build-masks.py:116`'s `line_groups()` instead of `typeset-cards.py:721`'s
+    `measure_en_lines()` -- LINE_MIN_INK 2 / LINE_GAP 4 rather than
+    `profile > 0` -- and on the corpus the flavour ornament keeps every
+    inter-line row above 2, so no gap was ever found and ten printed lines read
+    as five. Every case above stayed green through all of it, because a
+    segmenter that merges nothing on blank rows merges nothing on them either.
+    `ornament-bridge` is the case that fires under the wrong segmenter and is
+    silent under the right one, and it is checked BOTH ways so it cannot decay
+    into a decoration.
+
 THE swap/ FIXTURE LIVES HERE, NOT IN THE kz_decide.py TREE
     §4.4: "The previously-listed `swap/` class maps to no rule: the anti-swap
     invariant is a `kz_checkers.py` artifact check reported as 67 (§5.6), not one
@@ -85,7 +98,8 @@ def test_unknown_fault_refuses_at_usage():
 @pytest.mark.parametrize("name", sorted(kx.w1_cases()))
 def test_w1_case(name):
     """27 px fires, 40 px does not, a narrowed window turns the negative into a
-    positive, and the full-width plate is discarded."""
+    positive, the full-width plate is discarded, and ornament-bridged gaps still
+    segment into separate lines."""
     case = kx.w1_cases()[name]
     hits = kx.run_w1_case(case)
     assert bool(hits) == case["fires"], case["why"]
@@ -131,10 +145,20 @@ def test_w1_band_height_filter_is_not_vacuous():
 
 
 def test_w1_band_height_filter_selects_the_text_band():
-    """The filter's mechanism, stated directly: the ink-weighted median lands on
-    the TEXT band's height because the sparse plate carries less ink, which is
-    the same relation that holds on the real corpus where nine text bands
-    outweigh one plate."""
+    """The filter's mechanism on a TWO-band selection, where the plate happens to
+    be the lighter of the two.
+
+    The docstring here used to claim this was "the same relation that holds on
+    the real corpus where nine text bands outweigh one plate". IT IS NOT, and
+    the claim was load-bearing in the wrong direction: `en_ink_h` is a WEIGHTED
+    MEDIAN OVER HEIGHTS, so what decides it is how much of the total ink mass
+    sits at or below a given height -- not whether the plate individually carries
+    less than a text band. On `Act/front` `body` the plate carries MORE ink than
+    any single text band (~16.7k px against ~11k) and the median still lands on
+    33 px, because nine text bands collectively outweigh it. This case pins the
+    two-band arithmetic only; `test_w1_ornament_bridged_gaps_do_not_merge_the_lines`
+    pins the corpus relation, with a plate heavier than every text band in it.
+    """
     case = kx.w1_cases()["band-height"]
     ink = kx.ink_mask(kx.synth_slice(kx.SYNTH_SIZE, case["bands"]))
     bands, en_ink_h = kx.measure_bands(ink, case["window"])
@@ -142,6 +166,75 @@ def test_w1_band_height_filter_selects_the_text_band():
     assert en_ink_h == 30
     kept = kx.text_bands(bands, en_ink_h)
     assert len(kept) == 1 and (kept[0][1] - kept[0][0] + 1) == 30
+
+
+def test_w1_ornament_bridged_gaps_do_not_merge_the_lines():
+    """THE CASE WHOSE ABSENCE LET THE DEFECT SHIP (§5.5, part A of this repair).
+
+    Four text lines whose inter-line gaps carry a few pixels of ornament ink, and
+    a full-width plate at 3x line height that carries MORE ink than any single
+    one of them -- the relation that actually holds on `Act/front` `body`.
+
+    Under `build-masks.py:116`'s LINE_MIN_INK/LINE_GAP segmentation the bridge
+    means no gap is ever found: all five merge into ONE 234 px band whose x
+    extent is the plate's, `en_ink_h` becomes 234, the height filter admits it
+    because a one-band median is that band's own height, and W1 fires at a right
+    margin of 0 -- on the plate, which is not text. Under
+    `typeset-cards.py:721`'s cut the five separate, `en_ink_h` lands at line
+    height, the plate is dropped, and the text bands leave the 40 px they were
+    drawn with.
+
+    Both directions are asserted. A fixture that reproduces a defect is worth
+    nothing unless something asserts that it STILL reproduces it -- see
+    `atlas-prompt/build-package.py:456-459`, "A check that cannot fail is a
+    defect in this project's history, not a nicety."
+    """
+    case = kx.w1_cases()["ornament-bridge"]
+    ink = kx.ink_mask(kx.synth_slice(kx.SYNTH_SIZE, case["bands"]))
+    window = case["window"]
+    width = window[2] - window[0]
+
+    # -- the wrong segmenter: one merged band, and it fires.
+    legacy, legacy_h = kx.legacy_line_group_bands(ink, window)
+    assert len(legacy) == 1, "the ornament no longer bridges every gap"
+    assert legacy_h == 234
+    assert kx.text_bands(legacy, legacy_h) == legacy, (
+        "a one-band selection makes the height filter vacuous -- that is the "
+        "mechanism this case exists to show")
+    assert kx.legacy_case_fires(case), (
+        "the case no longer fires under build-masks.py:116's segmentation, so "
+        "it cannot catch a relapse to it")
+
+    # -- the right one: four lines plus a plate, and it is silent.
+    bands, en_ink_h = kx.measure_bands(ink, window)
+    assert len(bands) == 5
+    assert 20 <= en_ink_h <= 45, en_ink_h
+    kept = kx.text_bands(bands, en_ink_h)
+    assert len(kept) == 4
+    assert all((width - 1) - b[3] == 40 for b in kept)
+    plate = bands[-1]
+    assert plate not in kept
+    assert (plate[1] - plate[0] + 1) == 96 and plate[3] == width - 1
+    assert kx.run_w1_case(case) == []
+
+
+def test_the_ornament_bridge_plate_outweighs_every_text_band():
+    """The corpus relation, asserted as a number rather than as prose.
+
+    §5.5's `Act/front` plate carries more ink than any single text band, which is
+    precisely why an ink-weighted median can only survive it as a MEDIAN. If this
+    case is ever retuned so the plate becomes the lighter band it degenerates
+    into a second copy of `band-height` and stops covering anything new.
+    """
+    import numpy as np
+    case = kx.w1_cases()["ornament-bridge"]
+    ink = kx.ink_mask(kx.synth_slice(kx.SYNTH_SIZE, case["bands"]))
+    x0, y0, x1, y1 = case["window"]
+    sub = ink[y0:y1, x0:x1]
+    profile = (sub & ~kx.rule_stroke_mask(sub)).sum(axis=1).astype(np.int64)
+    bands, _en_ink_h = kx.measure_bands(ink, case["window"])
+    mass = [int(profile[b[0]:b[1] + 1].sum()) for b in bands]
+    assert mass[-1] > max(mass[:-1]), mass
 
 
 def test_w1_measures_trailing_edges_only():
@@ -589,14 +682,25 @@ def test_corpus_containment_reproduces_the_two_known_hits(golden):
     `mask-coverage-finding.md`. It is demoted because it is the only case in this
     file that can silently vanish, and it is a superset test because
     mask-coverage-finding.md:26 records those two as a rate over the 26 faces
-    looked at, of 88 -- so hits among the other 62 are the detector working."""
-    manifest_path = os.path.join(kc.PACKAGE_DIR, "data", "golden",
-                                 "midwinter.manifest.json")
-    with open(manifest_path, "r", encoding="utf-8") as handle:
-        manifest = json.load(handle)
-    baseline = ((manifest.get("mask") or {}).get("residual_baseline")) or []
+    looked at, of 88 -- so hits among the other 62 are the detector working.
+
+    THE BASELINE IS THE LOCK'S, NOT THE GOLDEN MANIFEST'S. §3.1's tier table puts
+    `mask.residual_baseline[]` in the RECEIPT tier -- `data/locks/<slug>.lock.json`
+    beside `write_set[]` and `atlas-urls.json` -- while the golden-inputs tier
+    carries `inputs_root`, the per-file sha256 set and the reference `tool{}`
+    triple and nothing else. This test read the manifest only because it was
+    written before the lock existed. Duplicating the baseline into both would be
+    worse than the bug: a tolerance baseline that can drift between two copies
+    defeats the keyed `(check, group, window_name, face)` tuple it is matched on,
+    and `kz_mask.read_lock()` is the only reader there is.
+    """
+    lock_path = os.path.join(kc.PACKAGE_DIR, "data", "locks",
+                             "midwinter.lock.json")
+    with open(lock_path, "r", encoding="utf-8") as handle:
+        lock = json.load(handle)
+    baseline = ((lock.get("mask") or {}).get("residual_baseline")) or []
     keys = {(e.get("check"), e.get("group"), e.get("window_name"), e.get("face"))
             for e in baseline}
     for face in ("71006", "71005"):
-        assert any(k[3] == face for k in keys), (
-            "the golden manifest's residual baseline does not carry %s" % face)
+        assert ("W1", "Act/front", "body", face) in keys, (
+            "the lock's residual baseline does not carry %s" % face)
