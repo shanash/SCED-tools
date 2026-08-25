@@ -1,0 +1,14 @@
+{
+  "Nickname": "English Face Card",
+  "CardID": 900100,
+  "GMNotes": "{\"id\":\"09001\"}",
+  "CustomDeck": {
+    "9001": {
+      "FaceURL": "https://steamusercontent-a.akamaihd.net/ugc/face-cv002/",
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/back-cv002/",
+      "NumWidth": 10,
+      "NumHeight": 7,
+      "UniqueBack": false
+    }
+  }
+}

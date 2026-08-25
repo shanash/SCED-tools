@@ -1,0 +1,15 @@
+{
+  "Nickname": "Sidecar GMNotes Card",
+  "CardID": 200,
+  "GMNotes": "",
+  "GMNotes_path": "Korean-Campaigns.KoreanC/DemoCampaign.dc0001/SidecarGmnotes.cv004.gmnotes",
+  "CustomDeck": {
+    "2": {
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/kr/atlas-cv004.jpg",
+      "BackURL": "",
+      "NumWidth": 1,
+      "NumHeight": 1,
+      "UniqueBack": false
+    }
+  }
+}

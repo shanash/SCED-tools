@@ -1,0 +1,14 @@
+{
+  "Nickname": "Relative Url Card",
+  "CardID": 100,
+  "GMNotes": "{\"id\":\"kr0003\"}",
+  "CustomDeck": {
+    "1": {
+      "FaceURL": "KR\\TDC_04.jpg",
+      "BackURL": "KR\\TDC_04_back.jpg",
+      "NumWidth": 1,
+      "NumHeight": 1,
+      "UniqueBack": false
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Nickname": "Korean Face Card",
+  "CardID": 204000,
+  "GMNotes": "{\"id\":\"02040\"}",
+  "CustomDeck": {
+    "2040": {
+      "FaceURL": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/kr/atlas-cv001.jpg",
+      "BackURL": "https://steamusercontent-a.akamaihd.net/ugc/back-cv001/",
+      "NumWidth": 10,
+      "NumHeight": 7,
+      "UniqueBack": false
+    }
+  }
+}
