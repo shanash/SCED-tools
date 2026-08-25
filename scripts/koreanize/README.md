@@ -20,6 +20,10 @@ under you, and the exact argv the next stage would use.
 
 ## What ships today
 
+**Ships means *runs end to end*, not *exists*.** Every stage in the table below
+is owned by a module that is present, registered and self-testing; what
+separates v0 from v1 here is that v0 completes and v1 stops inside `typeset`.
+
 **v0 — the reuse resolver.** `init source scaffold reuse objtext register revert
 verify` plus `triage`(S6). It writes no art and manufactures nothing: it finds
 the cards that already have Korean art somewhere in the three Korean packs and
@@ -32,17 +36,35 @@ is **16** of the 226 — with **14** at donors of *differing grids*, each of whi
 is `--accept-donor-choice` or exit 22. A missing `CLAUDE_CODE_OAUTH_TOKEN` stops
 v0, not only v1.
 
-**v0's coverage is partial and is *declared* rather than implied.** There is no
-manufacture path, so `scaffold`, `objtext`, `register` and `verify` cover the
-objects `source` decided `reuse` and report the rest as
+**v0's coverage is partial and is *declared* rather than implied.** No
+manufacture path completes today, so `scaffold`, `objtext`, `register` and
+`verify` cover the objects `source` decided `reuse` and report the rest as
 `counts.objects_without_korean_text`. The other 72 objects get **no override file
 at all** and Tabletop Simulator resolves them from the English base object
 exactly as it does today. That is deliberate: an override carrying the *English*
 `FaceURL`, sitting inside a container the mod advertises as Korean, is worse than
 no override — the pack would be larger and wrong instead of smaller and honest.
 
-**v1 (the manufacturing chain) and v1.x (the mask-coverage assertion) are not
-built.** A v1 stage refuses with a message naming the step that will build it.
+**v1 (the manufacturing chain) and v1.x (the mask-coverage assertion) are built
+and committed; neither runs end to end yet.** Every v1 module in the stage
+table below exists, is registered in `kz_config.PREDECESSORS`, answers
+`--selftest`, and is exercised by `koreanize.sh selftest` — there is no stage
+left that can refuse for want of a module.
+
+**What stops a v1 run is check `X2`.** `typeset` measures the icon map and
+refuses at **67** when two icons sit within `ICON_SEPARATION_MIN` (0.05) of
+each other in the `(ink_fill, advance_em)` plane; four pairs of the shipped
+icon font do, and are recorded with their distances in `data/icons/README.md`.
+X2 is the one tolerance-bearing predicate in the design with **no row in the
+tolerance table below** — no `--accept-<name>`, no baseline — so the refusal is
+unconditional rather than a decision offered to the operator. The two
+candidates, a third discriminating dimension or a reviewed exception list
+carrying a `TOLERANCES` row, a flag and a baseline, are recorded there too;
+choosing between them is its own task and this file does not choose.
+
+**And `~/.config/koreanize/env` has to exist first.** Independently of X2, a
+missing file or a missing `CLAUDE_CODE_OAUTH_TOKEN` stops every AI stage at
+**65** — `triage`(S6) included, which is why it stops v0 and not only v1.
 
 ---
 
@@ -259,6 +281,11 @@ authorize this".
 completion predicate is satisfiable at each implementation step without any step
 being able to hide a gap. A row whose module *is* present but whose named fault
 does not fire still fails.
+
+The mechanism is live and its count is currently **zero** — every module named
+in `kz_common.TOLERANCES` and `CONSENTS` is present, so `kz_common --selftest`
+prints no pending line at all. That silence is a count of zero, not a check
+that stopped running.
 
 ---
 
