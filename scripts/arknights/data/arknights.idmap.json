@@ -1,0 +1,8248 @@
+{
+  "schema": 1,
+  "generated_by": "akn_renumber.py",
+  "config_sha256": "cd0db1b601dfad7f07dab08376e5ae7e6cff5acc5809d0e0169e3ea25050a371",
+  "source_tree_sha256": "d51c3d357ea749781a70d6abf22d2574985c75a38109dbc660e62f6bdf0024fe",
+  "counts": {
+    "objects": 431,
+    "objects_mapped": 438,
+    "new_ids": 424,
+    "investigators": 92,
+    "minicards": 92,
+    "other": 240,
+    "many_to_one_groups": 9,
+    "declared_remainders": 0
+  },
+  "ids": {
+    "akn00001": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "블레이즈",
+      "source_ids": [
+        "00001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blaze.json",
+          "path": "/0",
+          "guid": "58434c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00001-m": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "블레이즈",
+      "base": "akn00001",
+      "source_ids": [
+        "00001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blaze.json",
+          "path": "/2",
+          "guid": "ef48a6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00002": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "켈시",
+      "source_ids": [
+        "00002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Kaltsit.json",
+          "path": "/0",
+          "guid": "de5e2a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00002-m": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "켈시",
+      "base": "akn00002",
+      "source_ids": [
+        "00002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Kaltsit.json",
+          "path": "/2",
+          "guid": "871133",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00003": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "클로저",
+      "source_ids": [
+        "00003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Closure.json",
+          "path": "/0",
+          "guid": "0bb11a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00003-m": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "클로저",
+      "base": "akn00003",
+      "source_ids": [
+        "00003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Closure.json",
+          "path": "/2",
+          "guid": "d2e532",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00004": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "아미야",
+      "source_ids": [
+        "00004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Amiya.json",
+          "path": "/0",
+          "guid": "b9c7ab",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00004-m": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "아미야",
+      "base": "akn00004",
+      "source_ids": [
+        "00004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Amiya.json",
+          "path": "/2",
+          "guid": "645f47",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00005": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "로즈몬티스",
+      "source_ids": [
+        "00005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosmontis.json",
+          "path": "/0",
+          "guid": "524fa3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00005-m": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "로즈몬티스",
+      "base": "akn00005",
+      "source_ids": [
+        "00005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosmontis.json",
+          "path": "/2",
+          "guid": "a12398",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn00006": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "블레이즈의 전기톱",
+      "source_ids": [
+        "00006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blaze.json",
+          "path": "/1/2",
+          "guid": "c19927",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00007": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "긴급 제세동기",
+      "source_ids": [
+        "00007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blaze.json",
+          "path": "/1/1",
+          "guid": "3120c9",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00008": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "염국의 감시자",
+      "source_ids": [
+        "00008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blaze.json",
+          "path": "/1/0",
+          "guid": "745dca",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00009": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "Mon3tr",
+      "source_ids": [
+        "00009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Kaltsit.json",
+          "path": "/1/1",
+          "guid": "f1d74e",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00010": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "먼지 속을 걷다",
+      "source_ids": [
+        "00010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Kaltsit.json",
+          "path": "/1/0",
+          "guid": "c53e61",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00011": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "람다",
+      "source_ids": [
+        "00011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Closure.json",
+          "path": "/1/1",
+          "guid": "25f0a3",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00012": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "상품 분실",
+      "source_ids": [
+        "00012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Closure.json",
+          "path": "/1/0",
+          "guid": "21afd5",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00013": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "아미야의 바이올린",
+      "source_ids": [
+        "00013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Amiya.json",
+          "path": "/1/1",
+          "guid": "4e03b0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00014": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "금지된 예언",
+      "source_ids": [
+        "00014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Amiya.json",
+          "path": "/1/0",
+          "guid": "88befd",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00015": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "EX-42",
+      "source_ids": [
+        "00015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosmontis.json",
+          "path": "/1/1",
+          "guid": "ce6291",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn00016": {
+      "pack": "00",
+      "pack_folder": "(0) 로도스 아일랜드 수뇌부",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "실험 부작용 발현",
+      "source_ids": [
+        "00016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosmontis.json",
+          "path": "/1/0",
+          "guid": "c7120e",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01001": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "스카디",
+      "source_ids": [
+        "01001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/0",
+          "guid": "ce9d33",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01001-m": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "스카디",
+      "base": "akn01001",
+      "source_ids": [
+        "01001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/2",
+          "guid": "6dbb06",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01002": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "글래디아",
+      "source_ids": [
+        "01002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gladiia.json",
+          "path": "/0",
+          "guid": "293aee",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01002-m": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "글래디아",
+      "base": "akn01002",
+      "source_ids": [
+        "01002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gladiia.json",
+          "path": "/2",
+          "guid": "87b773",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01003": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "안드레아나",
+      "source_ids": [
+        "01003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Andreana.json",
+          "path": "/0",
+          "guid": "a80422",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01003-m": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "안드레아나",
+      "base": "akn01003",
+      "source_ids": [
+        "01003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Andreana.json",
+          "path": "/2",
+          "guid": "f09d74",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01004": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "딥컬러",
+      "source_ids": [
+        "01004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Deepcolor.json",
+          "path": "/0",
+          "guid": "049181",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01004-m": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "딥컬러",
+      "base": "akn01004",
+      "source_ids": [
+        "01004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Deepcolor.json",
+          "path": "/2",
+          "guid": "c4f59b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01005": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "스펙터",
+      "source_ids": [
+        "00005"
+      ],
+      "source_id_status": "overridden",
+      "override": "E1",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/0",
+          "guid": "83958f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01005-m": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "스펙터",
+      "base": "akn01005",
+      "source_ids": [
+        "01005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/2",
+          "guid": "cd1014",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01006": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "스카디의 눅눅한 검",
+      "source_ids": [
+        "01006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/1/3",
+          "guid": "3f5f6a",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01007": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "생체 구조 변화",
+      "source_ids": [
+        "01007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/1/2",
+          "guid": "4a05c2",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01008": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "심해의 부름",
+      "source_ids": [
+        "01008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/1/1",
+          "guid": "9ebbc5",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01009": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "바다와 하나가 되다",
+      "source_ids": [
+        "01009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skadi.json",
+          "path": "/1/0",
+          "guid": "683b6b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01010": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "갈증의 소용돌이",
+      "source_ids": [
+        "01010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gladiia.json",
+          "path": "/1/2",
+          "guid": "9aa2bb",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01011": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "대양의 의지",
+      "source_ids": [
+        "01011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gladiia.json",
+          "path": "/1/1",
+          "guid": "e68baf",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01012": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "시본의 분노",
+      "source_ids": [
+        "01012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gladiia.json",
+          "path": "/1/0",
+          "guid": "309b03",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01013": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "안드레아나의 개조 AWP",
+      "source_ids": [
+        "01013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Andreana.json",
+          "path": "/1/2",
+          "guid": "b9e40a",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01014": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "안드레아나의 총기 수리 도구",
+      "source_ids": [
+        "01014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Andreana.json",
+          "path": "/1/1",
+          "guid": "721e5f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01015": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "이베리아 집정관",
+      "source_ids": [
+        "01015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Andreana.json",
+          "path": "/1/0",
+          "guid": "bd7009",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01016": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "\"조수\"",
+      "source_ids": [
+        "01016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Deepcolor.json",
+          "path": "/1/2",
+          "guid": "143a2f",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Deepcolor.json",
+          "path": "/1/3",
+          "guid": "f6b5a8",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Deepcolor.json",
+          "path": "/1/4",
+          "guid": "5f42cf",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn01017": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "기이한 팔레트",
+      "source_ids": [
+        "01017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Deepcolor.json",
+          "path": "/1/1",
+          "guid": "4a4656",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01018": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "트롱프뢰유",
+      "source_ids": [
+        "01018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Deepcolor.json",
+          "path": "/1/0",
+          "guid": "64289d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01019": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "육참골단",
+      "source_ids": [
+        "01019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/1/3",
+          "guid": "5b3e45",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01020": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "강제 감염",
+      "source_ids": [
+        "01020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/1/2",
+          "guid": "db1fcb",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01021": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 21,
+      "role": "card",
+      "nickname": "한계치에 도달하다",
+      "source_ids": [
+        "01021"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/1/1",
+          "guid": "bbc0b4",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn01022": {
+      "pack": "01",
+      "pack_folder": "(1) 조수 아래의 사냥꾼",
+      "ordinal": 22,
+      "role": "card",
+      "nickname": "고통이 끝나다",
+      "source_ids": [
+        "01022"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Specter.json",
+          "path": "/1/0",
+          "guid": "58320f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02001": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "니어",
+      "source_ids": [
+        "02001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nearl.json",
+          "path": "/0",
+          "guid": "f8f9d8",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02001-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "니어",
+      "base": "akn02001",
+      "source_ids": [
+        "02001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nearl.json",
+          "path": "/1",
+          "guid": "3cbfdb",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02002": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "블레미샤인",
+      "source_ids": [
+        "02002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blemishine.json",
+          "path": "/0",
+          "guid": "24be89",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02002-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "블레미샤인",
+      "base": "akn02002",
+      "source_ids": [
+        "02002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blemishine.json",
+          "path": "/2",
+          "guid": "9a3f5f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02003": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "그라벨",
+      "source_ids": [
+        "02003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gravel.json",
+          "path": "/0",
+          "guid": "6118f7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02003-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "그라벨",
+      "base": "akn02003",
+      "source_ids": [
+        "02003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gravel.json",
+          "path": "/2",
+          "guid": "c3c1e0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02004": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "샤이닝",
+      "source_ids": [
+        "02004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/0",
+          "guid": "d49de0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02004-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "샤이닝",
+      "base": "akn02004",
+      "source_ids": [
+        "02004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/2",
+          "guid": "1d919c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02005": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "나이팅게일",
+      "source_ids": [
+        "02005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/0",
+          "guid": "2d7768",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02005-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "나이팅게일",
+      "base": "akn02005",
+      "source_ids": [
+        "02005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/2",
+          "guid": "9fb49c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02006": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 6,
+      "role": "investigator",
+      "nickname": "플레임테일",
+      "source_ids": [
+        "02006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/0",
+          "guid": "c244d1",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02006-m": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 6,
+      "role": "minicard",
+      "nickname": "플레임테일",
+      "base": "akn02006",
+      "source_ids": [
+        "02006-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/2",
+          "guid": "0edc28",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn02007": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "기사의 워해머",
+      "source_ids": [
+        "02007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nearl.json",
+          "path": "/2/2",
+          "guid": "55dcd0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02008": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "신성 방패",
+      "source_ids": [
+        "02008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nearl.json",
+          "path": "/2/1",
+          "guid": "fd876b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02009": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "잃어버린 가문의 긍지",
+      "source_ids": [
+        "02009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nearl.json",
+          "path": "/2/0",
+          "guid": "8cb0fa",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02010": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "알뜰살뜰",
+      "source_ids": [
+        "02010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blemishine.json",
+          "path": "/1/2",
+          "guid": "5d2bda",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02011": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "위슬래시",
+      "source_ids": [
+        "02011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blemishine.json",
+          "path": "/1/1",
+          "guid": "086e7d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02012": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "음모에 휘말리다",
+      "source_ids": [
+        "02012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Blemishine.json",
+          "path": "/1/0",
+          "guid": "8d97e5",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02013": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "비밀 작전용 공구 가방",
+      "source_ids": [
+        "02013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gravel.json",
+          "path": "/1/1",
+          "guid": "8536ba",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02014": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "끔찍한 도전",
+      "source_ids": [
+        "02014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gravel.json",
+          "path": "/1/0",
+          "guid": "32bca2",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02015": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "황혼을 가르다",
+      "source_ids": [
+        "02015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/1/3",
+          "guid": "1436b1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02016": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "신조의 펜던트",
+      "source_ids": [
+        "02016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/1/2",
+          "guid": "eb6746",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02017": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "씻을 수 없는 과거",
+      "source_ids": [
+        "02017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/1/1",
+          "guid": "b3a03a",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02018": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "고해신부 조직원",
+      "source_ids": [
+        "02018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Shining.json",
+          "path": "/1/0",
+          "guid": "cf7b48",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02019": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "새장",
+      "source_ids": [
+        "02019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/1/3",
+          "guid": "70c789",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02020": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "성역",
+      "source_ids": [
+        "02020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/1/2",
+          "guid": "32d850",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02021": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 21,
+      "role": "card",
+      "nickname": "끝없는 절망",
+      "source_ids": [
+        "02021"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/1/1",
+          "guid": "cece19",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02022": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 22,
+      "role": "card",
+      "nickname": "견고한 감옥",
+      "source_ids": [
+        "02022"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightingale.json",
+          "path": "/1/0",
+          "guid": "eceeec",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02023": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 23,
+      "role": "card",
+      "nickname": "애쉬락",
+      "source_ids": [
+        "02023"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/1/4",
+          "guid": "ed1ff0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02024": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 24,
+      "role": "card",
+      "nickname": "파투스",
+      "source_ids": [
+        "02024"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/1/3",
+          "guid": "c95809",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02025": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 25,
+      "role": "card",
+      "nickname": "와일드메인",
+      "source_ids": [
+        "02025"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/1/2",
+          "guid": "81f295",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02026": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 26,
+      "role": "card",
+      "nickname": "\"저스티스 나이트\"",
+      "source_ids": [
+        "02026"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/1/1",
+          "guid": "f33299",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn02027": {
+      "pack": "02",
+      "pack_folder": "(2) 카시미어 기사단",
+      "ordinal": 27,
+      "role": "card",
+      "nickname": "대열 이탈",
+      "source_ids": [
+        "02027"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Flametail.json",
+          "path": "/1/0",
+          "guid": "7d0910",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03001": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "도베르만",
+      "source_ids": [
+        "03001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Dobermann.json",
+          "path": "/0",
+          "guid": "2a4f0a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03001-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03001",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Dobermann.json",
+          "path": "/2",
+          "guid": "972ea3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03002": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "와파린",
+      "source_ids": [
+        "03002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Warfarin.json",
+          "path": "/0",
+          "guid": "7ad8ae",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03002-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03002",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Warfarin.json",
+          "path": "/2",
+          "guid": "cf3ced",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03003": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "새비지",
+      "source_ids": [
+        "03003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Savage.json",
+          "path": "/0",
+          "guid": "dfba00",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03003-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03003",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Savage.json",
+          "path": "/2",
+          "guid": "dd1719",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03004": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "케오베",
+      "source_ids": [
+        "03004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/0",
+          "guid": "e9bf25",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03004-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03004",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/2",
+          "guid": "082368",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03005": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "그레이스롯",
+      "source_ids": [
+        "03005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Greythroat.json",
+          "path": "/0",
+          "guid": "c97002",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03005-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03005",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Greythroat.json",
+          "path": "/2",
+          "guid": "a506b3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03006": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 6,
+      "role": "investigator",
+      "nickname": "에단",
+      "source_ids": [
+        "03006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ethan.json",
+          "path": "/0",
+          "guid": "afe59e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03006-m": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 6,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akn03006",
+      "source_ids": [],
+      "source_id_status": "absent",
+      "objects": [
+        {
+          "file": "Ethan.json",
+          "path": "/2",
+          "guid": "fe68ff",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn03007": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "군용 망원경",
+      "source_ids": [
+        "03007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Dobermann.json",
+          "path": "/1/1",
+          "guid": "02c277",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03008": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "볼리바르 폭도",
+      "source_ids": [
+        "03008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Dobermann.json",
+          "path": "/1/0",
+          "guid": "3e93c2",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03009": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "혈액이 들어있는 병",
+      "source_ids": [
+        "03009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Warfarin.json",
+          "path": "/1/1",
+          "guid": "ea5b45",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03010": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "제어하지 못한 본능",
+      "source_ids": [
+        "03010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Warfarin.json",
+          "path": "/1/0",
+          "guid": "4fe503",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03011": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "묠니르-3",
+      "source_ids": [
+        "03011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Savage.json",
+          "path": "/1/1",
+          "guid": "a95bbd",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03012": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "과격한 작전",
+      "source_ids": [
+        "03012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Savage.json",
+          "path": "/1/0",
+          "guid": "f0f104",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03013": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "\"다 가져와!\"",
+      "source_ids": [
+        "03013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/1/3",
+          "guid": "ecf74a",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03014": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "방치된 광석병",
+      "source_ids": [
+        "03014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/1/2",
+          "guid": "51c3f3",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03015": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "강해지는 집념",
+      "source_ids": [
+        "03015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/1/1",
+          "guid": "40b780",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03016": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "홀로가는 먼 길",
+      "source_ids": [
+        "03016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ceobe.json",
+          "path": "/1/0",
+          "guid": "0aa2d6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03017": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "그레이스롯의 석궁",
+      "source_ids": [
+        "03017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Greythroat.json",
+          "path": "/1/1",
+          "guid": "44a5b1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03018": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "광석병 공포증",
+      "source_ids": [
+        "03018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Greythroat.json",
+          "path": "/1/0",
+          "guid": "1cdda8",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03019": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "에단의 Double A",
+      "source_ids": [
+        "03019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ethan.json",
+          "path": "/1/2",
+          "guid": "e2918d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03020": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "그래피티 심리전",
+      "source_ids": [
+        "03020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ethan.json",
+          "path": "/1/1",
+          "guid": "71e237",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn03021": {
+      "pack": "03",
+      "pack_folder": "(3) 로도스 아일랜드 작전부",
+      "ordinal": 21,
+      "role": "card",
+      "nickname": "발각!",
+      "source_ids": [
+        "03021"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ethan.json",
+          "path": "/1/0",
+          "guid": "3e59d4",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04001": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "그라니",
+      "source_ids": [
+        "04001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Grani.json",
+          "path": "/0",
+          "guid": "e3a1de",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04001-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "그라니",
+      "base": "akn04001",
+      "source_ids": [
+        "04001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Grani.json",
+          "path": "/2",
+          "guid": "b0fcc2",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04002": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "백파이프",
+      "source_ids": [
+        "04002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Bagpipe.json",
+          "path": "/0",
+          "guid": "d301de",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04002-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "백파이프",
+      "base": "akn04002",
+      "source_ids": [
+        "04002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Bagpipe.json",
+          "path": "/2",
+          "guid": "5c76f7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04003": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "나이트메어",
+      "source_ids": [
+        "04003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightmare.json",
+          "path": "/0",
+          "guid": "cb6108",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04003-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "나이트메어",
+      "base": "akn04003",
+      "source_ids": [
+        "04003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightmare.json",
+          "path": "/2",
+          "guid": "c9332d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04004": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "시즈",
+      "source_ids": [
+        "04004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Siege.json",
+          "path": "/1",
+          "guid": "7597d4",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04004-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "시즈",
+      "base": "akn04004",
+      "source_ids": [
+        "04004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Siege.json",
+          "path": "/0",
+          "guid": "b585c6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04005": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "스카이파이어",
+      "source_ids": [
+        "04005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skyfire.json",
+          "path": "/0",
+          "guid": "ecbce9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04005-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "스카이파이어",
+      "base": "akn04005",
+      "source_ids": [
+        "04005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skyfire.json",
+          "path": "/2",
+          "guid": "dfa042",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04006": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 6,
+      "role": "investigator",
+      "nickname": "팬텀",
+      "source_ids": [
+        "04006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Phantom.json",
+          "path": "/0",
+          "guid": "c7a52c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04006-m": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 6,
+      "role": "minicard",
+      "nickname": "팬텀",
+      "base": "akn04006",
+      "source_ids": [
+        "04006-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Phantom.json",
+          "path": "/2",
+          "guid": "dd3e66",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04007": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "레인저스 세트",
+      "source_ids": [
+        "04007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Grani.json",
+          "path": "/1/1",
+          "guid": "f46438",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04008": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "기습을 당하다",
+      "source_ids": [
+        "04008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Grani.json",
+          "path": "/1/0",
+          "guid": "a721a7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04009": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "캐슬브레이커",
+      "source_ids": [
+        "04009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Bagpipe.json",
+          "path": "/1/1",
+          "guid": "bd49c7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04010": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "고립되고 버려지다",
+      "source_ids": [
+        "04010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Bagpipe.json",
+          "path": "/1/0",
+          "guid": "4963c3",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04011": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "글로리아의 인격/나이트메어의 인격",
+      "source_ids": [
+        "04011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightmare.json",
+          "path": "/1/1",
+          "guid": "6973ee",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04012": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "인격분열",
+      "source_ids": [
+        "04012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nightmare.json",
+          "path": "/1/0",
+          "guid": "6dcf98",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04013": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "인드라",
+      "source_ids": [
+        "04013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Siege.json",
+          "path": "/2/1",
+          "guid": "b2acbf",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04014": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "빼앗긴 명예",
+      "source_ids": [
+        "04014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Siege.json",
+          "path": "/2/0",
+          "guid": "a7349b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04015": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "민트",
+      "source_ids": [
+        "04015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skyfire.json",
+          "path": "/1/1",
+          "guid": "b0a8ab",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04016": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "태양과의 합일",
+      "source_ids": [
+        "04016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Skyfire.json",
+          "path": "/1/0",
+          "guid": "b76fd1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn04017": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "미스 크리스틴",
+      "source_ids": [
+        "04017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Phantom.json",
+          "path": "/1/2",
+          "guid": "87ca0b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04018": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "핏빛 악장",
+      "source_ids": [
+        "04018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Phantom.json",
+          "path": "/1/1",
+          "guid": "eb9823",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn04019": {
+      "pack": "04",
+      "pack_folder": "(4) 빅토리아의 폭풍",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "거울 속의 환영",
+      "source_ids": [
+        "04019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Phantom.json",
+          "path": "/1/0",
+          "guid": "df1dda",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05001": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "첸",
+      "source_ids": [
+        "05001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Chen.json",
+          "path": "/0",
+          "guid": "1c5222",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05001-m": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "첸",
+      "base": "akn05001",
+      "source_ids": [
+        "05001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Chen.json",
+          "path": "/2",
+          "guid": "15571a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05002": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "스와이어",
+      "source_ids": [
+        "05002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Swire.json",
+          "path": "/0",
+          "guid": "9faff9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05002-m": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "스와이어",
+      "base": "akn05002",
+      "source_ids": [
+        "05002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Swire.json",
+          "path": "/2",
+          "guid": "a47fdb",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05003": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "호시구마",
+      "source_ids": [
+        "05003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hoshiguma.json",
+          "path": "/0",
+          "guid": "bcf07e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05003-m": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "호시구마",
+      "base": "akn05003",
+      "source_ids": [
+        "05003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hoshiguma.json",
+          "path": "/2",
+          "guid": "489a28",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05004": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "린",
+      "source_ids": [
+        "05004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lin.json",
+          "path": "/0",
+          "guid": "be3a92",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05004-m": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "린",
+      "base": "akn05004",
+      "source_ids": [
+        "05004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lin.json",
+          "path": "/2",
+          "guid": "0952b8",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05005": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "나인",
+      "source_ids": [
+        "05005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nine.json",
+          "path": "/1",
+          "guid": "19a549",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05005-m": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "나인",
+      "base": "akn05005",
+      "source_ids": [
+        "05005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nine.json",
+          "path": "/2",
+          "guid": "a86529",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn05006": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "적소",
+      "source_ids": [
+        "05006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Chen.json",
+          "path": "/1/1",
+          "guid": "ae4116",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05007": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "독단적인 행동",
+      "source_ids": [
+        "05007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Chen.json",
+          "path": "/1/0",
+          "guid": "a801b7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05008": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "'어흥' 열쇠 고리",
+      "source_ids": [
+        "05008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Swire.json",
+          "path": "/1/1",
+          "guid": "9c9f76",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05009": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "인질로 잡히다",
+      "source_ids": [
+        "05009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Swire.json",
+          "path": "/1/0",
+          "guid": "04600c",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05010": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "반야",
+      "source_ids": [
+        "05010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hoshiguma.json",
+          "path": "/1/1",
+          "guid": "2f1c06",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05011": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "부서진 유물",
+      "source_ids": [
+        "05011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hoshiguma.json",
+          "path": "/1/0",
+          "guid": "0d4dff",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05012": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "난반사",
+      "source_ids": [
+        "05012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lin.json",
+          "path": "/1/1",
+          "guid": "aa2483",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05013": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "시실리안 요원",
+      "source_ids": [
+        "05013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lin.json",
+          "path": "/1/0",
+          "guid": "45f053",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05014": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "이름 없는 식물",
+      "source_ids": [
+        "05014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nine.json",
+          "path": "/0/1",
+          "guid": "e89fe1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn05015": {
+      "pack": "05",
+      "pack_folder": "(5) 용문의 그림자",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "하염없이 떠돌다",
+      "source_ids": [
+        "05015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Nine.json",
+          "path": "/0/0",
+          "guid": "fdb6e9",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06001": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "헬라그",
+      "source_ids": [
+        "06001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hellagur.json",
+          "path": "/0",
+          "guid": "0bf39b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06001-m": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "헬라그",
+      "base": "akn06001",
+      "source_ids": [
+        "06001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hellagur.json",
+          "path": "/2",
+          "guid": "9eeb4b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06002": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "로사",
+      "source_ids": [
+        "06002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosa.json",
+          "path": "/0",
+          "guid": "97c75f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06002-m": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "로사",
+      "base": "akn06002",
+      "source_ids": [
+        "06002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosa.json",
+          "path": "/2",
+          "guid": "131859",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06003": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "비헌터",
+      "source_ids": [
+        "06003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Beehunter.json",
+          "path": "/0",
+          "guid": "370c2d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06003-m": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "비헌터",
+      "base": "akn06003",
+      "source_ids": [
+        "06003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Beehunter.json",
+          "path": "/2",
+          "guid": "e4d13a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06004": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "압생트",
+      "source_ids": [
+        "06004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Absinthe.json",
+          "path": "/0",
+          "guid": "29e291",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06004-m": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "압생트",
+      "base": "akn06004",
+      "source_ids": [
+        "06004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Absinthe.json",
+          "path": "/2",
+          "guid": "309716",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06005": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "지마",
+      "source_ids": [
+        "06006"
+      ],
+      "source_id_status": "overridden",
+      "override": "E2",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/0",
+          "guid": "d53a84",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06005-m": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "지마",
+      "base": "akn06005",
+      "source_ids": [
+        "06005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/2",
+          "guid": "21bfdb",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn06006": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "네온의 사진",
+      "source_ids": [
+        "06006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hellagur.json",
+          "path": "/1/1",
+          "guid": "ede772",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06007": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "핏봉우리 전쟁의 아픔",
+      "source_ids": [
+        "06007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Hellagur.json",
+          "path": "/1/0",
+          "guid": "0225d6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06008": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "소형 공성 무기",
+      "source_ids": [
+        "06008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosa.json",
+          "path": "/1/1",
+          "guid": "8f94de",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06009": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "귀족의 선민의식",
+      "source_ids": [
+        "06009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Rosa.json",
+          "path": "/1/0",
+          "guid": "4f5d67",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06010": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "복서의 집중력",
+      "source_ids": [
+        "06010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Beehunter.json",
+          "path": "/1/1",
+          "guid": "fe8323",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06011": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "어떻게든 되지 않을까",
+      "source_ids": [
+        "06011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Beehunter.json",
+          "path": "/1/0",
+          "guid": "e90ab7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06012": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "압생트의 리볼버",
+      "source_ids": [
+        "06012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Absinthe.json",
+          "path": "/1/1",
+          "guid": "6ebc1f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06013": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "체르노보그의 폭력과 공포",
+      "source_ids": [
+        "06013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Absinthe.json",
+          "path": "/1/0",
+          "guid": "20c9a4",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06014": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "굼",
+      "source_ids": [
+        "06014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/1/3",
+          "guid": "af2312",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06015": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "이스티나",
+      "source_ids": [
+        "06015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/1/2",
+          "guid": "d1e4fa",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06016": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "레토",
+      "source_ids": [
+        "06016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/1/1",
+          "guid": "47ac7c",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn06017": {
+      "pack": "06",
+      "pack_folder": "(6) 우르수스의 의지",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "동장군의 고뇌",
+      "source_ids": [
+        "06017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Zima.json",
+          "path": "/1/0",
+          "guid": "10f6c4",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07001": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "퍼퓨머",
+      "source_ids": [
+        "07001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Perfumer.json",
+          "path": "/0",
+          "guid": "ab79fb",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07001-m": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "퍼퓨머",
+      "base": "akn07001",
+      "source_ids": [
+        "07001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Perfumer.json",
+          "path": "/2",
+          "guid": "a57a90",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07002": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "위디",
+      "source_ids": [
+        "07002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Weedy.json",
+          "path": "/0",
+          "guid": "b66885",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07002-m": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "위디",
+      "base": "akn07002",
+      "source_ids": [
+        "07002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Weedy.json",
+          "path": "/2",
+          "guid": "cb6271",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07003": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "메테오라이트",
+      "source_ids": [
+        "07003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteorite.json",
+          "path": "/0",
+          "guid": "67bfb0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07003-m": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "메테오라이트",
+      "base": "akn07003",
+      "source_ids": [
+        "07003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteorite.json",
+          "path": "/2",
+          "guid": "4a4e6d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07004": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "듀나",
+      "source_ids": [
+        "07004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Durnar.json",
+          "path": "/0",
+          "guid": "89ba45",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07004-m": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "듀나",
+      "base": "akn07004",
+      "source_ids": [
+        "07004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Durnar.json",
+          "path": "/2",
+          "guid": "bcf046",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07005": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "수르트",
+      "source_ids": [
+        "07005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/0",
+          "guid": "f29ee1",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07005-m": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "수르트",
+      "base": "akn07005",
+      "source_ids": [
+        "07005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/2",
+          "guid": "2df1ac",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn07006": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "에게의 키스",
+      "source_ids": [
+        "07006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Perfumer.json",
+          "path": "/1/2",
+          "guid": "2d8534",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07007": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "정서안정용 아로마",
+      "source_ids": [
+        "07007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Perfumer.json",
+          "path": "/1/1",
+          "guid": "4514df",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07008": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "지나친 꽃향기",
+      "source_ids": [
+        "07008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Perfumer.json",
+          "path": "/1/0",
+          "guid": "7fe33f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07009": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "공학용 저수포",
+      "source_ids": [
+        "07009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Weedy.json",
+          "path": "/1/2",
+          "guid": "73b517",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07010": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "리프",
+      "source_ids": [
+        "07010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Weedy.json",
+          "path": "/1/1",
+          "guid": "10670b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07011": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "결벽증",
+      "source_ids": [
+        "07011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Weedy.json",
+          "path": "/1/0",
+          "guid": "8e7466",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07012": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "이름 없는 신분증",
+      "source_ids": [
+        "07012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteorite.json",
+          "path": "/1/1",
+          "guid": "ba9ff6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07013": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "용병 소대 반란군",
+      "source_ids": [
+        "07013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteorite.json",
+          "path": "/1/0",
+          "guid": "73460f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07014": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "굳은 의지의 천둥",
+      "source_ids": [
+        "07014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Durnar.json",
+          "path": "/1/2",
+          "guid": "5ff52a",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07015": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "패트릭의 봄 우레",
+      "source_ids": [
+        "07015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Durnar.json",
+          "path": "/1/1",
+          "guid": "555b1e",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07016": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "고집불통",
+      "source_ids": [
+        "07016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Durnar.json",
+          "path": "/1/0",
+          "guid": "09cb1f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07017": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "레바테인",
+      "source_ids": [
+        "07017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/1/3",
+          "guid": "2c02d7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07018": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "용암 거인",
+      "source_ids": [
+        "07018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/1/2",
+          "guid": "63ff80",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07019": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "녹아내린 불꽃",
+      "source_ids": [
+        "07019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/1/1",
+          "guid": "8d73e4",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn07020": {
+      "pack": "07",
+      "pack_folder": "(7) 로도스 아일랜드 지원부",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "라그나로크",
+      "source_ids": [
+        "07020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Surtr.json",
+          "path": "/1/0",
+          "guid": "4e9f5d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08001": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "데겐블레허",
+      "source_ids": [
+        "08001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Degenbrecher.json",
+          "path": "/0",
+          "guid": "7c2863",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08001-m": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "데겐블레허",
+      "base": "akn08001",
+      "source_ids": [
+        "08001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Degenbrecher.json",
+          "path": "/2",
+          "guid": "429dc1",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08002": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "노시스",
+      "source_ids": [
+        "08002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gnosis.json",
+          "path": "/0",
+          "guid": "5df977",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08002-m": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "노시스",
+      "base": "akn08002",
+      "source_ids": [
+        "08002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gnosis.json",
+          "path": "/2",
+          "guid": "4c95b7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08003": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "실버애쉬",
+      "source_ids": [
+        "08003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Silverash.json",
+          "path": "/0",
+          "guid": "cf64b4",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08003-m": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "실버애쉬",
+      "base": "akn08003",
+      "source_ids": [
+        "08003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Silverash.json",
+          "path": "/2",
+          "guid": "6df060",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08004": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "프라마닉스",
+      "source_ids": [
+        "08004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Pramanix.json",
+          "path": "/0",
+          "guid": "d474d9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08004-m": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "프라마닉스",
+      "base": "akn08004",
+      "source_ids": [
+        "08004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Pramanix.json",
+          "path": "/2",
+          "guid": "c4151d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08005": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "클리프하트",
+      "source_ids": [
+        "08005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Cliffheart.json",
+          "path": "/0",
+          "guid": "1d32bc",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08005-m": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "클리프하트",
+      "base": "akn08005",
+      "source_ids": [
+        "08005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Cliffheart.json",
+          "path": "/2",
+          "guid": "070bf7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08006": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "압도",
+      "source_ids": [
+        "08006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Degenbrecher.json",
+          "path": "/1/1",
+          "guid": "84464b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08007": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "격한 반동",
+      "source_ids": [
+        "08007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Degenbrecher.json",
+          "path": "/1/0",
+          "guid": "850637",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08008": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "빠른 사고",
+      "source_ids": [
+        "08008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gnosis.json",
+          "path": "/1/1",
+          "guid": "50e566",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08009": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "저체온증",
+      "source_ids": [
+        "08009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gnosis.json",
+          "path": "/1/0",
+          "guid": "0ea648",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08010": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "텐진",
+      "source_ids": [
+        "08010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Silverash.json",
+          "path": "/1/1",
+          "guid": "7c1834",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08011": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "설산 사변",
+      "source_ids": [
+        "08011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Silverash.json",
+          "path": "/1/0",
+          "guid": "274af3",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08012": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "신이 내린 종",
+      "source_ids": [
+        "08012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Pramanix.json",
+          "path": "/1/1",
+          "guid": "7400d4",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08013": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "자연의 위엄",
+      "source_ids": [
+        "08013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Pramanix.json",
+          "path": "/1/0",
+          "guid": "481540",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn08014": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "등산용 도구 세트",
+      "source_ids": [
+        "08014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Cliffheart.json",
+          "path": "/1/1",
+          "guid": "1cfb0d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn08015": {
+      "pack": "08",
+      "pack_folder": "(8) 쉐라그의 눈보라",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "재결합을 위해",
+      "source_ids": [
+        "08015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Cliffheart.json",
+          "path": "/1/0",
+          "guid": "326714",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09001": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "아이린",
+      "source_ids": [
+        "09001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/0",
+          "guid": "ccfeaf",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09001-m": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "아이린",
+      "base": "akn09001",
+      "source_ids": [
+        "09001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/2",
+          "guid": "79c0af",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09002": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "엘리시움",
+      "source_ids": [
+        "09002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Elysium.json",
+          "path": "/0",
+          "guid": "4bafdc",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09002-m": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "엘리시움",
+      "base": "akn09002",
+      "source_ids": [
+        "09002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Elysium.json",
+          "path": "/2",
+          "guid": "004cbd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09003": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "울피아누스",
+      "source_ids": [
+        "09003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ulpianus.json",
+          "path": "/0",
+          "guid": "4e8e00",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09003-m": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "울피아누스",
+      "base": "akn09003",
+      "source_ids": [
+        "09003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ulpianus.json",
+          "path": "/2",
+          "guid": "d0456e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09004": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "카르멘",
+      "source_ids": [
+        "09004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Carmen.json",
+          "path": "/0",
+          "guid": "3704db",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09004-m": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "카르멘",
+      "base": "akn09004",
+      "source_ids": [
+        "09004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Carmen.json",
+          "path": "/2",
+          "guid": "f00274",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09005": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "루멘",
+      "source_ids": [
+        "09005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lumen.json",
+          "path": "/0",
+          "guid": "c7324b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09005-m": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "루멘",
+      "base": "akn09005",
+      "source_ids": [
+        "09005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lumen.json",
+          "path": "/1",
+          "guid": "517fc6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn09006": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "재판관의 레이피어",
+      "source_ids": [
+        "09006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/1/4",
+          "guid": "9f35c5",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09007": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "재판관의 핸드캐논",
+      "source_ids": [
+        "09007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/1/3",
+          "guid": "1c9381",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09008": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "재판관의 랜턴",
+      "source_ids": [
+        "09008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/1/2",
+          "guid": "13c714",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09009": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "재판관의 경전",
+      "source_ids": [
+        "09009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/1/1",
+          "guid": "a749b0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09010": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "불어오는 바람",
+      "source_ids": [
+        "09010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Irene.json",
+          "path": "/1/0",
+          "guid": "2e1f9e",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09011": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "휴대용 깃발형 발신기",
+      "source_ids": [
+        "09011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Elysium.json",
+          "path": "/1/1",
+          "guid": "b50d57",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09012": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "통신 불량",
+      "source_ids": [
+        "09012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Elysium.json",
+          "path": "/1/0",
+          "guid": "5a8742",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09013": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "울피아누스의 닻",
+      "source_ids": [
+        "09013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ulpianus.json",
+          "path": "/1/1",
+          "guid": "539004",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09014": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "날개 달린 시테러",
+      "source_ids": [
+        "09014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ulpianus.json",
+          "path": "/1/0",
+          "guid": "08980c",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09015": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "\"성도\"의 사명",
+      "source_ids": [
+        "09015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Carmen.json",
+          "path": "/1/1",
+          "guid": "c768f8",
+          "name": "Card"
+        },
+        {
+          "file": "Carmen.json",
+          "path": "/1/2",
+          "guid": "6bcef8",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09016": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "다리오의 죽음",
+      "source_ids": [
+        "09016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Carmen.json",
+          "path": "/1/0",
+          "guid": "ba9f21",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09017": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "세찬 장마",
+      "source_ids": [
+        "09017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lumen.json",
+          "path": "/2/2",
+          "guid": "04ba78",
+          "name": "Card"
+        },
+        {
+          "file": "Lumen.json",
+          "path": "/2/3",
+          "guid": "f7be90",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09018": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "평범한 이의 바람",
+      "source_ids": [
+        "09018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lumen.json",
+          "path": "/2/1",
+          "guid": "658511",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn09019": {
+      "pack": "09",
+      "pack_folder": "(9) 바보들의 배",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "이베리아의 눈",
+      "source_ids": [
+        "09019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Lumen.json",
+          "path": "/2/0",
+          "guid": "e3b6d7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10001": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "엑시아",
+      "source_ids": [
+        "10001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Exusiai.json",
+          "path": "/0",
+          "guid": "848801",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10001-m": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "엑시아",
+      "base": "akn10001",
+      "source_ids": [
+        "10001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Exusiai.json",
+          "path": "/2",
+          "guid": "ff7302",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10002": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "텍사스",
+      "source_ids": [
+        "10002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Texas.json",
+          "path": "/0",
+          "guid": "47cd95",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10002-m": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "텍사스",
+      "base": "akn10002",
+      "source_ids": [
+        "10002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Texas.json",
+          "path": "/2",
+          "guid": "68d53a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10003": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "엠페러",
+      "source_ids": [
+        "10003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Emperor.json",
+          "path": "/0",
+          "guid": "997d4e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10003-m": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "엠페러",
+      "base": "akn10003",
+      "source_ids": [
+        "10003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Emperor.json",
+          "path": "/2",
+          "guid": "6cf734",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10004": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "소라",
+      "source_ids": [
+        "10004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Sora.json",
+          "path": "/0",
+          "guid": "674d9c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10004-m": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "소라",
+      "base": "akn10004",
+      "source_ids": [
+        "10004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Sora.json",
+          "path": "/2",
+          "guid": "d7979f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10005": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "크루아상",
+      "source_ids": [
+        "10005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Croissant.json",
+          "path": "/0",
+          "guid": "8e322b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10005-m": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "크루아상",
+      "base": "akn10005",
+      "source_ids": [
+        "10005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Croissant.json",
+          "path": "/2",
+          "guid": "4fcae1",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10006": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "엑시아의 KRISS Vector",
+      "source_ids": [
+        "10006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Exusiai.json",
+          "path": "/1/2",
+          "guid": "30f12b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10007": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "천사의 축복",
+      "source_ids": [
+        "10007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Exusiai.json",
+          "path": "/1/1",
+          "guid": "22c105",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10008": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "총도 걸릴 때가 있는 거지",
+      "source_ids": [
+        "10008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Exusiai.json",
+          "path": "/1/0",
+          "guid": "9438b7",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10009": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "전술 배송",
+      "source_ids": [
+        "10009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Texas.json",
+          "path": "/1/2",
+          "guid": "97e94b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10010": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "검의 비",
+      "source_ids": [
+        "10010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Texas.json",
+          "path": "/1/1",
+          "guid": "6a5ef6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10011": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "\"가문\"의 몰락",
+      "source_ids": [
+        "10011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Texas.json",
+          "path": "/1/0",
+          "guid": "57e05c",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10012": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "이스",
+      "source_ids": [
+        "10012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Emperor.json",
+          "path": "/1/2",
+          "guid": "56eaeb",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10013": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "Kings Never Die",
+      "source_ids": [
+        "10013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Emperor.json",
+          "path": "/1/1",
+          "guid": "11d7ff",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10014": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "Thug Life",
+      "source_ids": [
+        "10014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Emperor.json",
+          "path": "/1/0",
+          "guid": "09f436",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn10015": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "평화의 노래",
+      "source_ids": [
+        "10015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Sora.json",
+          "path": "/1/2",
+          "guid": "34f3ac",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10016": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "전투의 노래",
+      "source_ids": [
+        "10016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Sora.json",
+          "path": "/1/1",
+          "guid": "f37ca1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10017": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "사생팬의 습격",
+      "source_ids": [
+        "10017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Sora.json",
+          "path": "/1/0",
+          "guid": "6f47d1",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10018": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "장사도 전쟁이지",
+      "source_ids": [
+        "10018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Croissant.json",
+          "path": "/1/1",
+          "guid": "a78d3e",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn10019": {
+      "pack": "10",
+      "pack_folder": "(10) 펭귄 로지스틱스",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "\"이번 달도 위험한데...\"",
+      "source_ids": [
+        "10019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Croissant.json",
+          "path": "/1/0",
+          "guid": "e79be9",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn11001": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "스캐빈저",
+      "source_ids": [
+        "11001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Scavenger.json",
+          "path": "/0",
+          "guid": "a73941",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11001-m": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "스캐빈저",
+      "base": "akn11001",
+      "source_ids": [
+        "11001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Scavenger.json",
+          "path": "/2",
+          "guid": "9f1f63",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11002": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "폴리닉",
+      "source_ids": [
+        "11002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Folinic.json",
+          "path": "/0",
+          "guid": "c5b184",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11002-m": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "폴리닉",
+      "base": "akn11002",
+      "source_ids": [
+        "11002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Folinic.json",
+          "path": "/2",
+          "guid": "ead5af",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11003": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "레드",
+      "source_ids": [
+        "11003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Red.json",
+          "path": "/0",
+          "guid": "cb290a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11003-m": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "레드",
+      "base": "akn11003",
+      "source_ids": [
+        "11003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Red.json",
+          "path": "/2",
+          "guid": "efa33d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11004": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "패신저",
+      "source_ids": [
+        "11004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Passenger.json",
+          "path": "/0",
+          "guid": "4c90f0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11004-m": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "패신저",
+      "base": "akn11004",
+      "source_ids": [
+        "11004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Passenger.json",
+          "path": "/2",
+          "guid": "d5250e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11005": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "하이디",
+      "source_ids": [
+        "11005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Heidi.json",
+          "path": "/0",
+          "guid": "8a4124",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11005-m": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "하이디",
+      "base": "akn11005",
+      "source_ids": [
+        "11005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Heidi.json",
+          "path": "/2",
+          "guid": "f226af",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11006": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "\"청소\" 도구",
+      "source_ids": [
+        "11006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Scavenger.json",
+          "path": "/1/1",
+          "guid": "79747f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11007": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "이루지 못한 일",
+      "source_ids": [
+        "11007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Scavenger.json",
+          "path": "/1/0",
+          "guid": "9c6699",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn11008": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "약물 차단 기술",
+      "source_ids": [
+        "11008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Folinic.json",
+          "path": "/1/2",
+          "guid": "601329",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Folinic.json",
+          "path": "/1/3",
+          "guid": "232664",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Folinic.json",
+          "path": "/1/4",
+          "guid": "287e37",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11009": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "릴리아의 사진",
+      "source_ids": [
+        "11009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Folinic.json",
+          "path": "/1/1",
+          "guid": "0e7c30",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11010": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "아트로의 순직",
+      "source_ids": [
+        "11010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Folinic.json",
+          "path": "/1/0",
+          "guid": "cde1d3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11011": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "미스테리 툴키트",
+      "source_ids": [
+        "11011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Red.json",
+          "path": "/1/1",
+          "guid": "82d78b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11012": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "'외할머니'의 부름",
+      "source_ids": [
+        "11012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Red.json",
+          "path": "/1/0",
+          "guid": "2e3ffd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11013": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "전자기 조절 장치",
+      "source_ids": [
+        "11013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Passenger.json",
+          "path": "/1/1",
+          "guid": "fdd375",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn11014": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "왕권의 금화",
+      "source_ids": [
+        "11014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Passenger.json",
+          "path": "/1/0",
+          "guid": "971758",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11015": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "전달자의 처세술",
+      "source_ids": [
+        "11015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Heidi.json",
+          "path": "/1/1",
+          "guid": "5cc390",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn11016": {
+      "pack": "11",
+      "pack_folder": "(11) 켈시와의 인연",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "맨프레드의 병사",
+      "source_ids": [
+        "11016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Heidi.json",
+          "path": "/1/0",
+          "guid": "c44ce7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12001": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "무에나",
+      "source_ids": [
+        "12001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/0/1",
+          "guid": "e26d9d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12001-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "무에나",
+      "base": "akn12001",
+      "source_ids": [
+        "12001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/2/1",
+          "guid": "3290ec",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12002": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "무에나",
+      "source_ids": [
+        "12002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/0/0",
+          "guid": "48158f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12002-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "무에나",
+      "base": "akn12002",
+      "source_ids": [
+        "12002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/2/0",
+          "guid": "96965e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12003": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "톨런드",
+      "source_ids": [
+        "12003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Toland.json",
+          "path": "/0",
+          "guid": "cf53d5",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12003-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "톨런드",
+      "base": "akn12003",
+      "source_ids": [
+        "12003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Toland.json",
+          "path": "/2",
+          "guid": "785ae0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12004": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "프로바이조",
+      "source_ids": [
+        "12004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Proviso.json",
+          "path": "/0",
+          "guid": "6d3e01",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12004-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "프로바이조",
+      "base": "akn12004",
+      "source_ids": [
+        "12004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Proviso.json",
+          "path": "/2",
+          "guid": "a4bc39",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12005": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "플래티넘",
+      "source_ids": [
+        "12005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Platinum.json",
+          "path": "/0",
+          "guid": "6f0100",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12005-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "플래티넘",
+      "base": "akn12005",
+      "source_ids": [
+        "12005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Platinum.json",
+          "path": "/2",
+          "guid": "75d515",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12006": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 6,
+      "role": "investigator",
+      "nickname": "비비아나",
+      "source_ids": [
+        "12006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Viviana.json",
+          "path": "/0",
+          "guid": "ca1fd0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12006-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 6,
+      "role": "minicard",
+      "nickname": "비비아나",
+      "base": "akn12006",
+      "source_ids": [
+        "12006-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Viviana.json",
+          "path": "/2",
+          "guid": "4ba467",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12007": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 7,
+      "role": "investigator",
+      "nickname": "메테오",
+      "source_ids": [
+        "12007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteor.json",
+          "path": "/0",
+          "guid": "5f4cb3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12007-m": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 7,
+      "role": "minicard",
+      "nickname": "메테오",
+      "base": "akn12007",
+      "source_ids": [
+        "12007-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteor.json",
+          "path": "/2",
+          "guid": "9cac7f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12008": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "가문의 정신",
+      "source_ids": [
+        "12008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/1/1",
+          "guid": "d8a7f2",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Mlynar.json",
+          "path": "/1/2",
+          "guid": "8a07b2",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12009": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "실종자 수색",
+      "source_ids": [
+        "12009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mlynar.json",
+          "path": "/1/0",
+          "guid": "7c351a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12010": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "대담한 도전",
+      "source_ids": [
+        "12010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Toland.json",
+          "path": "/1/1",
+          "guid": "d999f4",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12011": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "조직의 추격",
+      "source_ids": [
+        "12011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Toland.json",
+          "path": "/1/0",
+          "guid": "ef28ec",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12012": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "법률 지식",
+      "source_ids": [
+        "12012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Proviso.json",
+          "path": "/1/1",
+          "guid": "168e4f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12013": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "소실된 증거",
+      "source_ids": [
+        "12013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Proviso.json",
+          "path": "/1/0",
+          "guid": "57b3ea",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12014": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "페가수스의 눈",
+      "source_ids": [
+        "12014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Platinum.json",
+          "path": "/1/1",
+          "guid": "10187d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12015": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "체크메이트",
+      "source_ids": [
+        "12015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Platinum.json",
+          "path": "/1/0",
+          "guid": "6e4039",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12016": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "정화의 초",
+      "source_ids": [
+        "12016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Viviana.json",
+          "path": "/1/3",
+          "guid": "2d4ef5",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12017": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "희미한 빛",
+      "source_ids": [
+        "12017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Viviana.json",
+          "path": "/1/1",
+          "guid": "aa4878",
+          "name": "Card"
+        },
+        {
+          "file": "Viviana.json",
+          "path": "/1/2",
+          "guid": "74c3fc",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12018": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "전하지 못한 마음",
+      "source_ids": [
+        "12018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Viviana.json",
+          "path": "/1/0",
+          "guid": "2f18fc",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn12019": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "메테오의 리커브 보우",
+      "source_ids": [
+        "12019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteor.json",
+          "path": "/1/1",
+          "guid": "bc3283",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn12020": {
+      "pack": "12",
+      "pack_folder": "(12) 카시미어 방랑자",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "카시미어의 숲이 묻는다",
+      "source_ids": [
+        "12020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Meteor.json",
+          "path": "/1/0",
+          "guid": "0c1cdd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13001": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "사일라흐",
+      "source_ids": [
+        "13001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Saileach.json",
+          "path": "/0",
+          "guid": "ddef50",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13001-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "사일라흐",
+      "base": "akn13001",
+      "source_ids": [
+        "13001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Saileach.json",
+          "path": "/2",
+          "guid": "3c4ad9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13002": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "혼",
+      "source_ids": [
+        "13002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Horn.json",
+          "path": "/0",
+          "guid": "f0ad5e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13002-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "혼",
+      "base": "akn13002",
+      "source_ids": [
+        "13002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Horn.json",
+          "path": "/2",
+          "guid": "982acd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13003": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "퀘르쿠스",
+      "source_ids": [
+        "13003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Quercus.json",
+          "path": "/0",
+          "guid": "bb6a46",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13003-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "퀘르쿠스",
+      "base": "akn13003",
+      "source_ids": [
+        "13003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Quercus.json",
+          "path": "/2",
+          "guid": "91065e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13004": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "헤이즈",
+      "source_ids": [
+        "13004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Haze.json",
+          "path": "/0",
+          "guid": "122286",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13004-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "헤이즈",
+      "base": "akn13004",
+      "source_ids": [
+        "13004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Haze.json",
+          "path": "/2",
+          "guid": "6c4888",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13005": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "골든글로우",
+      "source_ids": [
+        "13005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Goldenglow.json",
+          "path": "/0",
+          "guid": "16056a",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13005-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "골든글로우",
+      "base": "akn13005",
+      "source_ids": [
+        "13005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Goldenglow.json",
+          "path": "/2",
+          "guid": "061696",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13006": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 6,
+      "role": "investigator",
+      "nickname": "무스",
+      "source_ids": [
+        "13006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/0",
+          "guid": "bc88ec",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13006-m": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 6,
+      "role": "minicard",
+      "nickname": "무스",
+      "base": "akn13006",
+      "source_ids": [
+        "13006-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/2",
+          "guid": "d628de",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13007": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "찬란한 깃발",
+      "source_ids": [
+        "13007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Saileach.json",
+          "path": "/1/1",
+          "guid": "43d6c3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13008": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "힐록 카운티 사건",
+      "source_ids": [
+        "13008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Saileach.json",
+          "path": "/1/0",
+          "guid": "0c0da8",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13009": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "특수작전용 전술방패",
+      "source_ids": [
+        "13009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Horn.json",
+          "path": "/1/1",
+          "guid": "39f069",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13010": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "하얀 늑대의 송곳니",
+      "source_ids": [
+        "13010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Horn.json",
+          "path": "/1/0",
+          "guid": "aeb94b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13011": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "대지의 자비",
+      "source_ids": [
+        "13011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Quercus.json",
+          "path": "/1/1",
+          "guid": "9403b6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13012": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "적막한 전쟁의 흔적",
+      "source_ids": [
+        "13012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Quercus.json",
+          "path": "/1/0",
+          "guid": "34d61f",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13013": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "도역유도",
+      "source_ids": [
+        "13013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Haze.json",
+          "path": "/1/2",
+          "guid": "67780c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13014": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "블랙 미스트",
+      "source_ids": [
+        "13014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Haze.json",
+          "path": "/1/1",
+          "guid": "3ac680",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13015": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "체포되다!",
+      "source_ids": [
+        "13015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Haze.json",
+          "path": "/1/0",
+          "guid": "e65f51",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn13016": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "맑고 깨끗한 반짝임",
+      "source_ids": [
+        "13016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Goldenglow.json",
+          "path": "/1/2",
+          "guid": "93026d",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13017": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "칼라돈의 악몽",
+      "source_ids": [
+        "13017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Goldenglow.json",
+          "path": "/1/1",
+          "guid": "5ffc84",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13018": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "무의식적 전하 방출",
+      "source_ids": [
+        "13018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Goldenglow.json",
+          "path": "/1/0",
+          "guid": "cf3638",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13019": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "강철 바게트",
+      "source_ids": [
+        "13019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/6",
+          "guid": "31bcf0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13020": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 20,
+      "role": "card",
+      "nickname": "겹겹 팬케이크",
+      "source_ids": [
+        "13020"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/5",
+          "guid": "5a6621",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13021": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 21,
+      "role": "card",
+      "nickname": "갓 구운 애플파이",
+      "source_ids": [
+        "13021"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/4",
+          "guid": "faeb99",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13022": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 22,
+      "role": "card",
+      "nickname": "과일 정원 케이크",
+      "source_ids": [
+        "13022"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/3",
+          "guid": "9a6350",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13023": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 23,
+      "role": "card",
+      "nickname": "달콤 파르페",
+      "source_ids": [
+        "13023"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/2",
+          "guid": "32f5ee",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13024": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 24,
+      "role": "card",
+      "nickname": "\"야옹이\"",
+      "source_ids": [
+        "13024"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/1",
+          "guid": "11e832",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn13025": {
+      "pack": "13",
+      "pack_folder": "(13) 빅토리아의 불꽃",
+      "ordinal": 25,
+      "role": "card",
+      "nickname": "\"스크래쳐가 필요해...!\"",
+      "source_ids": [
+        "13025"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mousse.json",
+          "path": "/1/0",
+          "guid": "c64063",
+          "name": "Card"
+        }
+      ]
+    },
+    "akn14001": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "리스캄",
+      "source_ids": [
+        "14001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Liskarm.json",
+          "path": "/0",
+          "guid": "b33566",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14001-m": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "리스캄",
+      "base": "akn14001",
+      "source_ids": [
+        "14001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Liskarm.json",
+          "path": "/2",
+          "guid": "86b09f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14002": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 2,
+      "role": "investigator",
+      "nickname": "프란카",
+      "source_ids": [
+        "14002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Franka.json",
+          "path": "/0",
+          "guid": "33fd47",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14002-m": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 2,
+      "role": "minicard",
+      "nickname": "프란카",
+      "base": "akn14002",
+      "source_ids": [
+        "14002-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Franka.json",
+          "path": "/2",
+          "guid": "ebc5ce",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14003": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 3,
+      "role": "investigator",
+      "nickname": "제시카",
+      "source_ids": [
+        "14003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Jessica.json",
+          "path": "/0",
+          "guid": "6e8fd9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14003-m": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 3,
+      "role": "minicard",
+      "nickname": "제시카",
+      "base": "akn14003",
+      "source_ids": [
+        "14003-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Jessica.json",
+          "path": "/2",
+          "guid": "c30760",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14004": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "바닐라",
+      "source_ids": [
+        "14004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/0",
+          "guid": "85b3fd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14004-m": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "바닐라",
+      "base": "akn14004",
+      "source_ids": [
+        "14004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/2",
+          "guid": "557baa",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14005": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "아몬드",
+      "source_ids": [
+        "14005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Almond.json",
+          "path": "/0",
+          "guid": "47f1ec",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14005-m": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "아몬드",
+      "base": "akn14005",
+      "source_ids": [
+        "14005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Almond.json",
+          "path": "/2",
+          "guid": "203bfc",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14006": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "리스캄의 진압방패",
+      "source_ids": [
+        "14006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Liskarm.json",
+          "path": "/1/1",
+          "guid": "e92b19",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14007": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "전하 방전",
+      "source_ids": [
+        "14007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Liskarm.json",
+          "path": "/1/0",
+          "guid": "200a59",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14008": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "프란카의 테르밋 블레이드",
+      "source_ids": [
+        "14008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Franka.json",
+          "path": "/1/1",
+          "guid": "8ec5db",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14009": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "짓궂은 장난",
+      "source_ids": [
+        "14009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Franka.json",
+          "path": "/1/0",
+          "guid": "bc36b8",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14010": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "제시카의 주문서",
+      "source_ids": [
+        "14010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Jessica.json",
+          "path": "/1/1",
+          "guid": "c7e741",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14011": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "낮은 자존감",
+      "source_ids": [
+        "14011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Jessica.json",
+          "path": "/1/0",
+          "guid": "29ff90",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14012": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 12,
+      "role": "card",
+      "nickname": "사냥꾼의 여정",
+      "source_ids": [
+        "14012"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/5",
+          "guid": "afb8f6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14013": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 13,
+      "role": "card",
+      "nickname": "까망이",
+      "source_ids": [
+        "14013"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/4",
+          "guid": "5f868c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14014": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 14,
+      "role": "card",
+      "nickname": "뾰족이",
+      "source_ids": [
+        "14014"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/3",
+          "guid": "c82d16",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14015": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 15,
+      "role": "card",
+      "nickname": "동글이",
+      "source_ids": [
+        "14015"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/2",
+          "guid": "fc7175",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14016": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 16,
+      "role": "card",
+      "nickname": "튼튼이",
+      "source_ids": [
+        "14016"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/1",
+          "guid": "6cbe92",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14017": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 17,
+      "role": "card",
+      "nickname": "척박한 환경",
+      "source_ids": [
+        "14017"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Vanilla.json",
+          "path": "/1/0",
+          "guid": "436a5c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14018": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 18,
+      "role": "card",
+      "nickname": "크게 한탕",
+      "source_ids": [
+        "14018"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Almond.json",
+          "path": "/1/1",
+          "guid": "cc8065",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akn14019": {
+      "pack": "14",
+      "pack_folder": "(14) 블랙스틸 월드와이드",
+      "ordinal": 19,
+      "role": "card",
+      "nickname": "내전의 아픔",
+      "source_ids": [
+        "14019"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Almond.json",
+          "path": "/1/0",
+          "guid": "6464db",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna1001": {
+      "pack": "a1",
+      "pack_folder": "(A1) 카시미어 기병 교관",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "위슬래시",
+      "source_ids": [
+        "a01001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Whislash.json",
+          "path": "/0",
+          "guid": "576b2d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna1001-m": {
+      "pack": "a1",
+      "pack_folder": "(A1) 카시미어 기병 교관",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "위슬래시",
+      "base": "akna1001",
+      "source_ids": [
+        "a01001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Whislash.json",
+          "path": "/2",
+          "guid": "6a01c6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna1002": {
+      "pack": "a1",
+      "pack_folder": "(A1) 카시미어 기병 교관",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "골든팜 은행 VIP",
+      "source_ids": [
+        "a01002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Whislash.json",
+          "path": "/1/2",
+          "guid": "0e70a6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna1003": {
+      "pack": "a1",
+      "pack_folder": "(A1) 카시미어 기병 교관",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "기사 경기가 남긴 상처",
+      "source_ids": [
+        "a01003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Whislash.json",
+          "path": "/1/1",
+          "guid": "f0ccff",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna1004": {
+      "pack": "a1",
+      "pack_folder": "(A1) 카시미어 기병 교관",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "공학자의 직감",
+      "source_ids": [
+        "a01004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Whislash.json",
+          "path": "/1/0",
+          "guid": "380d39",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2001": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "애쉬락",
+      "source_ids": [
+        "a02001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ashlock.json",
+          "path": "/0",
+          "guid": "4b6f8f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2001-m": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "애쉬락",
+      "base": "akna2001",
+      "source_ids": [
+        "a02001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ashlock.json",
+          "path": "/2",
+          "guid": "945fbd",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2002": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "포격술 연수",
+      "source_ids": [
+        "a02002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ashlock.json",
+          "path": "/1/2",
+          "guid": "2966f0",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2003": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "지구력 소모",
+      "source_ids": [
+        "a02003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ashlock.json",
+          "path": "/1/1",
+          "guid": "d377ac",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2004": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 4,
+      "role": "investigator",
+      "nickname": "파투스",
+      "source_ids": [
+        "a02004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Fartooth.json",
+          "path": "/0",
+          "guid": "4a42a7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2004-m": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 4,
+      "role": "minicard",
+      "nickname": "파투스",
+      "base": "akna2004",
+      "source_ids": [
+        "a02004-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Fartooth.json",
+          "path": "/2",
+          "guid": "87026c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2005": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 5,
+      "role": "card",
+      "nickname": "정신집중",
+      "source_ids": [
+        "a02005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Fartooth.json",
+          "path": "/1/2",
+          "guid": "4564e9",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2006": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "아머레스 유니온 청부업자",
+      "source_ids": [
+        "a02006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Fartooth.json",
+          "path": "/1/1",
+          "guid": "d3caef",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2007": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 7,
+      "role": "investigator",
+      "nickname": "와일드메인",
+      "source_ids": [
+        "a02007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Wildmane.json",
+          "path": "/0",
+          "guid": "c50c41",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2007-m": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 7,
+      "role": "minicard",
+      "nickname": "와일드메인",
+      "base": "akna2007",
+      "source_ids": [
+        "a02007-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Wildmane.json",
+          "path": "/2",
+          "guid": "e8cb63",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna2008": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 8,
+      "role": "card",
+      "nickname": "랜스 돌격술",
+      "source_ids": [
+        "a02008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Wildmane.json",
+          "path": "/1/4",
+          "guid": "6e65e6",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2009": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "개조된 \"저스티스 나이트\"",
+      "source_ids": [
+        "a02009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Wildmane.json",
+          "path": "/1/3",
+          "guid": "2fb78c",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2010": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "거친 돌격",
+      "source_ids": [
+        "a02010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Wildmane.json",
+          "path": "/1/2",
+          "guid": "7178bf",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna2011": {
+      "pack": "a2",
+      "pack_folder": "(A2) 피누스 실베스트리스",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "불꽃의 마음",
+      "source_ids": [
+        "a02011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Ashlock.json",
+          "path": "/1/0",
+          "guid": "96d7cf",
+          "name": "Card"
+        },
+        {
+          "file": "Fartooth.json",
+          "path": "/1/0",
+          "guid": "125618",
+          "name": "Card"
+        },
+        {
+          "file": "Wildmane.json",
+          "path": "/1/0",
+          "guid": "3ce3cb",
+          "name": "Card"
+        },
+        {
+          "file": "Wildmane.json",
+          "path": "/1/1",
+          "guid": "99905b",
+          "name": "Card"
+        }
+      ]
+    },
+    "akna3001": {
+      "pack": "a3",
+      "pack_folder": "(A3) 글래스고의 무용담",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "인드라",
+      "source_ids": [
+        "a03001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Indra.json",
+          "path": "/0",
+          "guid": "83f47e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna3001-m": {
+      "pack": "a3",
+      "pack_folder": "(A3) 글래스고의 무용담",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "",
+      "base": "akna3001",
+      "source_ids": [
+        "a03001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Indra.json",
+          "path": "/2",
+          "guid": "376f80",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna3002": {
+      "pack": "a3",
+      "pack_folder": "(A3) 글래스고의 무용담",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "호권순격",
+      "source_ids": [
+        "a03002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Indra.json",
+          "path": "/1/2",
+          "guid": "b66ce6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna3003": {
+      "pack": "a3",
+      "pack_folder": "(A3) 글래스고의 무용담",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "자기과신",
+      "source_ids": [
+        "a03003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Indra.json",
+          "path": "/1/1",
+          "guid": "087c9d",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna3004": {
+      "pack": "a3",
+      "pack_folder": "(A3) 글래스고의 무용담",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "가웨인",
+      "source_ids": [
+        "a03004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Indra.json",
+          "path": "/1/0",
+          "guid": "124d7e",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna4001": {
+      "pack": "a4",
+      "pack_folder": "(A4) 빅토리아의 탐구 정신",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "민트",
+      "source_ids": [
+        "a04001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mint.json",
+          "path": "/0",
+          "guid": "af27c3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna4001-m": {
+      "pack": "a4",
+      "pack_folder": "(A4) 빅토리아의 탐구 정신",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "민트",
+      "base": "akna4001",
+      "source_ids": [
+        "a04001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mint.json",
+          "path": "/2",
+          "guid": "9d6544",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna4002": {
+      "pack": "a4",
+      "pack_folder": "(A4) 빅토리아의 탐구 정신",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "바람의 언어",
+      "source_ids": [
+        "a04002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mint.json",
+          "path": "/1/3",
+          "guid": "323cb9",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna4003": {
+      "pack": "a4",
+      "pack_folder": "(A4) 빅토리아의 탐구 정신",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "오래된 괴물책",
+      "source_ids": [
+        "a04003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mint.json",
+          "path": "/1/2",
+          "guid": "4f6903",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna4004": {
+      "pack": "a4",
+      "pack_folder": "(A4) 빅토리아의 탐구 정신",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "메테오 플레임",
+      "source_ids": [
+        "a04004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Mint.json",
+          "path": "/1/0",
+          "guid": "bbe4b1",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Mint.json",
+          "path": "/1/1",
+          "guid": "c72e7c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5001": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "굼",
+      "source_ids": [
+        "a05001"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/0",
+          "guid": "4d3ed3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5001-m": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "굼",
+      "base": "akna5001",
+      "source_ids": [
+        "a05001-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/2",
+          "guid": "9d9dd7",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5002": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "굼의 프라이팬",
+      "source_ids": [
+        "a05002"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/1/3",
+          "guid": "f270ab",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5003": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "야외 취사",
+      "source_ids": [
+        "a05003"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/1/2",
+          "guid": "25c29c",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5004": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "무의식적 방어 기제",
+      "source_ids": [
+        "a05004"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/1/1",
+          "guid": "37b467",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5005": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 5,
+      "role": "investigator",
+      "nickname": "레토",
+      "source_ids": [
+        "a05005"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Leto.json",
+          "path": "/0",
+          "guid": "2efcc6",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5005-m": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 5,
+      "role": "minicard",
+      "nickname": "레토",
+      "base": "akna5005",
+      "source_ids": [
+        "a05005-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Leto.json",
+          "path": "/2",
+          "guid": "2a8325",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5006": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 6,
+      "role": "card",
+      "nickname": "하장군의 계획",
+      "source_ids": [
+        "a05006"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Leto.json",
+          "path": "/1/2",
+          "guid": "2ec5ac",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5007": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 7,
+      "role": "card",
+      "nickname": "생존을 위한 도피",
+      "source_ids": [
+        "a05007"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Leto.json",
+          "path": "/1/1",
+          "guid": "6cbada",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5008": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 8,
+      "role": "investigator",
+      "nickname": "이스티나",
+      "source_ids": [
+        "a05008"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Istina.json",
+          "path": "/0",
+          "guid": "f79781",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5008-m": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 8,
+      "role": "minicard",
+      "nickname": "이스티나",
+      "base": "akna5008",
+      "source_ids": [
+        "a05008-m"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Istina.json",
+          "path": "/2",
+          "guid": "bc3cc0",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5009": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 9,
+      "role": "card",
+      "nickname": "이스티나의 독서 노트",
+      "source_ids": [
+        "a05009"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Istina.json",
+          "path": "/1/2",
+          "guid": "7e76ac",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5010": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 10,
+      "role": "card",
+      "nickname": "감춰진 진실",
+      "source_ids": [
+        "a05010"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Istina.json",
+          "path": "/1/1",
+          "guid": "7b24d3",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "akna5011": {
+      "pack": "a5",
+      "pack_folder": "(A5) 우르수스 학생자치단",
+      "ordinal": 11,
+      "role": "card",
+      "nickname": "\"힘과 영광을!\"",
+      "source_ids": [
+        "a05011"
+      ],
+      "source_id_status": "carried",
+      "objects": [
+        {
+          "file": "Gummy.json",
+          "path": "/1/0",
+          "guid": "eb66f9",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Istina.json",
+          "path": "/1/0",
+          "guid": "720733",
+          "name": "CardCustom"
+        },
+        {
+          "file": "Leto.json",
+          "path": "/1/0",
+          "guid": "46523f",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr1001": {
+      "pack": "r1",
+      "pack_folder": "스카디 대체물",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "",
+      "source_ids": [],
+      "source_id_status": "overridden",
+      "override": "E3",
+      "objects": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/0",
+          "guid": "847375",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr1001-m": {
+      "pack": "r1",
+      "pack_folder": "스카디 대체물",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "스카디",
+      "base": "aknr1001",
+      "source_ids": [
+        "r01001-m"
+      ],
+      "source_id_status": "overridden",
+      "override": "E3",
+      "objects": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/2",
+          "guid": "99da84",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr1002": {
+      "pack": "r1",
+      "pack_folder": "스카디 대체물",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "지난 날의 불완전한 꿈",
+      "source_ids": [
+        "rep00001"
+      ],
+      "source_id_status": "overridden",
+      "override": "E3",
+      "objects": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/1/2",
+          "guid": "f5b611",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr1003": {
+      "pack": "r1",
+      "pack_folder": "스카디 대체물",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "조수 아래의 목소리",
+      "source_ids": [
+        "rep00002"
+      ],
+      "source_id_status": "overridden",
+      "override": "E3",
+      "objects": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/1/1",
+          "guid": "7021ae",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr1004": {
+      "pack": "r1",
+      "pack_folder": "스카디 대체물",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "시테러의 정체성",
+      "source_ids": [
+        "rep00003"
+      ],
+      "source_id_status": "overridden",
+      "override": "E3",
+      "objects": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/1/0",
+          "guid": "d2ef6b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr2001": {
+      "pack": "r2",
+      "pack_folder": "스펙터 대체물",
+      "ordinal": 1,
+      "role": "investigator",
+      "nickname": "스펙터",
+      "source_ids": [
+        "r01005"
+      ],
+      "source_id_status": "overridden",
+      "override": "E4",
+      "objects": [
+        {
+          "file": "SpecterRep.json",
+          "path": "/0",
+          "guid": "4bbb72",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr2001-m": {
+      "pack": "r2",
+      "pack_folder": "스펙터 대체물",
+      "ordinal": 1,
+      "role": "minicard",
+      "nickname": "스펙터",
+      "base": "aknr2001",
+      "source_ids": [
+        "r01005-m"
+      ],
+      "source_id_status": "overridden",
+      "override": "E4",
+      "objects": [
+        {
+          "file": "SpecterRep.json",
+          "path": "/2",
+          "guid": "3a6a53",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr2002": {
+      "pack": "r2",
+      "pack_folder": "스펙터 대체물",
+      "ordinal": 2,
+      "role": "card",
+      "nickname": "육참골단",
+      "source_ids": [
+        "r01019"
+      ],
+      "source_id_status": "overridden",
+      "override": "E4",
+      "objects": [
+        {
+          "file": "SpecterRep.json",
+          "path": "/1/0",
+          "guid": "82453b",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr2003": {
+      "pack": "r2",
+      "pack_folder": "스펙터 대체물",
+      "ordinal": 3,
+      "role": "card",
+      "nickname": "'음반' 수집 상자",
+      "source_ids": [
+        "rep00004"
+      ],
+      "source_id_status": "overridden",
+      "override": "E4",
+      "objects": [
+        {
+          "file": "SpecterRep.json",
+          "path": "/1/2",
+          "guid": "3ff588",
+          "name": "CardCustom"
+        }
+      ]
+    },
+    "aknr2004": {
+      "pack": "r2",
+      "pack_folder": "스펙터 대체물",
+      "ordinal": 4,
+      "role": "card",
+      "nickname": "투쟁 갈망",
+      "source_ids": [
+        "rep00005"
+      ],
+      "source_id_status": "overridden",
+      "override": "E4",
+      "objects": [
+        {
+          "file": "SpecterRep.json",
+          "path": "/1/1",
+          "guid": "a3b7ea",
+          "name": "CardCustom"
+        }
+      ]
+    }
+  }
+}

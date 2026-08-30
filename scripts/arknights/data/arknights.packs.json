@@ -1,0 +1,647 @@
+{
+  "schema": 1,
+  "tool": "arknights",
+  "note": "The one config file. Every exception and every repair is a ROW HERE, never a code branch: akn_renumber.py and akn_repair.py contain no card names. A defect matching no row is exit 84 naming the object; a row matching no object is exit 84 naming the row. Korean strings are DATA (pack nicknames, card names, traits), not documentation, and stay Korean. All folder names are NFC; os.listdir hands back NFD on APFS, so akn_config normalises both sides before comparing.",
+  "guard": {
+    "source_root": "docs/Arknights",
+    "source_containment_root": "docs/Arknights",
+    "packs_subdir": "TTS용 파일",
+    "write_roots": [
+      "SCED-tools/scripts/output/arknights",
+      "SCED-tools/scripts/arknights/data"
+    ],
+    "forbidden": [
+      "docs/",
+      "SCED/",
+      "SCED-downloads/",
+      ".local-sync/"
+    ],
+    "data_root": "SCED-tools/scripts/arknights/data",
+    "max_files_written": 64
+  },
+  "run_root": "SCED-tools/scripts/output/arknights",
+  "id_scheme": {
+    "prefix": "akn",
+    "ordinal_digits": 3,
+    "minicard_suffix": "-m",
+    "regex": "^akn(0[0-9]|1[0-4]|a[1-5]|r[12])[0-9]{3}$",
+    "why_dash_free": "getMiniId (Global.ttslua:5418-5429) resolves a minicard from only the first five characters of any base id shorter than 16 that contains a dash. 8 characters with no dash takes the first branch instead."
+  },
+  "packs": [
+    {
+      "code": "00",
+      "folder": "(0) 로도스 아일랜드 수뇌부",
+      "nickname": "(0) 로도스 아일랜드 수뇌부"
+    },
+    {
+      "code": "01",
+      "folder": "(1) 조수 아래의 사냥꾼",
+      "nickname": "(1) 조수 아래의 사냥꾼"
+    },
+    {
+      "code": "02",
+      "folder": "(2) 카시미어 기사단",
+      "nickname": "(2) 카시미어 기사단"
+    },
+    {
+      "code": "03",
+      "folder": "(3) 로도스 아일랜드 작전부",
+      "nickname": "(3) 로도스 아일랜드 작전부"
+    },
+    {
+      "code": "04",
+      "folder": "(4) 빅토리아의 폭풍",
+      "nickname": "(4) 빅토리아의 폭풍"
+    },
+    {
+      "code": "05",
+      "folder": "(5) 용문의 그림자",
+      "nickname": "(5) 용문의 그림자"
+    },
+    {
+      "code": "06",
+      "folder": "(6) 우르수스의 의지",
+      "nickname": "(6) 우르수스의 의지"
+    },
+    {
+      "code": "07",
+      "folder": "(7) 로도스 아일랜드 지원부",
+      "nickname": "(7) 로도스 아일랜드 지원부"
+    },
+    {
+      "code": "08",
+      "folder": "(8) 쉐라그의 눈보라",
+      "nickname": "(8) 쉐라그의 눈보라"
+    },
+    {
+      "code": "09",
+      "folder": "(9) 바보들의 배",
+      "nickname": "(9) 바보들의 배"
+    },
+    {
+      "code": "10",
+      "folder": "(10) 펭귄 로지스틱스",
+      "nickname": "(10) 펭귄 로지스틱스"
+    },
+    {
+      "code": "11",
+      "folder": "(11) 켈시와의 인연",
+      "nickname": "(11) 켈시와의 인연"
+    },
+    {
+      "code": "12",
+      "folder": "(12) 카시미어 방랑자",
+      "nickname": "(12) 카시미어 방랑자"
+    },
+    {
+      "code": "13",
+      "folder": "(13) 빅토리아의 불꽃",
+      "nickname": "(13) 빅토리아의 불꽃"
+    },
+    {
+      "code": "14",
+      "folder": "(14) 블랙스틸 월드와이드",
+      "nickname": "(14) 블랙스틸 월드와이드"
+    },
+    {
+      "code": "a1",
+      "folder": "(A1) 카시미어 기병 교관",
+      "nickname": "(A1) 카시미어 기병 교관"
+    },
+    {
+      "code": "a2",
+      "folder": "(A2) 피누스 실베스트리스",
+      "nickname": "(A2) 피누스 실베스트리스"
+    },
+    {
+      "code": "a3",
+      "folder": "(A3) 글래스고의 무용담",
+      "nickname": "(A3) 글래스고의 무용담"
+    },
+    {
+      "code": "a4",
+      "folder": "(A4) 빅토리아의 탐구 정신",
+      "nickname": "(A4) 빅토리아의 탐구 정신"
+    },
+    {
+      "code": "a5",
+      "folder": "(A5) 우르수스 학생자치단",
+      "nickname": "(A5) 우르수스 학생자치단"
+    },
+    {
+      "code": "r1",
+      "folder": "스카디 대체물",
+      "nickname": "스카디 대체물"
+    },
+    {
+      "code": "r2",
+      "folder": "스펙터 대체물",
+      "nickname": "스펙터 대체물"
+    }
+  ],
+  "role_overrides": [
+    {
+      "id": "O1",
+      "pack": "06",
+      "file": "Zima.json",
+      "path": "/0",
+      "role": "investigator",
+      "why": "D1. Its GMNotes is a byte-identical copy of 네온의 사진's Accessory blob, so role resolution reading GMNotes.type would call this object an Asset. Applied FIRST, before anything else reads the field the repair table is about to correct."
+    },
+    {
+      "id": "O2",
+      "pack": "r1",
+      "file": "SkadiRep.json",
+      "path": "/0",
+      "role": "investigator",
+      "why": "D7 / R-e. Tags, Nickname and GMNotes are all absent, so there is no field to resolve a role from. Structurally it is the only 1x1 BackIsHidden CardCustom at ObjectStates[0] in the pack -- the position every other file puts its investigator -- and repairing it closes the otherwise-orphan minicard r01001-m."
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "E1",
+      "pack": "01",
+      "whole_pack": false,
+      "assign": [
+        {
+          "file": "Specter.json",
+          "path": "/0",
+          "ordinal": 5
+        }
+      ],
+      "evidence": "Its own minicard is 01005-m and the pack's investigators otherwise occupy 001-004, so ordinal 005 comes from the minicard; the investigator's own id 00005 is the defect. The pair is not a real collision -- the minicard's base IS the investigator's -- but it is declared rather than left to resolve silently."
+    },
+    {
+      "id": "E2",
+      "pack": "06",
+      "whole_pack": false,
+      "assign": [
+        {
+          "file": "Zima.json",
+          "path": "/0",
+          "ordinal": 5
+        }
+      ],
+      "evidence": "D1. Minicard 06005-m, PDF '#6 ...(2023 리워크)' p.2 collector number 5, and the only free slot in pack (6). Zima does NOT surface as an ordinal collision without this row, and that absence is the finding: the naive rule reads its copied GMNotes id 06006 and silently merges it with 네온의 사진."
+    },
+    {
+      "id": "E3",
+      "pack": "r1",
+      "whole_pack": true,
+      "assign": [
+        {
+          "file": "SkadiRep.json",
+          "path": "/0",
+          "ordinal": 1
+        },
+        {
+          "file": "SkadiRep.json",
+          "path": "/2",
+          "ordinal": 1
+        },
+        {
+          "source_id": "rep00001",
+          "ordinal": 2
+        },
+        {
+          "source_id": "rep00002",
+          "ordinal": 3
+        },
+        {
+          "source_id": "rep00003",
+          "ordinal": 4
+        }
+      ],
+      "evidence": "A genuine ordinal collision (r01001 vs rep00001 both derive 1), so the whole pack is tabled. The minicard r01001-m fixes the investigator's ordinal at 1; the signature cards take the next free slots."
+    },
+    {
+      "id": "E4",
+      "pack": "r2",
+      "whole_pack": true,
+      "assign": [
+        {
+          "source_id": "r01005",
+          "ordinal": 1
+        },
+        {
+          "source_id": "r01005-m",
+          "ordinal": 1
+        },
+        {
+          "source_id": "r01019",
+          "ordinal": 2
+        },
+        {
+          "source_id": "rep00004",
+          "ordinal": 3
+        },
+        {
+          "source_id": "rep00005",
+          "ordinal": 4
+        }
+      ],
+      "evidence": "A genuine ordinal collision (r01005 vs rep00005 both derive 5), so the whole pack is tabled. r01005 is the pack's only investigator; the signature cards take the next free slots."
+    }
+  ],
+  "repairs": [
+    {
+      "id": "R-a",
+      "rule": "set_fields",
+      "defect_class": "tags_missing",
+      "fields": {
+        "Tags": [
+          "Minicard"
+        ]
+      },
+      "targets": [
+        {
+          "pack": "01",
+          "file": "Andreana.json",
+          "path": "/2"
+        },
+        {
+          "pack": "01",
+          "file": "Deepcolor.json",
+          "path": "/2"
+        },
+        {
+          "pack": "01",
+          "file": "Gladiia.json",
+          "path": "/2"
+        },
+        {
+          "pack": "01",
+          "file": "Skadi.json",
+          "path": "/2"
+        },
+        {
+          "pack": "01",
+          "file": "Specter.json",
+          "path": "/2"
+        }
+      ],
+      "evidence": "Tags absent; GMNotes already correct (010NN-m, type Minicard). 5 objects, one per file in the pack."
+    },
+    {
+      "id": "R-b",
+      "rule": "minicard_from_investigator",
+      "defect_class": "gmnotes_missing",
+      "fields": {
+        "Tags": [
+          "Minicard"
+        ]
+      },
+      "targets": [
+        {
+          "pack": "03",
+          "file": "Ceobe.json",
+          "path": "/2"
+        },
+        {
+          "pack": "03",
+          "file": "Dobermann.json",
+          "path": "/2"
+        },
+        {
+          "pack": "03",
+          "file": "Ethan.json",
+          "path": "/2"
+        },
+        {
+          "pack": "03",
+          "file": "Greythroat.json",
+          "path": "/2"
+        },
+        {
+          "pack": "03",
+          "file": "Savage.json",
+          "path": "/2"
+        },
+        {
+          "pack": "03",
+          "file": "Warfarin.json",
+          "path": "/2"
+        }
+      ],
+      "evidence": "Tagged ['Minicard'] but GMNotes absent entirely and Nickname empty. The id and the Nickname both come from the single investigator in the same file; if such a file does not contain exactly one investigator the stage refuses."
+    },
+    {
+      "id": "R-c",
+      "rule": "set_fields",
+      "defect_class": "minicard_mistagged",
+      "fields": {
+        "Tags": [
+          "Minicard"
+        ]
+      },
+      "targets": [
+        {
+          "pack": "06",
+          "file": "Absinthe.json",
+          "path": "/2"
+        },
+        {
+          "pack": "06",
+          "file": "Beehunter.json",
+          "path": "/2"
+        },
+        {
+          "pack": "06",
+          "file": "Hellagur.json",
+          "path": "/2"
+        },
+        {
+          "pack": "06",
+          "file": "Rosa.json",
+          "path": "/2"
+        },
+        {
+          "pack": "06",
+          "file": "Zima.json",
+          "path": "/2"
+        }
+      ],
+      "evidence": "Tagged ['Investigator'] rather than ['Minicard']; GMNotes already correct."
+    },
+    {
+      "id": "R-d",
+      "rule": "set_fields",
+      "defect_class": "tags_missing",
+      "targets": [
+        {
+          "pack": "r1",
+          "file": "SkadiRep.json",
+          "path": "/1",
+          "fields": {
+            "Tags": [
+              "PlayerCard"
+            ]
+          },
+          "why": "the Deck. 88 of the corpus's 93 Decks carry ['PlayerCard']; this is the only untagged one, and it is the row D6 missed"
+        },
+        {
+          "pack": "r1",
+          "file": "SkadiRep.json",
+          "path": "/1/0",
+          "fields": {
+            "Tags": [
+              "PlayerCard"
+            ]
+          },
+          "why": "시테러의 정체성, a Treachery"
+        },
+        {
+          "pack": "r1",
+          "file": "SkadiRep.json",
+          "path": "/1/1",
+          "fields": {
+            "Tags": [
+              "PlayerCard"
+            ]
+          },
+          "why": "조수 아래의 목소리, an Event"
+        },
+        {
+          "pack": "r1",
+          "file": "SkadiRep.json",
+          "path": "/2",
+          "fields": {
+            "Tags": [
+              "Minicard"
+            ]
+          },
+          "why": "the 스카디 minicard"
+        }
+      ],
+      "evidence": "Tags absent on all four objects of the file that are not already tagged."
+    },
+    {
+      "id": "R-e",
+      "rule": "set_fields",
+      "defect_class": "gmnotes_missing",
+      "fields": {
+        "Tags": [
+          "Investigator",
+          "PlayerCard"
+        ],
+        "Nickname": "스카디",
+        "Description": "방랑 가수로 위장한 사냥꾼",
+        "GMNotes": {
+          "id": "aknr1001",
+          "type": "Investigator",
+          "class": "Guardian",
+          "traits": "어비설 헌터스. 사냥꾼. 에기르.",
+          "willpowerIcons": 3,
+          "intellectIcons": 1,
+          "combatIcons": 5,
+          "agilityIcons": 3,
+          "cycle": "조수 아래의 사냥꾼"
+        }
+      },
+      "targets": [
+        {
+          "pack": "r1",
+          "file": "SkadiRep.json",
+          "path": "/0"
+        }
+      ],
+      "evidence": "D7. Recovered from the card face at the FaceURL the object already carries -- class from the blue Guardian shield, traits from the italic line, skills 3/1/5/3 from the icon row, subtitle from the bar, and collector number 1, which independently confirms E3's ordinal. Cross-checked against the original 스카디 (01001): identical traits string and identical 3/1/5/3. Fetch the face with curl, never python's urllib -- Steam's and r2.dev's edges both 403 that User-Agent."
+    },
+    {
+      "id": "R-f",
+      "rule": "set_fields",
+      "defect_class": null,
+      "fields": {
+        "GMNotes": {
+          "id": "akn06005",
+          "type": "Investigator",
+          "class": "Survivor",
+          "traits": "학생자치단. 우르수스.",
+          "willpowerIcons": 3,
+          "intellectIcons": 2,
+          "combatIcons": 4,
+          "agilityIcons": 3,
+          "cycle": "우르수스의 의지"
+        }
+      },
+      "targets": [
+        {
+          "pack": "06",
+          "file": "Zima.json",
+          "path": "/0"
+        }
+      ],
+      "evidence": "D1. The existing GMNotes is a byte-identical copy of 네온의 사진's Accessory blob (06006), which parses and is internally consistent -- so scan's three structural classes cannot see it and defect_class is null. Class Survivor is confirmed twice: the printed border, and the fact that every 5-investigator pack in the set is exactly Guardian/Seeker/Rogue/Mystic/Survivor in id order, with pack (6) missing precisely Survivor. Stats and traits from PDF p.2."
+    }
+  ],
+  "declared_remainders": 0,
+  "many_to_one": {
+    "benign_groups": [
+      {
+        "pack": "a2",
+        "source_id": "a02011",
+        "objects": 4,
+        "nickname": "불꽃의 마음"
+      },
+      {
+        "pack": "a5",
+        "source_id": "a05011",
+        "objects": 3,
+        "nickname": "\"힘과 영광을!\""
+      },
+      {
+        "pack": "01",
+        "source_id": "01016",
+        "objects": 3,
+        "nickname": "\"조수\""
+      },
+      {
+        "pack": "11",
+        "source_id": "11008",
+        "objects": 3,
+        "nickname": "약물 차단 기술"
+      },
+      {
+        "pack": "09",
+        "source_id": "09015",
+        "objects": 2,
+        "nickname": "\"성도\"의 사명"
+      },
+      {
+        "pack": "09",
+        "source_id": "09017",
+        "objects": 2,
+        "nickname": "세찬 장마"
+      },
+      {
+        "pack": "12",
+        "source_id": "12008",
+        "objects": 2,
+        "nickname": "가문의 정신"
+      },
+      {
+        "pack": "12",
+        "source_id": "12017",
+        "objects": 2,
+        "nickname": "희미한 빛"
+      },
+      {
+        "pack": "a4",
+        "source_id": "a04004",
+        "objects": 2,
+        "nickname": "메테오 플레임"
+      }
+    ],
+    "declared_splits": [
+      {
+        "source_id": "00005",
+        "packs": [
+          "00",
+          "01"
+        ],
+        "why": "two different investigators -- 로즈몬티스 in pack (0) and 스펙터 in pack (1). Different packs, so the grouping key separates them without an override."
+      },
+      {
+        "source_id": "06006",
+        "packs": [
+          "06"
+        ],
+        "split_by": "E2",
+        "why": "지마 and 네온의 사진 in the SAME pack. Only E2 separates them; without it the naive rule gives one id to both."
+      }
+    ],
+    "why": "Nine of the eleven duplicate source ids are the same card printed 2-4 times and must each receive ONE new id -- a converter assigning per OBJECT rather than per CARD would silently break them. The other two are genuine and must receive DIFFERENT ids."
+  },
+  "url_normalisation": {
+    "from": "http://cloud-3.steamusercontent.com/",
+    "to": "https://steamusercontent-a.akamaihd.net/",
+    "expected": 918,
+    "why": "0 occurrences of the cloud-3 form exist anywhere else in SCED/ or SCED-downloads/; the akamaihd form is the project's universal convention (5352 references in SCED/objects alone). Both hostnames alias the same /ugc/<id>/<hash>/ path today, so a future bulk rehost is one uniform rewrite rather than two."
+  },
+  "bag": {
+    "nickname": "Arknights",
+    "template_source": "SCED-downloads/downloadable/playercards/sailor_moon.json",
+    "memory_bag_updater": "SCED-downloads/misc/memory-bag-updater.py",
+    "sub_bag": {
+      "color_diffuse": {
+        "b": 0.5,
+        "g": 0.5,
+        "r": 0.5
+      },
+      "transform": {
+        "rotY": 270,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "scaleZ": 1.0
+      },
+      "why": "A plain Bag with no LuaScript and no LuaScriptState -- precedent magical_girl.json and zenless_zone_zero.json. A sub-bag carrying a MemoryBag script would need 22 more ml layouts for no user benefit and would be rewritten by misc/memory-bag-updater.py on its next run. ColorDiffuse and Transform are magical_girl.json's sub-bag values."
+    },
+    "guid_seed": "arknights:v1:",
+    "top_guid_key": "top",
+    "transform_rot_y": 270,
+    "ml_grid": {
+      "columns": 6,
+      "rows": 4,
+      "origin": {
+        "x": 51.5216,
+        "y": 1.2965,
+        "z": 84.7661
+      },
+      "step": 2.8721,
+      "rot": {
+        "x": 0,
+        "y": 270,
+        "z": 0
+      },
+      "lock": false,
+      "why": "step and origin are the measured spacing of sailor_moon.json's densest ml column (z 84.7661 -> 99.1269 in five equal 2.87215 increments). MemoryBag.ttslua:11 `memoryList = memoryList or {}` tolerates an empty state, so this is quality-of-life rather than correctness -- but 62 of 63 shipped packs have it."
+    }
+  },
+  "library_entry": {
+    "name": "Arknights",
+    "type": "playercards",
+    "author": "Samari",
+    "decomposed": false,
+    "filename": "arknights",
+    "boxsize": "small",
+    "boxart": "https://pub-05b4fa32b44341d797f5c66d59384724.r2.dev/boxart/arknights.jpg",
+    "description": "92 fan-made investigators from Hypergryph's Arknights across 22 sets, with their signature and weakness cards. Korean text only. Korean edition by Samari."
+  },
+  "library_rules": {
+    "forbidden_keys": [
+      "cycle_code",
+      "scenariocount"
+    ],
+    "forbidden_author": "Fantasy Flight Games",
+    "boxsize_values": [
+      "small",
+      "big",
+      "wide",
+      "rect"
+    ],
+    "expected_entries_min": 193,
+    "expected_entries_why": "A FLOOR, and a corrected one. design.md says 192 -> 193; the live SCED-downloads checkout carries 193 entries at b2f2da827b (playercards 71, campaign 52, scenario 52, language-pack 18), so publishing takes it to 194. The analysis measured campaign 51. The count drifts every time upstream adds an entry, so V10 asserts the INTRINSIC properties -- exactly one arknights entry, no cycle_code, a non-FFG author, sorter stability -- and treats the count as a floor. The only failure a count can really catch is a truncated library.json.",
+    "why": "cycle_code is the only writer of addToPlayerCards (Global.ttslua:2489-2498), which is the only thing routing a downloaded bag into AdditionalPlayerCards.2cba6b -- i.e. into the card index. Its absence is the safety mechanism, not an oversight. author must not be Fantasy Flight Games: formatLibrary() (Global.ttslua:2512-2529) prefixes fanmade- only for non-FFG authors and DW_TAB_IDS has no official playercards tab, so an FFG-authored playercards entry lands in a bucket no tab selects."
+  },
+  "oracles": {
+    "objects": 531,
+    "objects_by_name": {
+      "CardCustom": 257,
+      "Card": 181,
+      "Deck": 93
+    },
+    "objects_with_metadata": 431,
+    "distinct_source_ids": 415,
+    "distinct_guids": 531,
+    "packs": 22,
+    "files": 91,
+    "defects": 21,
+    "new_ids": 424,
+    "investigators": 92,
+    "minicards": 92,
+    "other_ids": 240,
+    "containers": 23,
+    "real_card_ids_min": 2298,
+    "real_card_ids_why": "A FLOOR, not an equality. V3's oracle is the live SCED checkout, which grows every time upstream lands cards -- measured 2298 on 2026-08-30 and 2304 within the same day. The dangerous direction is a SHRINK: a partial checkout or an empty glob would make V3 pass over nothing, which is the failure mode a count exists to catch. Growth is normal and must not fail the gate."
+  }
+}
