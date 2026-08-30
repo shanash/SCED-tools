@@ -426,8 +426,8 @@ gh_usable() {
 # ------------------------------------------------------- orphan-draft guard (R5)
 #
 # R5's real shape is sharper than "call delete_draft() first". At the driver's two
-# no-id sites -- daily-sync-local.sh's "could not create the draft release" (:1743)
-# and "draft release returned no id" (:1746) -- RELEASE_ID is empty: the orphan case
+# no-id sites -- daily-sync-local.sh's "could not create the draft release" and its
+# "draft release returned no id" -- RELEASE_ID is empty: the orphan case
 # IS a POST that succeeded server-side while the client timed out or the --jq .id
 # pipeline failed. Deletion by id is therefore unavailable, and delete_draft() is
 # best-effort besides -- it clears RELEASE_ID unconditionally, so any post-check on

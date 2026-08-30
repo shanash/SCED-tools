@@ -206,8 +206,22 @@ TTSMM_SHA256="${SCED_SYNC_TTSMM_SHA256:-d40df046b928a224295c2b8be2cd6543bd27eb0d
 # TCC makes it its own `responsible_path` instead of bash. It is adhoc-signed with
 # no TeamIdentifier, so any grant is keyed to a Cellar path and cdhash that the next
 # `brew upgrade` invalidates. That is why the answer here is to leave the ancestry,
-# never to grant the Homebrew path Full Disk Access. `gh`, `git-lfs` and `curl` stay
-# on PATH: they are plain Mach-O executables, not app bundles, and do inherit.
+# never to grant the Homebrew path Full Disk Access.
+#
+# Of the three that stay on PATH, only `curl` inherits: /usr/bin/curl, Platform
+# identifier=26. `gh` and `git-lfs` are adhoc-signed with no TeamIdentifier, so each
+# is its OWN responsible_path -- being an app bundle is sufficient for that, not
+# necessary. Measured 2026-08-30, after the claim that they inherit sent the
+# 2026-08-27..29 diagnosis down the wrong path for two nights. Leaving the ancestry
+# is not available for them (there is no platform `gh`), so they are covered by the
+# wrapper's assert-tcc-grants.sh instead.
+#
+# That is also why the draft-release POST below keeps `--field body=@"${NOTES}"`
+# reading off the volume. It is not an oversight to tidy away: it is the cheapest
+# `gh` volume read of the night, bounded at NET_TIMEOUT, and it GATES the 204-file
+# `gh release upload` that follows under 3 x BUILD_TIMEOUT with the lock held. Move
+# the read to bash and a dead grant surfaces at the expensive site instead of the
+# cheap one, past the next agent's slot.
 PYBIN="${SCED_SYNC_PYTHON:-/usr/bin/python3}"
 KEEP_BACKUPS="${KEEP_BACKUPS:-${SCED_SYNC_KEEP_BACKUPS:-14}}"
 KEEP_LOGS="${SCED_SYNC_KEEP_LOGS:-30}"
@@ -1949,10 +1963,18 @@ delete_draft() {
 
 # The POST API rather than `gh release create`, because the numeric release id is
 # needed three more times below and a draft cannot be looked up by tag.
-if ! RELEASE_ID="$(with_timeout "${NET_TIMEOUT}" gh api "repos/${OWNER}/${REPO}/releases" --method POST \
+# `|| rel_rc=$?` and NOT `if ! ...`: the `!` reserved word REPLACES the status it
+# negates, so $? inside such a branch is always 0. The rc is the discriminator this
+# message lacked on 2026-08-29, when a dead TCC grant on gh wedged this exact call
+# for the full NET_TIMEOUT and reported the same text a 422 would have. 143 is
+# with_timeout's SIGTERM -- a wedge, not GitHub answering -- and the two need
+# opposite first moves.
+rel_rc=0
+RELEASE_ID="$(with_timeout "${NET_TIMEOUT}" gh api "repos/${OWNER}/${REPO}/releases" --method POST \
       -f tag_name="${TAG}" -f target_commitish="${KOREAN_SHA}" -f name="${TAG}" \
-      -F draft=true --field body=@"${NOTES}" --jq .id)"; then
-  DECISION="release"; finish 70 fail "could not create the draft release"
+      -F draft=true --field body=@"${NOTES}" --jq .id)" || rel_rc=$?
+if [[ "${rel_rc}" -ne 0 ]]; then
+  DECISION="release"; finish 70 fail "could not create the draft release (rc ${rel_rc})"
 fi
 if [[ -z "${RELEASE_ID}" ]]; then
   DECISION="release"; finish 70 fail "draft release returned no id"

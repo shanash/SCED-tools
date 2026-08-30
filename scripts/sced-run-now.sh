@@ -17,10 +17,10 @@
 #   Each repo is run as
 #       <launchd.program> <launchd.wrapper> --repo <NAME> --force [flags...]
 #   i.e. through the SAME boot-volume wrapper launchd calls, so a manual run keeps
-#   the nightly's PATH pin, deps preflight, interpreter assertion and both TCC
-#   canaries. --no-wrapper drops to daily-sync-local.sh directly and loses exactly
-#   those four; it exists because the wrapper is unversioned and `git checkout`
-#   cannot restore it.
+#   the nightly's PATH pin, deps preflight, interpreter assertion, TCC grant
+#   assertion and both TCC canaries. --no-wrapper drops to daily-sync-local.sh
+#   directly and loses exactly those five; it exists because the wrapper is
+#   unversioned and `git checkout` cannot restore it.
 #
 # WHAT A --live RUN AUTHORISES, PER REPO, IF ITS OVERLAP GATE IS CLEAN
 #   (a) push a new remote branch auto/korean-backup-local-<YYYYMMDD>;
@@ -62,7 +62,7 @@
 #
 #   The tool's own exit band {7,8,9} is disjoint from the driver's table
 #   {0,1,2,3,4,5,10,11,20,21,30,40,50,60,62,63,64,65,66,67,70} and from the
-#   wrapper's {2,6}. If the driver ever gains a 7, 8 or 9, THIS BAND MUST MOVE.
+#   wrapper's {2,6,12}. If the driver ever gains a 7, 8 or 9, THIS BAND MUST MOVE.
 #
 # Usage:
 #   sced-run-now.sh [--live] [--repo NAME] [options] [-- driver args...]
@@ -88,7 +88,8 @@
 #     --keep-backups N  append --keep-backups N
 #     --no-wrapper      target daily-sync-local.sh directly instead of the launchd
 #                       wrapper; keeps pipeline fidelity, loses the PATH pin, the
-#                       deps preflight, the interpreter assertion and both canaries
+#                       deps preflight, the interpreter assertion, the TCC grant
+#                       assertion and both canaries
 #     --no-snapshot     skip the pre-run copy of <repo>.last-run.json (not advised)
 #     --stop-on-fail    stop the loop at the first FAIL; a designed skip never stops it
 #     --help, -h        this text, followed by the driver's live exit table
@@ -113,7 +114,7 @@
 #   `guard: behind=N has_release_tag=M` line in the log before deciding. --force
 #   never bypasses the overlap gate (exit 10); nothing does.
 #
-#   A WRAPPER-LEVEL ABORT (exit 2 or 6) POSTS TO DISCORD. --no-notify covers the
+#   A WRAPPER-LEVEL ABORT (exit 2, 6 or 12) POSTS TO DISCORD. --no-notify covers the
 #   driver, not the wrapper, which has its own notify() on its abort paths. It
 #   cannot pollute <repo>.notify-signature (the wrapper keeps no throttle state),
 #   so the cost is channel noise only. The escape hatch is not owned by this tool
@@ -478,8 +479,8 @@ lock_probe() {
 
 # The driver's header IS the authority for what a code means, so it is read live
 # rather than copied -- a copy would rot, and this codebase already treats rotted
-# counts as a defect class. Wrapper code 6 is the one compiled-in special case:
-# the driver has no 6.
+# counts as a defect class. The wrapper codes 6 and 12 are the compiled-in special
+# cases: the driver has neither.
 rc_meaning() {
   local rc="$1" t=""
   if [[ -r "${DRIVER}" ]]; then
@@ -489,6 +490,7 @@ rc_meaning() {
   if [[ -z "${t}" ]]; then
     case "${rc}" in
       6)   t="wrapper: probe timed out -- a TCC consent prompt is pending" ;;
+      12)  t="wrapper: a TCC grant no longer covers git or gh -- see assert-tcc-grants.sh --print" ;;
       130) t="killed by SIGINT (Ctrl-C)" ;;
       143) t="killed by SIGTERM" ;;
       *)   t="(see ${DRIVER##*/} --help)" ;;
@@ -687,7 +689,7 @@ preflight() {
        That file is unversioned and has no copy in any repository, so \`git checkout\` cannot
        restore it; ~/scripts/.sced-daily-sync-launch.backup/ is the only rollback path.
        To run anyway without it, at the cost of the PATH pin, the deps preflight, the
-       interpreter assertion and both TCC canaries: --no-wrapper"
+       interpreter assertion, the TCC grant assertion and both canaries: --no-wrapper"
     fi
     die_code 9 "target not readable: ${TARGET}"
   fi
@@ -947,7 +949,7 @@ while [[ "${i}" -lt "${#RES_REPO[@]}" ]]; do
   extra=""
   # A wrapper-level abort is labelled distinctly: --no-notify covers the driver, not
   # the wrapper, so these two codes DID post to Discord.
-  if [[ "${NO_WRAPPER}" != true && ( "${rc}" == "2" || "${rc}" == "6" ) ]]; then
+  if [[ "${NO_WRAPPER}" != true && ( "${rc}" == "2" || "${rc}" == "6" || "${rc}" == "12" ) ]]; then
     extra="  [wrapper-abort -- a Discord notice was sent]"
   fi
   printf '  %-16s rc %-3s %-5s %s%s  (%s)\n' \
